@@ -1,6 +1,7 @@
 # Gallop 🐎 XRechnung Library
 
-Gallop is a Java library for creating electronic invoices (E-Invoices) compliant to the [XRechnung standard](https://xeinkauf.de/dokumente/).
+Gallop is a Java library for creating electronic invoices (E-Invoices) compliant to
+the [XRechnung standard](https://xeinkauf.de/dokumente/).
 
     Specification: Standard XRechnung
     Version: XRechnung 3.0.2
@@ -33,18 +34,34 @@ which verify that the generated XML is a valid X-Rechnung.
 
 ## Usage
 
-With Gradle:
-```gradle
+Binaries are currently published to GitHub Packages.
+
+### Use binaries from GitHub Packages
+
+With Gradle, add the gallop GitHub Packages repository and the gallop dependency:
+
+```groovy
 repositories {
-  maven {
-    url = uri("https://maven.pkg.github.com/odebarista-de/gallop")
-  }
+    maven {
+        url = uri("https://maven.pkg.github.com/codebarista-de/gallop")
+        credentials {
+            username = "GITHUB_USERNAME"
+            password = "GITHUB_TOKEN"
+        }
+    }
 }
 
 dependencies {
-  implementation 'de.codebarista.gallop:xrechnung-writer'
+    implementation 'de.codebarista:gallop:1.0.0'
 }
 ```
+
+Check out these instructions on authenticating to GitHub Packages.
+
+Follow these instructions for
+[authenticating to GitHub Packages](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry#authenticating-to-github-packages).
+
+### Code example
 
 ```java
 
