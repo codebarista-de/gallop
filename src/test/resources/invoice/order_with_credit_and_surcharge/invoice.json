@@ -1,0 +1,182 @@
+{
+  "documentTypeCode": "380",
+  "documentId": "1014",
+  "leitwegId": null,
+  "currency": "EUR",
+  "paymentInstructions": {
+    "meansType": "10",
+    "meansText": "Cash on delivery",
+    "remittanceInfo": null,
+    "paymentTerms": "Die Ware bleibt, bis zur vollständigen Bezahlung, unser Eigentum.\nLeistungsdatum entspricht Rechnungsdatum",
+    "creditTransfers": [],
+    "paymentCardInformation": null,
+    "directDebit": null
+  },
+  "issueDate": "2024-12-13T17:55:39.725+00:00",
+  "seller": {
+    "name": "Gesunde Naturprodukte GmbH",
+    "tradingName": "Gesunde Naturprodukte",
+    "vatId": "DE123456789",
+    "electronicAddress": "info@gesunde-naturprodukte.de",
+    "electronicAddressScheme": "EM",
+    "address": {
+      "addressLineOne": "Blumenstraße 15",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Musterstadt",
+      "zipCode": "12345",
+      "countryIsoCode": "DE"
+    },
+    "contact": {
+      "name": "Maximilian Müller",
+      "phone": "+49 (0) 30 12345678",
+      "email": "info@gesunde-naturprodukte.de"
+    }
+  },
+  "buyer": {
+    "name": "Testonia Test",
+    "tradingName": null,
+    "vatId": null,
+    "electronicAddress": "test@test.test",
+    "electronicAddressScheme": null,
+    "address": {
+      "addressLineOne": "Teststreet",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Testing",
+      "zipCode": "12345",
+      "countryIsoCode": "DE"
+    },
+    "contact": null
+  },
+  "deliveryInfo": {
+    "name": "Testonia Test",
+    "deliveryAddress": {
+      "addressLineOne": "Teststreet",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Testing",
+      "zipCode": "12345",
+      "countryIsoCode": "DE"
+    },
+    "actualDeliveryDate": null
+  },
+  "items": [
+    {
+      "id": 1,
+      "quantity": 1,
+      "unitCode": "XPP",
+      "itemTotalNetAmount": 9.35,
+      "name": "Reduced Tax Product",
+      "description": null,
+      "unitPrice": 9.3500,
+      "vat": {
+        "rate": 7,
+        "category": "S",
+        "taxableAmount": null,
+        "taxAmount": null,
+        "vatExemptionReasonText": null,
+        "vatExemptionReasonCode": null
+      },
+      "sellerAssignedId": "SW10000",
+      "itemAttributes": [],
+      "netAmount": 9.35
+    },
+    {
+      "id": 2,
+      "quantity": 1,
+      "unitCode": "XPP",
+      "itemTotalNetAmount": 16.81,
+      "name": "Regular Tax Product",
+      "description": null,
+      "unitPrice": 16.8100,
+      "vat": {
+        "rate": 19,
+        "category": "S",
+        "taxableAmount": null,
+        "taxAmount": null,
+        "vatExemptionReasonText": null,
+        "vatExemptionReasonCode": null
+      },
+      "sellerAssignedId": "SW10001",
+      "itemAttributes": [],
+      "netAmount": 16.81
+    },
+    {
+      "id": 3,
+      "quantity": 1,
+      "unitCode": "XPP",
+      "itemTotalNetAmount": 4.20,
+      "name": "Aufschlag",
+      "description": null,
+      "unitPrice": 4.2000,
+      "vat": {
+        "rate": 19,
+        "category": "S",
+        "taxableAmount": null,
+        "taxAmount": null,
+        "vatExemptionReasonText": null,
+        "vatExemptionReasonCode": null
+      },
+      "sellerAssignedId": "",
+      "itemAttributes": [],
+      "netAmount": 4.20
+    }
+  ],
+  "vatTotals": [
+    {
+      "rate": 7,
+      "category": "S",
+      "taxableAmount": 8.91,
+      "taxAmount": 0.62,
+      "vatExemptionReasonText": null,
+      "vatExemptionReasonCode": null
+    },
+    {
+      "rate": 19,
+      "category": "S",
+      "taxableAmount": 19.31,
+      "taxAmount": 3.66,
+      "vatExemptionReasonText": null,
+      "vatExemptionReasonCode": null
+    }
+  ],
+  "precedingInvoiceReferences": [],
+  "lineTotalAmount": 30.36,
+  "allowanceTotalAmount": 6.50,
+  "chargeTotalAmount": 4.36,
+  "taxBasisTotalAmount": 28.22,
+  "taxTotalAmount": 4.28,
+  "grandTotalAmount": 32.50,
+  "duePayableAmount": 32.50,
+  "salesOrderReference": "10012",
+  "invoiceNotes": [],
+  "allowances": [
+    {
+      "netAmount": 2.00,
+      "vatCategory": "S",
+      "vatRate": 7,
+      "reason": "Gutschrift"
+    },
+    {
+      "netAmount": 4.50,
+      "vatCategory": "S",
+      "vatRate": 19,
+      "reason": "Gutschrift"
+    }
+  ],
+  "charges": [
+    {
+      "netAmount": 1.56,
+      "vatCategory": "S",
+      "vatRate": 7,
+      "reason": "Versandkosten"
+    },
+    {
+      "netAmount": 2.80,
+      "vatCategory": "S",
+      "vatRate": 19,
+      "reason": "Versandkosten"
+    }
+  ]
+}

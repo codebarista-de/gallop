@@ -1,0 +1,115 @@
+{
+  "documentTypeCode": "380",
+  "documentId": "1009",
+  "leitwegId": null,
+  "currency": "EUR",
+  "paymentInstructions": {
+    "meansType": "68",
+    "meansText": null,
+    "remittanceInfo": null,
+    "paymentTerms": "Die Ware bleibt, bis zur vollständigen Bezahlung, unser Eigentum.\nLeistungsdatum entspricht Rechnungsdatum",
+    "creditTransfers": [],
+    "paymentCardInformation": null,
+    "directDebit": null
+  },
+  "issueDate": "2024-12-03T17:35:08.403+00:00",
+  "seller": {
+    "name": "Example Company",
+    "tradingName": "Examply Company",
+    "vatId": "DE987654321",
+    "electronicAddress": "mail@company.com",
+    "electronicAddressScheme": "EM",
+    "address": {
+      "addressLineOne": "Revenue Row 42",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Taxora",
+      "zipCode": "12345",
+      "countryIsoCode": "DE"
+    },
+    "contact": {
+      "name": "Kim Elliot",
+      "phone": "0123456789",
+      "email": "mail@company.com"
+    }
+  },
+  "buyer": {
+    "name": "Frida Fehlerfinder",
+    "tradingName": null,
+    "vatId": null,
+    "electronicAddress": "frida@dau.de",
+    "electronicAddressScheme": null,
+    "address": {
+      "addressLineOne": "Problemstraße",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Fehlstadt",
+      "zipCode": "10004",
+      "countryIsoCode": "DE"
+    },
+    "contact": null
+  },
+  "deliveryInfo": {
+    "name": "Frida Fehlerfinder",
+    "deliveryAddress": {
+      "addressLineOne": "Problemstraße",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Fehlstadt",
+      "zipCode": "10004",
+      "countryIsoCode": "DE"
+    },
+    "actualDeliveryDate": null
+  },
+  "items": [
+    {
+      "id": 1,
+      "quantity": 13,
+      "unitCode": "XPP",
+      "itemTotalNetAmount": 8193.28,
+      "name": "Hauptprodukt mit erweiterten Preisen",
+      "description": null,
+      "unitPrice": 630.2523,
+      "vat": {
+        "rate": 19,
+        "category": "S",
+        "taxableAmount": null,
+        "taxAmount": null,
+        "vatExemptionReasonText": null,
+        "vatExemptionReasonCode": null
+      },
+      "sellerAssignedId": "10002",
+      "itemAttributes": [],
+      "netAmount": 8193.28
+    }
+  ],
+  "vatTotals": [
+    {
+      "rate": 19,
+      "category": "S",
+      "taxableAmount": 8193.28,
+      "taxAmount": 1556.72,
+      "vatExemptionReasonText": null,
+      "vatExemptionReasonCode": null
+    }
+  ],
+  "precedingInvoiceReferences": [],
+  "lineTotalAmount": 8193.28,
+  "allowanceTotalAmount": 0.00,
+  "chargeTotalAmount": 0.00,
+  "taxBasisTotalAmount": 8193.28,
+  "taxTotalAmount": 1556.72,
+  "grandTotalAmount": 9750.00,
+  "duePayableAmount": 9750.00,
+  "salesOrderReference": "10008",
+  "invoiceNotes": [],
+  "allowances": [],
+  "charges": [
+    {
+      "netAmount": 0.00,
+      "vatCategory": "S",
+      "vatRate": 19,
+      "reason": "Versandkosten"
+    }
+  ]
+}

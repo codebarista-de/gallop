@@ -1,0 +1,121 @@
+{
+  "documentTypeCode": "380",
+  "documentId": "1075",
+  "leitwegId": null,
+  "currency": "EUR",
+  "paymentInstructions": {
+    "meansType": "58",
+    "meansText": "Paid in advance",
+    "remittanceInfo": null,
+    "paymentTerms": "Die Ware bleibt, bis zur vollständigen Bezahlung, unser Eigentum.\nLeistungsdatum entspricht Rechnungsdatum",
+    "creditTransfers": [
+      {
+        "iban": "DE12 3456 7890 1234 5678 90",
+        "accountName": null,
+        "bic": "YYYYZZZ2XXX"
+      }
+    ],
+    "paymentCardInformation": null,
+    "directDebit": null
+  },
+  "issueDate": "2024-12-15T09:43:02.902+00:00",
+  "seller": {
+    "name": "Gesunde Naturprodukte GmbH",
+    "tradingName": "Gesunde Naturprodukte",
+    "vatId": "DE123456789",
+    "electronicAddress": "info@gesunde-naturprodukte.de",
+    "electronicAddressScheme": "EM",
+    "address": {
+      "addressLineOne": "Blumenstraße 15",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Musterstadt",
+      "zipCode": "12345",
+      "countryIsoCode": "DE"
+    },
+    "contact": {
+      "name": "Maximilian Müller",
+      "phone": "+49 (0) 30 12345678",
+      "email": "info@gesunde-naturprodukte.de"
+    }
+  },
+  "buyer": {
+    "name": "Silke Süßigkeiten",
+    "tradingName": null,
+    "vatId": null,
+    "electronicAddress": "sile.suessigkeiten@web.de",
+    "electronicAddressScheme": null,
+    "address": {
+      "addressLineOne": "Dessertstraße",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Puddingdorf",
+      "zipCode": "17984",
+      "countryIsoCode": "DE"
+    },
+    "contact": null
+  },
+  "deliveryInfo": {
+    "name": "Silke Süßigkeiten",
+    "deliveryAddress": {
+      "addressLineOne": "Dessertstraße",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Puddingdorf",
+      "zipCode": "17984",
+      "countryIsoCode": "DE"
+    },
+    "actualDeliveryDate": null
+  },
+  "items": [
+    {
+      "id": 1,
+      "quantity": 5,
+      "unitCode": "XPP",
+      "itemTotalNetAmount": 9.30,
+      "name": "Hauptprodukt mit Bewertungen",
+      "description": null,
+      "unitPrice": 1.8600,
+      "vat": {
+        "rate": 7,
+        "category": "S",
+        "taxableAmount": null,
+        "taxAmount": null,
+        "vatExemptionReasonText": null,
+        "vatExemptionReasonCode": null
+      },
+      "sellerAssignedId": "100013",
+      "itemAttributes": [],
+      "netAmount": 9.30
+    }
+  ],
+  "vatTotals": [
+    {
+      "rate": 7,
+      "category": "S",
+      "taxableAmount": 20.51,
+      "taxAmount": 1.44,
+      "vatExemptionReasonText": null,
+      "vatExemptionReasonCode": null
+    }
+  ],
+  "precedingInvoiceReferences": [],
+  "lineTotalAmount": 9.30,
+  "allowanceTotalAmount": 0.00,
+  "chargeTotalAmount": 11.21,
+  "taxBasisTotalAmount": 20.51,
+  "taxTotalAmount": 1.44,
+  "grandTotalAmount": 21.95,
+  "duePayableAmount": 21.95,
+  "salesOrderReference": "10127",
+  "invoiceNotes": [],
+  "allowances": [],
+  "charges": [
+    {
+      "netAmount": 11.21,
+      "vatCategory": "S",
+      "vatRate": 7,
+      "reason": "Versandkosten"
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "documentTypeCode": "380",
+  "documentId": "1032",
+  "leitwegId": null,
+  "currency": "EUR",
+  "paymentInstructions": {
+    "meansType": "10",
+    "meansText": "Cash on delivery",
+    "remittanceInfo": null,
+    "paymentTerms": "Die Ware bleibt, bis zur vollständigen Bezahlung, unser Eigentum.\nLeistungsdatum entspricht Rechnungsdatum",
+    "creditTransfers": [],
+    "paymentCardInformation": null,
+    "directDebit": null
+  },
+  "issueDate": "2024-12-16T11:28:15.698+00:00",
+  "seller": {
+    "name": "Example Company",
+    "tradingName": null,
+    "vatId": "DE-123456789",
+    "electronicAddress": "firma@example.com",
+    "electronicAddressScheme": "EM",
+    "address": {
+      "addressLineOne": "Teststraße 42",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Testdorf",
+      "zipCode": "12123",
+      "countryIsoCode": "DE"
+    },
+    "contact": {
+      "name": "Marianne Maier",
+      "phone": "0123456/789",
+      "email": "firma@example.com"
+    }
+  },
+  "buyer": {
+    "name": "Testonia Test",
+    "tradingName": null,
+    "vatId": null,
+    "electronicAddress": "test@test.test",
+    "electronicAddressScheme": null,
+    "address": {
+      "addressLineOne": "Teststreet",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Testing",
+      "zipCode": "12345",
+      "countryIsoCode": "DE"
+    },
+    "contact": null
+  },
+  "deliveryInfo": {
+    "name": "Testonia Test",
+    "deliveryAddress": {
+      "addressLineOne": "Teststreet",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Testing",
+      "zipCode": "12345",
+      "countryIsoCode": "DE"
+    },
+    "actualDeliveryDate": null
+  },
+  "items": [
+    {
+      "id": 1,
+      "quantity": 1,
+      "unitCode": "XPP",
+      "itemTotalNetAmount": 100.00,
+      "name": "Tax free product",
+      "description": null,
+      "unitPrice": 100.0000,
+      "vat": {
+        "rate": 0,
+        "category": "Z",
+        "taxableAmount": null,
+        "taxAmount": null,
+        "vatExemptionReasonText": null,
+        "vatExemptionReasonCode": null
+      },
+      "sellerAssignedId": "SW10002",
+      "itemAttributes": [],
+      "netAmount": 100.00
+    }
+  ],
+  "vatTotals": [
+    {
+      "rate": 0,
+      "category": "Z",
+      "taxableAmount": 105.00,
+      "taxAmount": 0.00,
+      "vatExemptionReasonText": null,
+      "vatExemptionReasonCode": null
+    }
+  ],
+  "precedingInvoiceReferences": [],
+  "lineTotalAmount": 100.00,
+  "allowanceTotalAmount": 0.00,
+  "chargeTotalAmount": 5.00,
+  "taxBasisTotalAmount": 105.00,
+  "taxTotalAmount": 0.00,
+  "grandTotalAmount": 105.00,
+  "duePayableAmount": 105.00,
+  "salesOrderReference": "10013",
+  "invoiceNotes": [],
+  "allowances": [],
+  "charges": [
+    {
+      "netAmount": 5.00,
+      "vatCategory": "Z",
+      "vatRate": 0,
+      "reason": "Versandkosten"
+    }
+  ]
+}

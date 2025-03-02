@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsm:CrossIndustryInvoice xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100"
+                          xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100"
+                          xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
+   <rsm:ExchangedDocumentContext>
+      <ram:BusinessProcessSpecifiedDocumentContextParameter>
+         <ram:ID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ram:ID>
+      </ram:BusinessProcessSpecifiedDocumentContextParameter>
+      <ram:GuidelineSpecifiedDocumentContextParameter>
+         <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</ram:ID>
+      </ram:GuidelineSpecifiedDocumentContextParameter>
+   </rsm:ExchangedDocumentContext>
+   <rsm:ExchangedDocument>
+      <ram:ID>1081</ram:ID>
+      <ram:TypeCode>380</ram:TypeCode>
+      <ram:IssueDateTime>
+         <udt:DateTimeString format="102">20241215</udt:DateTimeString>
+      </ram:IssueDateTime>
+   </rsm:ExchangedDocument>
+   <rsm:SupplyChainTradeTransaction>
+      <ram:IncludedSupplyChainTradeLineItem>
+         <ram:AssociatedDocumentLineDocument>
+            <ram:LineID>1</ram:LineID>
+         </ram:AssociatedDocumentLineDocument>
+         <ram:SpecifiedTradeProduct>
+            <ram:SellerAssignedID>100013</ram:SellerAssignedID>
+            <ram:Name>Hauptprodukt mit Bewertungen</ram:Name>
+         </ram:SpecifiedTradeProduct>
+         <ram:SpecifiedLineTradeAgreement>
+            <ram:NetPriceProductTradePrice>
+               <ram:ChargeAmount>1.8598</ram:ChargeAmount>
+               <ram:BasisQuantity unitCode="XPP">1</ram:BasisQuantity>
+            </ram:NetPriceProductTradePrice>
+         </ram:SpecifiedLineTradeAgreement>
+         <ram:SpecifiedLineTradeDelivery>
+            <ram:BilledQuantity unitCode="XPP">47</ram:BilledQuantity>
+         </ram:SpecifiedLineTradeDelivery>
+         <ram:SpecifiedLineTradeSettlement>
+            <ram:ApplicableTradeTax>
+               <ram:TypeCode>VAT</ram:TypeCode>
+               <ram:CategoryCode>S</ram:CategoryCode>
+               <ram:RateApplicablePercent>7</ram:RateApplicablePercent>
+            </ram:ApplicableTradeTax>
+            <ram:SpecifiedTradeSettlementLineMonetarySummation>
+               <ram:LineTotalAmount>87.41</ram:LineTotalAmount>
+            </ram:SpecifiedTradeSettlementLineMonetarySummation>
+         </ram:SpecifiedLineTradeSettlement>
+      </ram:IncludedSupplyChainTradeLineItem>
+      <ram:IncludedSupplyChainTradeLineItem>
+         <ram:AssociatedDocumentLineDocument>
+            <ram:LineID>2</ram:LineID>
+         </ram:AssociatedDocumentLineDocument>
+         <ram:SpecifiedTradeProduct>
+            <ram:SellerAssignedID>10005.2</ram:SellerAssignedID>
+            <ram:Name>Variantenprodukt</ram:Name>
+            <ram:ApplicableProductCharacteristic>
+               <ram:Description>Farbe</ram:Description>
+               <ram:Value>Blau</ram:Value>
+            </ram:ApplicableProductCharacteristic>
+            <ram:ApplicableProductCharacteristic>
+               <ram:Description>Größe</ram:Description>
+               <ram:Value>XL</ram:Value>
+            </ram:ApplicableProductCharacteristic>
+         </ram:SpecifiedTradeProduct>
+         <ram:SpecifiedLineTradeAgreement>
+            <ram:NetPriceProductTradePrice>
+               <ram:ChargeAmount>16.8000</ram:ChargeAmount>
+               <ram:BasisQuantity unitCode="XPP">1</ram:BasisQuantity>
+            </ram:NetPriceProductTradePrice>
+         </ram:SpecifiedLineTradeAgreement>
+         <ram:SpecifiedLineTradeDelivery>
+            <ram:BilledQuantity unitCode="XPP">1</ram:BilledQuantity>
+         </ram:SpecifiedLineTradeDelivery>
+         <ram:SpecifiedLineTradeSettlement>
+            <ram:ApplicableTradeTax>
+               <ram:TypeCode>VAT</ram:TypeCode>
+               <ram:CategoryCode>S</ram:CategoryCode>
+               <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
+            </ram:ApplicableTradeTax>
+            <ram:SpecifiedTradeSettlementLineMonetarySummation>
+               <ram:LineTotalAmount>16.80</ram:LineTotalAmount>
+            </ram:SpecifiedTradeSettlementLineMonetarySummation>
+         </ram:SpecifiedLineTradeSettlement>
+      </ram:IncludedSupplyChainTradeLineItem>
+      <ram:IncludedSupplyChainTradeLineItem>
+         <ram:AssociatedDocumentLineDocument>
+            <ram:LineID>3</ram:LineID>
+         </ram:AssociatedDocumentLineDocument>
+         <ram:SpecifiedTradeProduct>
+            <ram:SellerAssignedID>10005.3</ram:SellerAssignedID>
+            <ram:Name>Variantenprodukt</ram:Name>
+            <ram:ApplicableProductCharacteristic>
+               <ram:Description>Farbe</ram:Description>
+               <ram:Value>Rot</ram:Value>
+            </ram:ApplicableProductCharacteristic>
+            <ram:ApplicableProductCharacteristic>
+               <ram:Description>Größe</ram:Description>
+               <ram:Value>M</ram:Value>
+            </ram:ApplicableProductCharacteristic>
+         </ram:SpecifiedTradeProduct>
+         <ram:SpecifiedLineTradeAgreement>
+            <ram:NetPriceProductTradePrice>
+               <ram:ChargeAmount>16.8000</ram:ChargeAmount>
+               <ram:BasisQuantity unitCode="XPP">1</ram:BasisQuantity>
+            </ram:NetPriceProductTradePrice>
+         </ram:SpecifiedLineTradeAgreement>
+         <ram:SpecifiedLineTradeDelivery>
+            <ram:BilledQuantity unitCode="XPP">1</ram:BilledQuantity>
+         </ram:SpecifiedLineTradeDelivery>
+         <ram:SpecifiedLineTradeSettlement>
+            <ram:ApplicableTradeTax>
+               <ram:TypeCode>VAT</ram:TypeCode>
+               <ram:CategoryCode>S</ram:CategoryCode>
+               <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
+            </ram:ApplicableTradeTax>
+            <ram:SpecifiedTradeSettlementLineMonetarySummation>
+               <ram:LineTotalAmount>16.80</ram:LineTotalAmount>
+            </ram:SpecifiedTradeSettlementLineMonetarySummation>
+         </ram:SpecifiedLineTradeSettlement>
+      </ram:IncludedSupplyChainTradeLineItem>
+      <ram:IncludedSupplyChainTradeLineItem>
+         <ram:AssociatedDocumentLineDocument>
+            <ram:LineID>4</ram:LineID>
+         </ram:AssociatedDocumentLineDocument>
+         <ram:SpecifiedTradeProduct>
+            <ram:SellerAssignedID>10001</ram:SellerAssignedID>
+            <ram:Name>Hauptartikel</ram:Name>
+         </ram:SpecifiedTradeProduct>
+         <ram:SpecifiedLineTradeAgreement>
+            <ram:NetPriceProductTradePrice>
+               <ram:ChargeAmount>416.7600</ram:ChargeAmount>
+               <ram:BasisQuantity unitCode="XPP">1</ram:BasisQuantity>
+            </ram:NetPriceProductTradePrice>
+         </ram:SpecifiedLineTradeAgreement>
+         <ram:SpecifiedLineTradeDelivery>
+            <ram:BilledQuantity unitCode="XPP">1</ram:BilledQuantity>
+         </ram:SpecifiedLineTradeDelivery>
+         <ram:SpecifiedLineTradeSettlement>
+            <ram:ApplicableTradeTax>
+               <ram:TypeCode>VAT</ram:TypeCode>
+               <ram:CategoryCode>S</ram:CategoryCode>
+               <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
+            </ram:ApplicableTradeTax>
+            <ram:SpecifiedTradeSettlementLineMonetarySummation>
+               <ram:LineTotalAmount>416.76</ram:LineTotalAmount>
+            </ram:SpecifiedTradeSettlementLineMonetarySummation>
+         </ram:SpecifiedLineTradeSettlement>
+      </ram:IncludedSupplyChainTradeLineItem>
+      <ram:IncludedSupplyChainTradeLineItem>
+         <ram:AssociatedDocumentLineDocument>
+            <ram:LineID>5</ram:LineID>
+         </ram:AssociatedDocumentLineDocument>
+         <ram:SpecifiedTradeProduct>
+            <ram:SellerAssignedID>10002</ram:SellerAssignedID>
+            <ram:Name>Hauptprodukt mit erweiterten Preisen</ram:Name>
+         </ram:SpecifiedTradeProduct>
+         <ram:SpecifiedLineTradeAgreement>
+            <ram:NetPriceProductTradePrice>
+               <ram:ChargeAmount>630.2525</ram:ChargeAmount>
+               <ram:BasisQuantity unitCode="XPP">1</ram:BasisQuantity>
+            </ram:NetPriceProductTradePrice>
+         </ram:SpecifiedLineTradeAgreement>
+         <ram:SpecifiedLineTradeDelivery>
+            <ram:BilledQuantity unitCode="XPP">12</ram:BilledQuantity>
+         </ram:SpecifiedLineTradeDelivery>
+         <ram:SpecifiedLineTradeSettlement>
+            <ram:ApplicableTradeTax>
+               <ram:TypeCode>VAT</ram:TypeCode>
+               <ram:CategoryCode>S</ram:CategoryCode>
+               <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
+            </ram:ApplicableTradeTax>
+            <ram:SpecifiedTradeSettlementLineMonetarySummation>
+               <ram:LineTotalAmount>7563.03</ram:LineTotalAmount>
+            </ram:SpecifiedTradeSettlementLineMonetarySummation>
+         </ram:SpecifiedLineTradeSettlement>
+      </ram:IncludedSupplyChainTradeLineItem>
+      <ram:ApplicableHeaderTradeAgreement>
+         <ram:BuyerReference>N/A</ram:BuyerReference>
+         <ram:SellerTradeParty>
+            <ram:Name>Gesunde Naturprodukte GmbH</ram:Name>
+            <ram:DefinedTradeContact>
+               <ram:PersonName>Maximilian Müller</ram:PersonName>
+               <ram:TelephoneUniversalCommunication>
+                  <ram:CompleteNumber>+49 (0) 30 12345678</ram:CompleteNumber>
+               </ram:TelephoneUniversalCommunication>
+               <ram:EmailURIUniversalCommunication>
+                  <ram:URIID>info@gesunde-naturprodukte.de</ram:URIID>
+               </ram:EmailURIUniversalCommunication>
+            </ram:DefinedTradeContact>
+            <ram:PostalTradeAddress>
+               <ram:PostcodeCode>12345</ram:PostcodeCode>
+               <ram:LineOne>Blumenstraße 15</ram:LineOne>
+               <ram:CityName>Musterstadt</ram:CityName>
+               <ram:CountryID>DE</ram:CountryID>
+            </ram:PostalTradeAddress>
+            <ram:URIUniversalCommunication>
+               <ram:URIID schemeID="EM">info@gesunde-naturprodukte.de</ram:URIID>
+            </ram:URIUniversalCommunication>
+            <ram:SpecifiedTaxRegistration>
+               <ram:ID schemeID="VA">DE123456789</ram:ID>
+            </ram:SpecifiedTaxRegistration>
+         </ram:SellerTradeParty>
+         <ram:BuyerTradeParty>
+            <ram:Name>Severin Sender</ram:Name>
+            <ram:PostalTradeAddress>
+               <ram:PostcodeCode>80001</ram:PostcodeCode>
+               <ram:LineOne>Seestraße 1</ram:LineOne>
+               <ram:CityName>Seeshaupt</ram:CityName>
+               <ram:CountryID>DE</ram:CountryID>
+            </ram:PostalTradeAddress>
+            <ram:URIUniversalCommunication>
+               <ram:URIID schemeID="EM">severin.sender@gmx.de</ram:URIID>
+            </ram:URIUniversalCommunication>
+         </ram:BuyerTradeParty>
+         <ram:SellerOrderReferencedDocument>
+            <ram:IssuerAssignedID>10128</ram:IssuerAssignedID>
+         </ram:SellerOrderReferencedDocument>
+      </ram:ApplicableHeaderTradeAgreement>
+      <ram:ApplicableHeaderTradeDelivery>
+         <ram:ShipToTradeParty>
+            <ram:Name>Empfelia Empfänger</ram:Name>
+            <ram:PostalTradeAddress>
+               <ram:PostcodeCode>76194</ram:PostcodeCode>
+               <ram:LineOne>Emfängnistraße 32</ram:LineOne>
+               <ram:CityName>Emfen</ram:CityName>
+               <ram:CountryID>DE</ram:CountryID>
+            </ram:PostalTradeAddress>
+         </ram:ShipToTradeParty>
+      </ram:ApplicableHeaderTradeDelivery>
+      <ram:ApplicableHeaderTradeSettlement>
+         <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
+         <ram:SpecifiedTradeSettlementPaymentMeans>
+            <ram:TypeCode>58</ram:TypeCode>
+            <ram:Information>Invoice</ram:Information>
+            <ram:PayeePartyCreditorFinancialAccount>
+               <ram:IBANID>DE12 3456 7890 1234 5678 90</ram:IBANID>
+            </ram:PayeePartyCreditorFinancialAccount>
+            <ram:PayeeSpecifiedCreditorFinancialInstitution>
+               <ram:BICID>YYYYZZZ2XXX</ram:BICID>
+            </ram:PayeeSpecifiedCreditorFinancialInstitution>
+         </ram:SpecifiedTradeSettlementPaymentMeans>
+         <ram:ApplicableTradeTax>
+            <ram:CalculatedAmount>6.13</ram:CalculatedAmount>
+            <ram:TypeCode>VAT</ram:TypeCode>
+            <ram:BasisAmount>87.52</ram:BasisAmount>
+            <ram:CategoryCode>S</ram:CategoryCode>
+            <ram:RateApplicablePercent>7</ram:RateApplicablePercent>
+         </ram:ApplicableTradeTax>
+         <ram:ApplicableTradeTax>
+            <ram:CalculatedAmount>1524.44</ram:CalculatedAmount>
+            <ram:TypeCode>VAT</ram:TypeCode>
+            <ram:BasisAmount>8023.37</ram:BasisAmount>
+            <ram:CategoryCode>S</ram:CategoryCode>
+            <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
+         </ram:ApplicableTradeTax>
+         <ram:SpecifiedTradeAllowanceCharge>
+            <ram:ChargeIndicator>
+               <udt:Indicator>true</udt:Indicator>
+            </ram:ChargeIndicator>
+            <ram:ActualAmount>0.11</ram:ActualAmount>
+            <ram:Reason>Versandkosten</ram:Reason>
+            <ram:CategoryTradeTax>
+               <ram:TypeCode>VAT</ram:TypeCode>
+               <ram:CategoryCode>S</ram:CategoryCode>
+               <ram:RateApplicablePercent>7</ram:RateApplicablePercent>
+            </ram:CategoryTradeTax>
+         </ram:SpecifiedTradeAllowanceCharge>
+         <ram:SpecifiedTradeAllowanceCharge>
+            <ram:ChargeIndicator>
+               <udt:Indicator>true</udt:Indicator>
+            </ram:ChargeIndicator>
+            <ram:ActualAmount>9.98</ram:ActualAmount>
+            <ram:Reason>Versandkosten</ram:Reason>
+            <ram:CategoryTradeTax>
+               <ram:TypeCode>VAT</ram:TypeCode>
+               <ram:CategoryCode>S</ram:CategoryCode>
+               <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
+            </ram:CategoryTradeTax>
+         </ram:SpecifiedTradeAllowanceCharge>
+         <ram:SpecifiedTradePaymentTerms>
+            <ram:Description>Die Ware bleibt, bis zur vollständigen Bezahlung, unser Eigentum.
+Leistungsdatum entspricht Rechnungsdatum</ram:Description>
+         </ram:SpecifiedTradePaymentTerms>
+         <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+            <ram:LineTotalAmount>8100.80</ram:LineTotalAmount>
+            <ram:ChargeTotalAmount>10.09</ram:ChargeTotalAmount>
+            <ram:AllowanceTotalAmount>0.00</ram:AllowanceTotalAmount>
+            <ram:TaxBasisTotalAmount>8110.89</ram:TaxBasisTotalAmount>
+            <ram:TaxTotalAmount currencyID="EUR">1530.57</ram:TaxTotalAmount>
+            <ram:GrandTotalAmount>9641.46</ram:GrandTotalAmount>
+            <ram:DuePayableAmount>9641.46</ram:DuePayableAmount>
+         </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+      </ram:ApplicableHeaderTradeSettlement>
+   </rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>

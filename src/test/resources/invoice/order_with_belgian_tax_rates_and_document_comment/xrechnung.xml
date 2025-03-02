@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsm:CrossIndustryInvoice xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100"
+                          xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100"
+                          xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
+   <rsm:ExchangedDocumentContext>
+      <ram:BusinessProcessSpecifiedDocumentContextParameter>
+         <ram:ID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ram:ID>
+      </ram:BusinessProcessSpecifiedDocumentContextParameter>
+      <ram:GuidelineSpecifiedDocumentContextParameter>
+         <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</ram:ID>
+      </ram:GuidelineSpecifiedDocumentContextParameter>
+   </rsm:ExchangedDocumentContext>
+   <rsm:ExchangedDocument>
+      <ram:ID>1086</ram:ID>
+      <ram:TypeCode>380</ram:TypeCode>
+      <ram:IssueDateTime>
+         <udt:DateTimeString format="102">20241215</udt:DateTimeString>
+      </ram:IssueDateTime>
+      <ram:IncludedNote>
+         <ram:Content>Dies ist eine Rechnung an einen Konsumenten (B2C) im Ausland (Belgien). Hier gelten andere Steuersätze.</ram:Content>
+      </ram:IncludedNote>
+   </rsm:ExchangedDocument>
+   <rsm:SupplyChainTradeTransaction>
+      <ram:IncludedSupplyChainTradeLineItem>
+         <ram:AssociatedDocumentLineDocument>
+            <ram:LineID>1</ram:LineID>
+         </ram:AssociatedDocumentLineDocument>
+         <ram:SpecifiedTradeProduct>
+            <ram:SellerAssignedID>100013</ram:SellerAssignedID>
+            <ram:Name>Hauptprodukt mit Bewertungen</ram:Name>
+         </ram:SpecifiedTradeProduct>
+         <ram:SpecifiedLineTradeAgreement>
+            <ram:NetPriceProductTradePrice>
+               <ram:ChargeAmount>1.7760</ram:ChargeAmount>
+               <ram:BasisQuantity unitCode="XPP">1</ram:BasisQuantity>
+            </ram:NetPriceProductTradePrice>
+         </ram:SpecifiedLineTradeAgreement>
+         <ram:SpecifiedLineTradeDelivery>
+            <ram:BilledQuantity unitCode="XPP">5</ram:BilledQuantity>
+         </ram:SpecifiedLineTradeDelivery>
+         <ram:SpecifiedLineTradeSettlement>
+            <ram:ApplicableTradeTax>
+               <ram:TypeCode>VAT</ram:TypeCode>
+               <ram:CategoryCode>S</ram:CategoryCode>
+               <ram:RateApplicablePercent>12</ram:RateApplicablePercent>
+            </ram:ApplicableTradeTax>
+            <ram:SpecifiedTradeSettlementLineMonetarySummation>
+               <ram:LineTotalAmount>8.88</ram:LineTotalAmount>
+            </ram:SpecifiedTradeSettlementLineMonetarySummation>
+         </ram:SpecifiedLineTradeSettlement>
+      </ram:IncludedSupplyChainTradeLineItem>
+      <ram:IncludedSupplyChainTradeLineItem>
+         <ram:AssociatedDocumentLineDocument>
+            <ram:LineID>2</ram:LineID>
+         </ram:AssociatedDocumentLineDocument>
+         <ram:SpecifiedTradeProduct>
+            <ram:SellerAssignedID>10006</ram:SellerAssignedID>
+            <ram:Name>Hauptprodukt, versandkostenfrei mit Hervorhebung</ram:Name>
+         </ram:SpecifiedTradeProduct>
+         <ram:SpecifiedLineTradeAgreement>
+            <ram:NetPriceProductTradePrice>
+               <ram:ChargeAmount>4.1300</ram:ChargeAmount>
+               <ram:BasisQuantity unitCode="XPP">1</ram:BasisQuantity>
+            </ram:NetPriceProductTradePrice>
+         </ram:SpecifiedLineTradeAgreement>
+         <ram:SpecifiedLineTradeDelivery>
+            <ram:BilledQuantity unitCode="XPP">1</ram:BilledQuantity>
+         </ram:SpecifiedLineTradeDelivery>
+         <ram:SpecifiedLineTradeSettlement>
+            <ram:ApplicableTradeTax>
+               <ram:TypeCode>VAT</ram:TypeCode>
+               <ram:CategoryCode>S</ram:CategoryCode>
+               <ram:RateApplicablePercent>21</ram:RateApplicablePercent>
+            </ram:ApplicableTradeTax>
+            <ram:SpecifiedTradeSettlementLineMonetarySummation>
+               <ram:LineTotalAmount>4.13</ram:LineTotalAmount>
+            </ram:SpecifiedTradeSettlementLineMonetarySummation>
+         </ram:SpecifiedLineTradeSettlement>
+      </ram:IncludedSupplyChainTradeLineItem>
+      <ram:IncludedSupplyChainTradeLineItem>
+         <ram:AssociatedDocumentLineDocument>
+            <ram:LineID>3</ram:LineID>
+         </ram:AssociatedDocumentLineDocument>
+         <ram:SpecifiedTradeProduct>
+            <ram:Name>Einrichtungspreis</ram:Name>
+         </ram:SpecifiedTradeProduct>
+         <ram:SpecifiedLineTradeAgreement>
+            <ram:NetPriceProductTradePrice>
+               <ram:ChargeAmount>4.1300</ram:ChargeAmount>
+               <ram:BasisQuantity unitCode="XPP">1</ram:BasisQuantity>
+            </ram:NetPriceProductTradePrice>
+         </ram:SpecifiedLineTradeAgreement>
+         <ram:SpecifiedLineTradeDelivery>
+            <ram:BilledQuantity unitCode="XPP">1</ram:BilledQuantity>
+         </ram:SpecifiedLineTradeDelivery>
+         <ram:SpecifiedLineTradeSettlement>
+            <ram:ApplicableTradeTax>
+               <ram:TypeCode>VAT</ram:TypeCode>
+               <ram:CategoryCode>S</ram:CategoryCode>
+               <ram:RateApplicablePercent>21</ram:RateApplicablePercent>
+            </ram:ApplicableTradeTax>
+            <ram:SpecifiedTradeSettlementLineMonetarySummation>
+               <ram:LineTotalAmount>4.13</ram:LineTotalAmount>
+            </ram:SpecifiedTradeSettlementLineMonetarySummation>
+         </ram:SpecifiedLineTradeSettlement>
+      </ram:IncludedSupplyChainTradeLineItem>
+      <ram:ApplicableHeaderTradeAgreement>
+         <ram:BuyerReference>N/A</ram:BuyerReference>
+         <ram:SellerTradeParty>
+            <ram:Name>Gesunde Naturprodukte GmbH</ram:Name>
+            <ram:DefinedTradeContact>
+               <ram:PersonName>Maximilian Müller</ram:PersonName>
+               <ram:TelephoneUniversalCommunication>
+                  <ram:CompleteNumber>+49 (0) 30 12345678</ram:CompleteNumber>
+               </ram:TelephoneUniversalCommunication>
+               <ram:EmailURIUniversalCommunication>
+                  <ram:URIID>info@gesunde-naturprodukte.de</ram:URIID>
+               </ram:EmailURIUniversalCommunication>
+            </ram:DefinedTradeContact>
+            <ram:PostalTradeAddress>
+               <ram:PostcodeCode>12345</ram:PostcodeCode>
+               <ram:LineOne>Blumenstraße 15</ram:LineOne>
+               <ram:CityName>Musterstadt</ram:CityName>
+               <ram:CountryID>DE</ram:CountryID>
+            </ram:PostalTradeAddress>
+            <ram:URIUniversalCommunication>
+               <ram:URIID schemeID="EM">info@gesunde-naturprodukte.de</ram:URIID>
+            </ram:URIUniversalCommunication>
+            <ram:SpecifiedTaxRegistration>
+               <ram:ID schemeID="VA">DE123456789</ram:ID>
+            </ram:SpecifiedTaxRegistration>
+         </ram:SellerTradeParty>
+         <ram:BuyerTradeParty>
+            <ram:Name>Bela Belgien</ram:Name>
+            <ram:PostalTradeAddress>
+               <ram:PostcodeCode>1000</ram:PostcodeCode>
+               <ram:LineOne>Belgerstraße</ram:LineOne>
+               <ram:CityName>Brüssel</ram:CityName>
+               <ram:CountryID>BE</ram:CountryID>
+            </ram:PostalTradeAddress>
+            <ram:URIUniversalCommunication>
+               <ram:URIID schemeID="EM">bela@belgien.bl</ram:URIID>
+            </ram:URIUniversalCommunication>
+         </ram:BuyerTradeParty>
+         <ram:SellerOrderReferencedDocument>
+            <ram:IssuerAssignedID>10130</ram:IssuerAssignedID>
+         </ram:SellerOrderReferencedDocument>
+      </ram:ApplicableHeaderTradeAgreement>
+      <ram:ApplicableHeaderTradeDelivery>
+         <ram:ShipToTradeParty>
+            <ram:Name>Bela Belgien</ram:Name>
+            <ram:PostalTradeAddress>
+               <ram:PostcodeCode>1000</ram:PostcodeCode>
+               <ram:LineOne>Belgerstraße</ram:LineOne>
+               <ram:CityName>Brüssel</ram:CityName>
+               <ram:CountryID>BE</ram:CountryID>
+            </ram:PostalTradeAddress>
+         </ram:ShipToTradeParty>
+      </ram:ApplicableHeaderTradeDelivery>
+      <ram:ApplicableHeaderTradeSettlement>
+         <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
+         <ram:SpecifiedTradeSettlementPaymentMeans>
+            <ram:TypeCode>58</ram:TypeCode>
+            <ram:Information>Invoice</ram:Information>
+            <ram:PayeePartyCreditorFinancialAccount>
+               <ram:IBANID>DE12 3456 7890 1234 5678 90</ram:IBANID>
+            </ram:PayeePartyCreditorFinancialAccount>
+            <ram:PayeeSpecifiedCreditorFinancialInstitution>
+               <ram:BICID>YYYYZZZ2XXX</ram:BICID>
+            </ram:PayeeSpecifiedCreditorFinancialInstitution>
+         </ram:SpecifiedTradeSettlementPaymentMeans>
+         <ram:ApplicableTradeTax>
+            <ram:CalculatedAmount>1.56</ram:CalculatedAmount>
+            <ram:TypeCode>VAT</ram:TypeCode>
+            <ram:BasisAmount>12.98</ram:BasisAmount>
+            <ram:CategoryCode>S</ram:CategoryCode>
+            <ram:RateApplicablePercent>12</ram:RateApplicablePercent>
+         </ram:ApplicableTradeTax>
+         <ram:ApplicableTradeTax>
+            <ram:CalculatedAmount>2.14</ram:CalculatedAmount>
+            <ram:TypeCode>VAT</ram:TypeCode>
+            <ram:BasisAmount>10.17</ram:BasisAmount>
+            <ram:CategoryCode>S</ram:CategoryCode>
+            <ram:RateApplicablePercent>21</ram:RateApplicablePercent>
+         </ram:ApplicableTradeTax>
+         <ram:SpecifiedTradeAllowanceCharge>
+            <ram:ChargeIndicator>
+               <udt:Indicator>true</udt:Indicator>
+            </ram:ChargeIndicator>
+            <ram:ActualAmount>4.10</ram:ActualAmount>
+            <ram:Reason>Versandkosten</ram:Reason>
+            <ram:CategoryTradeTax>
+               <ram:TypeCode>VAT</ram:TypeCode>
+               <ram:CategoryCode>S</ram:CategoryCode>
+               <ram:RateApplicablePercent>12</ram:RateApplicablePercent>
+            </ram:CategoryTradeTax>
+         </ram:SpecifiedTradeAllowanceCharge>
+         <ram:SpecifiedTradeAllowanceCharge>
+            <ram:ChargeIndicator>
+               <udt:Indicator>true</udt:Indicator>
+            </ram:ChargeIndicator>
+            <ram:ActualAmount>1.91</ram:ActualAmount>
+            <ram:Reason>Versandkosten</ram:Reason>
+            <ram:CategoryTradeTax>
+               <ram:TypeCode>VAT</ram:TypeCode>
+               <ram:CategoryCode>S</ram:CategoryCode>
+               <ram:RateApplicablePercent>21</ram:RateApplicablePercent>
+            </ram:CategoryTradeTax>
+         </ram:SpecifiedTradeAllowanceCharge>
+         <ram:SpecifiedTradePaymentTerms>
+            <ram:Description>Die Ware bleibt, bis zur vollständigen Bezahlung, unser Eigentum.
+Leistungsdatum entspricht Rechnungsdatum</ram:Description>
+         </ram:SpecifiedTradePaymentTerms>
+         <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+            <ram:LineTotalAmount>17.14</ram:LineTotalAmount>
+            <ram:ChargeTotalAmount>6.01</ram:ChargeTotalAmount>
+            <ram:AllowanceTotalAmount>0.00</ram:AllowanceTotalAmount>
+            <ram:TaxBasisTotalAmount>23.15</ram:TaxBasisTotalAmount>
+            <ram:TaxTotalAmount currencyID="EUR">3.70</ram:TaxTotalAmount>
+            <ram:GrandTotalAmount>26.85</ram:GrandTotalAmount>
+            <ram:DuePayableAmount>26.85</ram:DuePayableAmount>
+         </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+      </ram:ApplicableHeaderTradeSettlement>
+   </rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>

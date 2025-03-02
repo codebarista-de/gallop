@@ -1,0 +1,179 @@
+{
+  "documentTypeCode": "380",
+  "documentId": "1086",
+  "leitwegId": null,
+  "currency": "EUR",
+  "paymentInstructions": {
+    "meansType": "58",
+    "meansText": "Invoice",
+    "remittanceInfo": null,
+    "paymentTerms": "Die Ware bleibt, bis zur vollständigen Bezahlung, unser Eigentum.\nLeistungsdatum entspricht Rechnungsdatum",
+    "creditTransfers": [
+      {
+        "iban": "DE12 3456 7890 1234 5678 90",
+        "accountName": null,
+        "bic": "YYYYZZZ2XXX"
+      }
+    ],
+    "paymentCardInformation": null,
+    "directDebit": null
+  },
+  "issueDate": "2024-12-15T16:46:40.645+00:00",
+  "seller": {
+    "name": "Gesunde Naturprodukte GmbH",
+    "tradingName": "Gesunde Naturprodukte",
+    "vatId": "DE123456789",
+    "electronicAddress": "info@gesunde-naturprodukte.de",
+    "electronicAddressScheme": "EM",
+    "address": {
+      "addressLineOne": "Blumenstraße 15",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Musterstadt",
+      "zipCode": "12345",
+      "countryIsoCode": "DE"
+    },
+    "contact": {
+      "name": "Maximilian Müller",
+      "phone": "+49 (0) 30 12345678",
+      "email": "info@gesunde-naturprodukte.de"
+    }
+  },
+  "buyer": {
+    "name": "Bela Belgien",
+    "tradingName": null,
+    "vatId": null,
+    "electronicAddress": "bela@belgien.bl",
+    "electronicAddressScheme": null,
+    "address": {
+      "addressLineOne": "Belgerstraße",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Brüssel",
+      "zipCode": "1000",
+      "countryIsoCode": "BE"
+    },
+    "contact": null
+  },
+  "deliveryInfo": {
+    "name": "Bela Belgien",
+    "deliveryAddress": {
+      "addressLineOne": "Belgerstraße",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Brüssel",
+      "zipCode": "1000",
+      "countryIsoCode": "BE"
+    },
+    "actualDeliveryDate": null
+  },
+  "items": [
+    {
+      "id": 1,
+      "quantity": 5,
+      "unitCode": "XPP",
+      "itemTotalNetAmount": 8.88,
+      "name": "Hauptprodukt mit Bewertungen",
+      "description": null,
+      "unitPrice": 1.7760,
+      "vat": {
+        "rate": 12,
+        "category": "S",
+        "taxableAmount": null,
+        "taxAmount": null,
+        "vatExemptionReasonText": null,
+        "vatExemptionReasonCode": null
+      },
+      "sellerAssignedId": "100013",
+      "itemAttributes": [],
+      "netAmount": 8.88
+    },
+    {
+      "id": 2,
+      "quantity": 1,
+      "unitCode": "XPP",
+      "itemTotalNetAmount": 4.13,
+      "name": "Hauptprodukt, versandkostenfrei mit Hervorhebung",
+      "description": null,
+      "unitPrice": 4.1300,
+      "vat": {
+        "rate": 21,
+        "category": "S",
+        "taxableAmount": null,
+        "taxAmount": null,
+        "vatExemptionReasonText": null,
+        "vatExemptionReasonCode": null
+      },
+      "sellerAssignedId": "10006",
+      "itemAttributes": [],
+      "netAmount": 4.13
+    },
+    {
+      "id": 3,
+      "quantity": 1,
+      "unitCode": "XPP",
+      "itemTotalNetAmount": 4.13,
+      "name": "Einrichtungspreis",
+      "description": null,
+      "unitPrice": 4.1300,
+      "vat": {
+        "rate": 21,
+        "category": "S",
+        "taxableAmount": null,
+        "taxAmount": null,
+        "vatExemptionReasonText": null,
+        "vatExemptionReasonCode": null
+      },
+      "sellerAssignedId": "",
+      "itemAttributes": [],
+      "netAmount": 4.13
+    }
+  ],
+  "vatTotals": [
+    {
+      "rate": 12,
+      "category": "S",
+      "taxableAmount": 12.98,
+      "taxAmount": 1.56,
+      "vatExemptionReasonText": null,
+      "vatExemptionReasonCode": null
+    },
+    {
+      "rate": 21,
+      "category": "S",
+      "taxableAmount": 10.17,
+      "taxAmount": 2.14,
+      "vatExemptionReasonText": null,
+      "vatExemptionReasonCode": null
+    }
+  ],
+  "precedingInvoiceReferences": [],
+  "lineTotalAmount": 17.14,
+  "allowanceTotalAmount": 0.00,
+  "chargeTotalAmount": 6.01,
+  "taxBasisTotalAmount": 23.15,
+  "taxTotalAmount": 3.70,
+  "grandTotalAmount": 26.85,
+  "duePayableAmount": 26.85,
+  "salesOrderReference": "10130",
+  "invoiceNotes": [
+    {
+      "note": "Dies ist eine Rechnung an einen Konsumenten (B2C) im Ausland (Belgien). Hier gelten andere Steuersätze."
+    }
+  ],
+  "allowances": [],
+  "charges": [
+    {
+      "netAmount": 4.10,
+      "vatCategory": "S",
+      "vatRate": 12,
+      "reason": "Versandkosten"
+    },
+    {
+      "netAmount": 1.91,
+      "vatCategory": "S",
+      "vatRate": 21,
+      "reason": "Versandkosten"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+name: Publish to GitHub Packages
+
+on:
+  workflow_dispatch: # manual trigger
+
+permissions:
+  contents: write # Grants permission to push tags
+  packages: write # Required for publishing to GitHub Packages
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Checks out your repository code
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17' # Adjust based on your project requirements
+          distribution: 'temurin'
+
+      - name: Set up Gradle caching
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Grant execution permissions for gradlew
+        run: chmod +x gradlew
+
+      - name: Extract version from build.gradle
+        id: get_version
+        run: |
+          VERSION=$(./gradlew -q printVersion)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Run Tests
+        run: ./gradlew test # Runs the test task
+
+      - name: Publish to GitHub Packages
+        if: success() # Only runs if the tests pass
+        env:
+          GITHUB_ACTOR: github-actions # Use the GitHub username for authentication
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Use a PAT for public repos or default token for private repos
+        run: ./gradlew publish
+
+      - name: Tag the commit with version
+        if: success() # Only tags if the tests and publish succeed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag $VERSION
+          git push origin $VERSION
