@@ -32,10 +32,24 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Run JReleaser Config
-        run: |
-          chmod +x gradlew
-          ./gradlew jreleaserConfig
+      - name: Grant execution permissions for gradlew
+        run: chmod +x gradlew
+
+      - name: Run Tests
+        run: ./gradlew test
+
+      - name: Check JReleaser Config
+        run: ./gradlew jreleaserConfig
+
+      #      - name: Ensure a clean deployment
+      #        run: ./gradlew clean
+
+      - name: Prepare artifacts for deployment
+        run: ./gradlew publish
+
+      - name: Deploy and release
+        run: ./gradlew jreleaserFullRelease
+
 
 #      - name: Set up Gradle caching
 #        uses: actions/cache@v3
