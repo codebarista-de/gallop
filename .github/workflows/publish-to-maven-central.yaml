@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # WICHTIG für JReleaser!
 
       #      - name: Check out specified version
       #        run: |
@@ -41,8 +43,8 @@ jobs:
       - name: Check JReleaser Config
         run: ./gradlew jreleaserConfig
 
-      #      - name: Ensure a clean deployment
-      #        run: ./gradlew clean
+      - name: Ensure a clean deployment
+        run: ./gradlew clean
 
       - name: Prepare artifacts for deployment
         run: ./gradlew publish
