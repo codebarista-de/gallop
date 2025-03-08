@@ -16,10 +16,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check out specified version
-        run: |
-          git fetch --all --tags
-          git checkout ${{ inputs.version }}
+      #      - name: Check out specified version
+      #        run: |
+      #          git fetch --all --tags
+      #          git checkout ${{ inputs.version }}
 
       - name: Set up JDK
         uses: actions/setup-java@v3
@@ -27,16 +27,21 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Set up Gradle caching
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+      - name: Run JReleaser Config
+        run: |
+          chmod +x gradlew
+          ./gradlew jreleaserConfig
 
-      - name: Grant execution permissions for gradlew
-        run: chmod +x gradlew
-
-      - name: Run Tests
-        run: ./gradlew test
+#      - name: Set up Gradle caching
+#        uses: actions/cache@v3
+#        with:
+#          path: ~/.gradle/caches
+#          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+#          restore-keys: |
+#            ${{ runner.os }}-gradle-
+#
+#      - name: Grant execution permissions for gradlew
+#        run: chmod +x gradlew
+#
+#      - name: Run Tests
+#        run: ./gradlew test

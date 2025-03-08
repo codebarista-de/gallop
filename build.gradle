@@ -2,6 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'jacoco'
+    id 'org.jreleaser' version '1.17.0'
 }
 
 java {
@@ -11,7 +12,7 @@ java {
 
 
 group = 'de.codebarista'
-version = '1.0.0'
+version = '1.0.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -41,18 +42,71 @@ jacocoTestReport {
 
 publishing {
     repositories {
+//        maven { // TODO: Github Packages
+//            name = "GitHubPackages"
+//            url = uri("https://maven.pkg.github.com/codebarista-de/gallop")
+//            credentials {
+//                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+//                password = project.findProperty("gpr.token") ?: System.getenv("GITHUB_TOKEN")
+//            }
+//        }
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/codebarista-de/gallop")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.token") ?: System.getenv("GITHUB_TOKEN")
-            }
+            name = "MavenCentral"
+            url = layout.buildDirectory.dir('staging-deploy')
         }
     }
     publications {
-        mavenJava(MavenPublication) {
+//        mavenJava(MavenPublication) { // TODO: Github Packages
+//            from components.java
+//        }
+        maven(MavenPublication) {
+            groupId = 'de.codebarista'
+            artifactId = 'gallop'
+
             from components.java
+
+            pom {
+                name = 'Gallop'
+                description = 'Java library for creating electronic invoices compliant to the XRechnung standard'
+                url = 'https://github.com/codebarista-de/gallop'
+                inceptionYear = '2024'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'codebarista'
+                        name = 'Codebarista'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/codebarista-de/gallop.git'
+                    developerConnection = 'scm:git:ssh://github.com/codebarista-de/gallop.git'
+                    url = 'https://github.com/codebarista-de/gallop'
+                }
+            }
+        }
+    }
+}
+
+jreleaser {
+    signing {
+        active = 'ALWAYS'
+        armored = true
+    }
+    deploy {
+        maven {
+            // Portal Publisher API
+            mavenCentral {
+                sonatype {
+                    active = 'ALWAYS'
+                    url = 'https://central.sonatype.com/api/v1/publisher'
+                    stagingRepository('target/staging-deploy')
+                }
+            }
         }
     }
 }
