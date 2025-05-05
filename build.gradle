@@ -42,24 +42,17 @@ jacocoTestReport {
 
 publishing {
     repositories {
-//        maven { // TODO: Github Packages
-//            name = "GitHubPackages"
-//            url = uri("https://maven.pkg.github.com/codebarista-de/gallop")
-//            credentials {
-//                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
-//                password = project.findProperty("gpr.token") ?: System.getenv("GITHUB_TOKEN")
-//            }
-//        }
         maven {
-            name = "MavenCentral"
-            url = layout.buildDirectory.dir('staging-deploy')
+            name = "Central"
+            url = uri("https://central.sonatype.com/api/v1/publisher/maven")
+            credentials {
+                username = System.getenv("MAVENCENTRAL_USERNAME")
+                password = System.getenv("MAVENCENTRAL_PASSWORD")
+            }
         }
     }
     publications {
-//        mavenJava(MavenPublication) { // TODO: Github Packages
-//            from components.java
-//        }
-        maven(MavenPublication) {
+        mavenJava(MavenPublication) {
             groupId = 'de.codebarista'
             artifactId = 'gallop'
 
@@ -86,28 +79,6 @@ publishing {
                     connection = 'scm:git:https://github.com/codebarista-de/gallop.git'
                     developerConnection = 'scm:git:ssh://github.com/codebarista-de/gallop.git'
                     url = 'https://github.com/codebarista-de/gallop'
-                }
-            }
-        }
-    }
-}
-
-jreleaser {
-    signing {
-        active = 'ALWAYS'
-        armored = true
-        passphrase = System.getenv("JRELEASER_GPG_PASSPHRASE")
-        publicKey = System.getenv("JRELEASER_GPG_PUBLIC_KEY")
-        secretKey = System.getenv("JRELEASER_GPG_SECRET_KEY")
-    }
-    deploy {
-        maven {
-            // Portal Publisher API
-            mavenCentral {
-                sonatype {
-                    active = 'ALWAYS'
-                    url = 'https://central.sonatype.com/api/v1/publisher'
-                    stagingRepository('target/staging-deploy')
                 }
             }
         }
