@@ -2,9 +2,8 @@ import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
     id 'java-library'
-//    id 'maven-publish'
     id 'jacoco'
-    id "com.vanniktech.maven.publish" version "0.31.0"
+    id 'com.vanniktech.maven.publish' version '0.31.0'
 }
 
 java {
@@ -43,32 +42,32 @@ jacocoTestReport {
 }
 
 mavenPublishing {
-    publishToMavenCentral(SonatypeHost.DEFAULT)
-    signAllPublications()
-    coordinates("de.codebarista.gallop", "gallop", "0.0.1-SNAPSHOT")
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL) // use CENTRAL_PORTAL for central.sonatype.com
+
+    signAllPublications = true
+
+    coordinates("de.codebarista", "gallop", version)
 
     pom {
-        name = 'Gallop'
-        description = 'Java library for creating electronic invoices compliant to the XRechnung standard'
-        url = 'https://github.com/codebarista-de/gallop'
-        inceptionYear = '2024'
+        name.set("Gallop")
+        description.set("Java library for creating electronic invoices compliant to the XRechnung standard")
+        url.set("https://github.com/codebarista-de/gallop")
         licenses {
             license {
-                name = 'MIT License'
-                url = 'https://opensource.org/licenses/MIT'
+                name.set("MIT License")
+                url.set("https://opensource.org/licenses/MIT")
             }
         }
         developers {
             developer {
-                id = 'codebarista-de'
-                name = 'Codebarista'
-                email = 'info@codebarista.de'
+                id.set("codebarista.de")
+                name.set("Codebarista")
             }
         }
         scm {
-            connection = 'scm:git:https://github.com/codebarista-de/gallop.git'
-            developerConnection = 'scm:git:ssh://github.com/codebarista-de/gallop.git'
-            url = 'https://github.com/codebarista-de/gallop'
+            url.set("https://github.com/codebarista-de/gallop")
+            connection.set("scm:git:https://github.com/codebarista-de/gallop.git")
+            developerConnection.set("scm:git:ssh://github.com/codebarista-de/gallop.git")
         }
     }
 }
