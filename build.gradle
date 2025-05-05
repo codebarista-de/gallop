@@ -2,7 +2,6 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'jacoco'
-    id 'org.jreleaser' version '1.17.0'
 }
 
 java {
