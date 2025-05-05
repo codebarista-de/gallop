@@ -2,6 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'jacoco'
+    id "com.vanniktech.maven.publish" version "0.31.0"
 }
 
 java {
@@ -39,45 +40,33 @@ jacocoTestReport {
     dependsOn test
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "Central"
-            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
-            credentials {
-                username = System.getenv("MAVENCENTRAL_USERNAME")
-                password = System.getenv("MAVENCENTRAL_PASSWORD")
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.DEFAULT)
+    signAllPublications()
+    coordinates("de.codebarista.gallop", "gallop", "0.0.1-SNAPSHOT")
+
+    pom {
+        name = 'Gallop'
+        description = 'Java library for creating electronic invoices compliant to the XRechnung standard'
+        url = 'https://github.com/codebarista-de/gallop'
+        inceptionYear = '2024'
+        licenses {
+            license {
+                name = 'MIT License'
+                url = 'https://opensource.org/licenses/MIT'
             }
         }
-    }
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-
-            pom {
-                name = 'Gallop'
-                description = 'Java library for creating electronic invoices compliant to the XRechnung standard'
-                url = 'https://github.com/codebarista-de/gallop'
-                inceptionYear = '2024'
-                licenses {
-                    license {
-                        name = 'MIT License'
-                        url = 'https://opensource.org/licenses/MIT'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'codebarista-de'
-                        name = 'Codebarista'
-                        email = 'info@codebarista.de'
-                    }
-                }
-                scm {
-                    connection = 'scm:git:https://github.com/codebarista-de/gallop.git'
-                    developerConnection = 'scm:git:ssh://github.com/codebarista-de/gallop.git'
-                    url = 'https://github.com/codebarista-de/gallop'
-                }
+        developers {
+            developer {
+                id = 'codebarista-de'
+                name = 'Codebarista'
+                email = 'info@codebarista.de'
             }
+        }
+        scm {
+            connection = 'scm:git:https://github.com/codebarista-de/gallop.git'
+            developerConnection = 'scm:git:ssh://github.com/codebarista-de/gallop.git'
+            url = 'https://github.com/codebarista-de/gallop'
         }
     }
 }
