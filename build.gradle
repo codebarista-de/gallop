@@ -44,7 +44,7 @@ publishing {
     repositories {
         maven {
             name = "Central"
-            url = uri("https://central.sonatype.com/api/v1/publisher/maven")
+            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
             credentials {
                 username = System.getenv("MAVENCENTRAL_USERNAME")
                 password = System.getenv("MAVENCENTRAL_PASSWORD")
@@ -53,9 +53,6 @@ publishing {
     }
     publications {
         mavenJava(MavenPublication) {
-            groupId = 'de.codebarista'
-            artifactId = 'gallop'
-
             from components.java
 
             pom {
@@ -71,8 +68,9 @@ publishing {
                 }
                 developers {
                     developer {
-                        id = 'codebarista'
+                        id = 'codebarista-de'
                         name = 'Codebarista'
+                        email = 'info@codebarista.de'
                     }
                 }
                 scm {
