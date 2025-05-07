@@ -1,17 +1,13 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     id 'java-library'
-    id 'maven-publish'
     id 'jacoco'
+    id "com.vanniktech.maven.publish" version "0.31.0"
 }
-
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
 
 group = 'de.codebarista'
-version = '1.0.0'
+version = '1.0.1'
 
 repositories {
     mavenCentral()
@@ -27,7 +23,6 @@ dependencies {
     testImplementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
     testImplementation 'org.xmlunit:xmlunit-core:2.10.0'
     testImplementation 'org.xmlunit:xmlunit-assertj:2.10.0'
-
 }
 
 test {
@@ -39,22 +34,35 @@ jacocoTestReport {
     dependsOn test
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/codebarista-de/gallop")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.token") ?: System.getenv("GITHUB_TOKEN")
+mavenPublishing {
+    pom {
+        name.set("Gallop")
+        description.set("Java library for creating electronic invoices compliant to the XRechnung standard")
+        url.set("https://github.com/codebarista-de/gallop")
+
+        licenses {
+            license {
+                name.set("MIT License")
+                url.set("https://opensource.org/licenses/MIT")
             }
         }
-    }
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
+
+        developers {
+            developer {
+                id.set("codebarista.de")
+                name.set("Codebarista")
+            }
+        }
+
+        scm {
+            connection.set("scm:git:https://github.com/codebarista-de/gallop.git")
+            developerConnection.set("scm:git:ssh://github.com/codebarista-de/gallop.git")
+            url.set("https://github.com/codebarista-de/gallop")
         }
     }
+
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
 }
 
 tasks.register('printVersion') {
