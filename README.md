@@ -34,37 +34,30 @@ which verify that the generated XML is a valid X-Rechnung.
 
 ## Usage
 
-Binaries are currently published to GitHub Packages.
+Add Gallop to your project via [Maven Central](https://central.sonatype.com/artifact/de.codebarista/gallop):
 
-### Use binaries from GitHub Packages
-
-With Gradle, add the gallop GitHub Packages repository and the gallop dependency:
+**Gradle (Groovy DSL):**
 
 ```groovy
-repositories {
-    maven {
-        url = uri("https://maven.pkg.github.com/codebarista-de/gallop")
-        credentials {
-            username = "GITHUB_USERNAME"
-            password = "GITHUB_TOKEN"
-        }
-    }
-}
-
 dependencies {
-    implementation 'de.codebarista:gallop:1.0.0'
+    implementation 'de.codebarista:gallop:1.0.1'
 }
 ```
 
-Check out these instructions on authenticating to GitHub Packages.
+**Maven:**
 
-Follow these instructions for
-[authenticating to GitHub Packages](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry#authenticating-to-github-packages).
+```xml
+
+<dependency>
+    <groupId>de.codebarista</groupId>
+    <artifactId>gallop</artifactId>
+    <version>1.0.1</version>
+</dependency>
+```
 
 ### Code example
 
 ```java
-
 import de.codebarista.gallop.xrechnung.model.Invoice;
 import de.codebarista.gallop.xrechnung.model.Item;
 import de.codebarista.gallop.xrechnung.model.InvoiceNote;
