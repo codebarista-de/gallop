@@ -12,8 +12,8 @@ group = 'de.codebarista'
 version = '0.0.1'
 
 java {
-    withJavadocJar()
-    withSourcesJar()
+//    withJavadocJar()
+//    withSourcesJar()
 }
 
 repositories {
@@ -48,10 +48,6 @@ mavenPublishing {
 //            version = version as String
 //    )
 
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-
-    signAllPublications()
-
     pom {
         name.set("Gallop")
         description.set("Java library for creating electronic invoices compliant to the XRechnung standard")
@@ -78,6 +74,8 @@ mavenPublishing {
         }
     }
 
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
 }
 
 
