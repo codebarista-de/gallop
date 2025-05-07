@@ -1,8 +1,11 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     id 'java-library'
     id 'jacoco'
-    id 'maven-publish'
-    id 'signing'
+//    id 'maven-publish'
+//    id 'signing'
+    id "com.vanniktech.maven.publish" version "0.31.0"
 }
 
 group = 'de.codebarista'
@@ -38,59 +41,66 @@ jacocoTestReport {
     dependsOn test
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
+mavenPublishing {
+//    coordinates(
+//            groupId = group as String,
+//            artifactId = name,
+//            version = version as String
+//    )
 
-            pom {
-                name.set("Gallop")
-                description.set("Java library for creating electronic invoices compliant to the XRechnung standard")
-                url.set("https://github.com/codebarista-de/gallop")
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
 
-                licenses {
-                    license {
-                        name.set("MIT License")
-                        url.set("https://opensource.org/licenses/MIT")
-                    }
-                }
+    signAllPublications()
 
-                developers {
-                    developer {
-                        id.set("codebarista.de")
-                        name.set("Codebarista")
-                    }
-                }
+    pom {
+        name.set("Gallop")
+        description.set("Java library for creating electronic invoices compliant to the XRechnung standard")
+        url.set("https://github.com/codebarista-de/gallop")
 
-                scm {
-                    connection.set("scm:git:https://github.com/codebarista-de/gallop.git")
-                    developerConnection.set("scm:git:ssh://github.com/codebarista-de/gallop.git")
-                    url.set("https://github.com/codebarista-de/gallop")
-                }
+        licenses {
+            license {
+                name.set("MIT License")
+                url.set("https://opensource.org/licenses/MIT")
             }
+        }
+
+        developers {
+            developer {
+                id.set("codebarista.de")
+                name.set("Codebarista")
+            }
+        }
+
+        scm {
+            connection.set("scm:git:https://github.com/codebarista-de/gallop.git")
+            developerConnection.set("scm:git:ssh://github.com/codebarista-de/gallop.git")
+            url.set("https://github.com/codebarista-de/gallop")
         }
     }
 
-    repositories {
-        maven {
-            name = "MavenCentral"
-            url = uri("https://central.sonatype.com/api/v1/publisher/maven")
-            credentials {
-                username = findProperty("mavenCentralUsername") ?: System.getenv("MAVENCENTRAL_USERNAME")
-                password = findProperty("mavenCentralPassword") ?: System.getenv("MAVENCENTRAL_PASSWORD")
-            }
-        }
-    }
 }
 
-signing {
-    useInMemoryPgpKeys(
-            findProperty("signingKeyId"),
-            findProperty("signingKey"),
-            findProperty("signingPassword")
-    )
-    sign publishing.publications.mavenJava
-}
+
+//repositories {
+//    maven {
+//        name = "MavenCentral"
+//        url = uri("https://central.sonatype.com/api/v1/publisher/maven")
+//        credentials {
+//            username = findProperty("mavenCentralUsername") ?: System.getenv("MAVENCENTRAL_USERNAME")
+//            password = findProperty("mavenCentralPassword") ?: System.getenv("MAVENCENTRAL_PASSWORD")
+//        }
+//    }
+//}
+
+
+//signing {
+//    useInMemoryPgpKeys(
+//            findProperty("signingKeyId"),
+//            findProperty("signingKey"),
+//            findProperty("signingPassword")
+//    )
+//    sign publishing.publications.mavenJava
+//}
 
 tasks.register('printVersion') {
     doLast {
