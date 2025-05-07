@@ -3,8 +3,6 @@ import com.vanniktech.maven.publish.SonatypeHost
 plugins {
     id 'java-library'
     id 'jacoco'
-//    id 'maven-publish'
-//    id 'signing'
     id "com.vanniktech.maven.publish" version "0.31.0"
 }
 
@@ -12,8 +10,8 @@ group = 'de.codebarista'
 version = '0.0.1'
 
 java {
-//    withJavadocJar()
-//    withSourcesJar()
+    withJavadocJar()
+    withSourcesJar()
 }
 
 repositories {
@@ -42,12 +40,6 @@ jacocoTestReport {
 }
 
 mavenPublishing {
-//    coordinates(
-//            groupId = group as String,
-//            artifactId = name,
-//            version = version as String
-//    )
-
     pom {
         name.set("Gallop")
         description.set("Java library for creating electronic invoices compliant to the XRechnung standard")
@@ -77,28 +69,6 @@ mavenPublishing {
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
     signAllPublications()
 }
-
-
-//repositories {
-//    maven {
-//        name = "MavenCentral"
-//        url = uri("https://central.sonatype.com/api/v1/publisher/maven")
-//        credentials {
-//            username = findProperty("mavenCentralUsername") ?: System.getenv("MAVENCENTRAL_USERNAME")
-//            password = findProperty("mavenCentralPassword") ?: System.getenv("MAVENCENTRAL_PASSWORD")
-//        }
-//    }
-//}
-
-
-//signing {
-//    useInMemoryPgpKeys(
-//            findProperty("signingKeyId"),
-//            findProperty("signingKey"),
-//            findProperty("signingPassword")
-//    )
-//    sign publishing.publications.mavenJava
-//}
 
 tasks.register('printVersion') {
     doLast {
