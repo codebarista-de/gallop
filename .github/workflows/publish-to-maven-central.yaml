@@ -32,4 +32,4 @@ jobs:
         run: ./gradlew test
 
       - name: Build and publish to Maven Central
-        run: ./gradlew clean publishAndReleaseToMavenCentral
+        run: ./gradlew clean publishToMavenCentral # publishAndReleaseToMavenCentral

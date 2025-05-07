@@ -9,11 +9,6 @@ plugins {
 group = 'de.codebarista'
 version = '0.0.1'
 
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
 repositories {
     mavenCentral()
 }
