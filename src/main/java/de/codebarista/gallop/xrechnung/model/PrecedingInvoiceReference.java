@@ -1,10 +1,5 @@
 package de.codebarista.gallop.xrechnung.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import java.time.OffsetDateTime;
 
 /**
@@ -12,10 +7,6 @@ import java.time.OffsetDateTime;
  * This information element should be used when a prior invoice is being corrected,
  * a final invoice refers to previous partial invoices, or a final invoice refers to prior advance payment invoices.
  */
-@Builder
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public class PrecedingInvoiceReference {
     /**
      * The identifier of the preceding invoice being referenced (BT-25).<br>
@@ -28,4 +19,46 @@ public class PrecedingInvoiceReference {
      * If the preceding invoice identifier (BT-25) is not unique, provide this date.
      */
     private OffsetDateTime precedingInvoiceIssueDate;
+
+    private PrecedingInvoiceReference() {
+    }
+
+    /**
+     * Creates a new, empty instance of this class.
+     *
+     * @return a new, empty instance
+     */
+    public static PrecedingInvoiceReference create() {
+        return new PrecedingInvoiceReference();
+    }
+
+    /**
+     * Sets the {@link #precedingInvoiceReference}.
+     */
+    public PrecedingInvoiceReference precedingInvoiceReference(String precedingInvoiceReference) {
+        this.precedingInvoiceReference = precedingInvoiceReference;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #precedingInvoiceIssueDate}.
+     */
+    public PrecedingInvoiceReference precedingInvoiceIssueDate(OffsetDateTime precedingInvoiceIssueDate) {
+        this.precedingInvoiceIssueDate = precedingInvoiceIssueDate;
+        return this;
+    }
+
+    /**
+     * Gets the {@link #precedingInvoiceReference}.
+     */
+    public String getPrecedingInvoiceReference() {
+        return precedingInvoiceReference;
+    }
+
+    /**
+     * Gets the {@link #precedingInvoiceIssueDate}.
+     */
+    public OffsetDateTime getPrecedingInvoiceIssueDate() {
+        return precedingInvoiceIssueDate;
+    }
 }

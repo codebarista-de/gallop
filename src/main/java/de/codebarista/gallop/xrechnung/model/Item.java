@@ -1,23 +1,15 @@
 package de.codebarista.gallop.xrechnung.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Singular;
-import lombok.With;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Invoice Line (BG-25)
  */
-@Builder
-@With
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Item implements NetAmount {
 
     /**
@@ -80,4 +72,179 @@ public class Item implements NetAmount {
      */
     @Singular
     private List<ItemAttribute> itemAttributes;
+
+    public Item() {
+    }
+
+    /**
+     * Creates a new, empty instance of this class.
+     *
+     * @return a new, empty instance
+     */
+    public static Item create() {
+        return new Item();
+    }
+
+    /**
+     * Sets the {@link #id}
+     */
+    public Item id(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #quantity}
+     */
+    public Item quantity(Long quantity) {
+        this.quantity = quantity;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #unitCode}
+     */
+    public Item unitCode(String unitCode) {
+        this.unitCode = unitCode;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #itemTotalNetAmount}
+     */
+    public Item itemTotalNetAmount(BigDecimal itemTotalNetAmount) {
+        this.itemTotalNetAmount = itemTotalNetAmount;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #name}
+     */
+    public Item name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #description}
+     */
+    public Item description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #unitPrice}
+     */
+    public Item unitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #vat}
+     */
+    public Item vat(Vat vat) {
+        this.vat = vat;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #sellerAssignedId}
+     */
+    public Item sellerAssignedId(String sellerAssignedId) {
+        this.sellerAssignedId = sellerAssignedId;
+        return this;
+    }
+
+    /**
+     * Adds the given object to the list of {@link #itemAttributes}
+     */
+    public Item itemAttribute(ItemAttribute itemAttribute) {
+        if (itemAttributes == null) {
+            itemAttributes = new ArrayList<>();
+        }
+        this.itemAttributes.add(itemAttribute);
+        return this;
+    }
+
+    /**
+     * Clears the list of Item Attributes (BG-32). See {@link #itemAttributes}
+     */
+    public void clearItemAttributes() {
+        if (itemAttributes == null) {
+            return;
+        }
+        itemAttributes.clear();
+    }
+
+    /**
+     * Gets the {@link #id}.
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * Gets the {@link #quantity}.
+     */
+    public Long getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * Gets the {@link #unitCode}.
+     */
+    public String getUnitCode() {
+        return unitCode;
+    }
+
+    /**
+     * Gets the {@link #itemTotalNetAmount}.
+     */
+    public BigDecimal getItemTotalNetAmount() {
+        return itemTotalNetAmount;
+    }
+
+    /**
+     * Gets the {@link #name}.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Gets the {@link #description}.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Gets the {@link #unitPrice}.
+     */
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    /**
+     * Gets the {@link #vat}.
+     */
+    public Vat getVat() {
+        return vat;
+    }
+
+    /**
+     * Gets the {@link #sellerAssignedId}.
+     */
+    public String getSellerAssignedId() {
+        return sellerAssignedId;
+    }
+
+    /**
+     * Gets the {@link #itemAttributes}.
+     */
+    public List<ItemAttribute> getItemAttributes() {
+        return itemAttributes == null ? Collections.emptyList() : Collections.unmodifiableList(itemAttributes);
+    }
 }

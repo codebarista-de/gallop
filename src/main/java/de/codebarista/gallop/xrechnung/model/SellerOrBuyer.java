@@ -1,17 +1,8 @@
 package de.codebarista.gallop.xrechnung.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 /**
  * Seller/Buyer (BG-4/BG-7)
  */
-@Builder
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public class SellerOrBuyer {
     /**
      * Seller/Buyer name (BT-27/BT-44)
@@ -58,4 +49,121 @@ public class SellerOrBuyer {
      * Buyer contact (BG-9) is optional.
      */
     private Contact contact;
+
+    private SellerOrBuyer() {
+    }
+
+    /**
+     * Creates a new, empty instance of this class.
+     *
+     * @return a new, empty instance
+     */
+    public static SellerOrBuyer create() {
+        return new SellerOrBuyer();
+    }
+
+    /**
+     * Sets the {@link #name}.
+     */
+    public SellerOrBuyer name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #tradingName}.
+     */
+    public SellerOrBuyer tradingName(String tradingName) {
+        this.tradingName = tradingName;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #vatId}.
+     */
+    public SellerOrBuyer vatId(String vatId) {
+        this.vatId = vatId;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #electronicAddress}.
+     */
+    public SellerOrBuyer electronicAddress(String electronicAddress) {
+        this.electronicAddress = electronicAddress;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #electronicAddressScheme}.
+     */
+    public SellerOrBuyer electronicAddressScheme(String electronicAddressScheme) {
+        this.electronicAddressScheme = electronicAddressScheme;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #address}.
+     */
+    public SellerOrBuyer address(PostalAddress address) {
+        this.address = address;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #contact}.
+     */
+    public SellerOrBuyer contact(Contact contact) {
+        this.contact = contact;
+        return this;
+    }
+
+    /**
+     * Gets the {@link #name}.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Gets the {@link #tradingName}.
+     */
+    public String getTradingName() {
+        return tradingName;
+    }
+
+    /**
+     * Gets the {@link #vatId}.
+     */
+    public String getVatId() {
+        return vatId;
+    }
+
+    /**
+     * Gets the {@link #electronicAddress}.
+     */
+    public String getElectronicAddress() {
+        return electronicAddress;
+    }
+
+    /**
+     * Gets the {@link #electronicAddressScheme}.
+     */
+    public String getElectronicAddressScheme() {
+        return electronicAddressScheme;
+    }
+
+    /**
+     * Gets the {@link #address}.
+     */
+    public PostalAddress getAddress() {
+        return address;
+    }
+
+    /**
+     * Gets the {@link #contact}.
+     */
+    public Contact getContact() {
+        return contact;
+    }
 }
