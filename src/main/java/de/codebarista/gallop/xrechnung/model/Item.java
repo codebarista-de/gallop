@@ -1,6 +1,5 @@
 package de.codebarista.gallop.xrechnung.model;
 
-import lombok.Singular;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -70,7 +69,6 @@ public class Item implements NetAmount {
     /**
      * Item attributes (BG-32)
      */
-    @Singular
     private List<ItemAttribute> itemAttributes;
 
     public Item() {

@@ -30,7 +30,7 @@ public class Charge implements NetAmount {
     private Charge() {
     }
 
-    public Charge(BigDecimal netAmount, TaxCategory vatCategory, BigDecimal vatRate, String reason) {
+    private Charge(BigDecimal netAmount, TaxCategory vatCategory, BigDecimal vatRate, String reason) {
         this.netAmount = netAmount;
         this.vatCategory = vatCategory;
         this.vatRate = vatRate;
@@ -83,7 +83,7 @@ public class Charge implements NetAmount {
 
     @Override
     public BigDecimal getNetAmount() {
-        return null;
+        return netAmount;
     }
 
     public TaxCategory getVatCategory() {
