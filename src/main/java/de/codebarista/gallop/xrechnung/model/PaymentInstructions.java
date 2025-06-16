@@ -35,7 +35,7 @@ public class PaymentInstructions {
     /**
      * Credit Transfer (BG-17)
      */
-    private List<CreditTransfer> creditTransfers;
+    final private List<CreditTransfer> creditTransfers = new ArrayList<>();
 
     /**
      * Payment Card Information (BG-18)
@@ -95,9 +95,6 @@ public class PaymentInstructions {
      * Adds the given object to the list of {@link #creditTransfers}
      */
     public PaymentInstructions creditTransfer(CreditTransfer creditTransfer) {
-        if (creditTransfers == null) {
-            creditTransfers = new ArrayList<>();
-        }
         this.creditTransfers.add(creditTransfer);
         return this;
     }
@@ -106,9 +103,6 @@ public class PaymentInstructions {
      * Clears the {@link #creditTransfers} list
      */
     public void clearCreditTransfer() {
-        if (creditTransfers == null) {
-            return;
-        }
         creditTransfers.clear();
     }
 
@@ -160,7 +154,7 @@ public class PaymentInstructions {
      * Gets the {@link #creditTransfers}.
      */
     public List<CreditTransfer> getCreditTransfers() {
-        return creditTransfers == null ? Collections.emptyList() : Collections.unmodifiableList(creditTransfers);
+        return Collections.unmodifiableList(creditTransfers);
     }
 
     /**

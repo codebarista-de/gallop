@@ -61,18 +61,18 @@ public class Invoice {
      * Invoice Line (BG-25)<br>
      * Information about individual invoice items
      */
-    private List<Item> items;
+    private final List<Item> items = new ArrayList<>();
 
     /**
      * VAT Breakdown (BG-23)<br>
      * VAT breakdown by different categories, tax rates, and exemption reasons
      */
-    private List<Vat> vatTotals;
+    private final List<Vat> vatTotals = new ArrayList<>();
 
     /**
      * Information about one or more preceding invoice(s) (BG-3)
      */
-    private List<PrecedingInvoiceReference> precedingInvoiceReferences;
+    private final List<PrecedingInvoiceReference> precedingInvoiceReferences = new ArrayList<>();
 
     /**
      * Sum of Invoice line net amount (BT-106)
@@ -117,17 +117,17 @@ public class Invoice {
     /**
      * Invoice notes (BG-1)
      */
-    private List<InvoiceNote> invoiceNotes;
+    private final List<InvoiceNote> invoiceNotes = new ArrayList<>();
 
     /**
      * Document level allowances (BG-20)
      */
-    private List<Allowance> allowances;
+    private final List<Allowance> allowances = new ArrayList<>();
 
     /**
      * Document level charges (BG-21)
      */
-    private List<Charge> charges;
+    private final List<Charge> charges = new ArrayList<>();
 
     public Invoice() {
     }
@@ -217,9 +217,6 @@ public class Invoice {
      * Adds all elements from the given list to the list of {@link #items}
      */
     public Invoice items(List<Item> items) {
-        if (this.items == null) {
-            this.items = new ArrayList<>();
-        }
         this.items.addAll(items);
         return this;
     }
@@ -228,9 +225,6 @@ public class Invoice {
      * Adds the given object to the list of {@link #items}
      */
     public Invoice item(Item item) {
-        if (items == null) {
-            items = new ArrayList<>();
-        }
         this.items.add(item);
         return this;
     }
@@ -239,9 +233,6 @@ public class Invoice {
      * Clears the {@link #items} list
      */
     public void clearItems() {
-        if (items == null) {
-            return;
-        }
         items.clear();
     }
 
@@ -249,9 +240,6 @@ public class Invoice {
      * Adds the given object to the list of {@link #vatTotals}
      */
     public Invoice vatTotal(Vat vatTotal) {
-        if (vatTotals == null) {
-            vatTotals = new ArrayList<>();
-        }
         this.vatTotals.add(vatTotal);
         return this;
     }
@@ -260,9 +248,6 @@ public class Invoice {
      * Adds all elements from the given list to the list of {@link #items}
      */
     public Invoice vatTotals(List<Vat> vatTotals) {
-        if (this.vatTotals == null) {
-            this.vatTotals = new ArrayList<>();
-        }
         this.vatTotals.addAll(vatTotals);
         return this;
     }
@@ -271,9 +256,6 @@ public class Invoice {
      * Clears the {@link #vatTotals} list
      */
     public void clearVatTotals() {
-        if (vatTotals == null) {
-            return;
-        }
         vatTotals.clear();
     }
 
@@ -281,9 +263,6 @@ public class Invoice {
      * Adds the given object to the list of {@link #precedingInvoiceReferences}
      */
     public Invoice precedingInvoiceReference(PrecedingInvoiceReference precedingInvoiceReference) {
-        if (precedingInvoiceReferences == null) {
-            precedingInvoiceReferences = new ArrayList<>();
-        }
         this.precedingInvoiceReferences.add(precedingInvoiceReference);
         return this;
     }
@@ -292,9 +271,6 @@ public class Invoice {
      * Clears the {@link #precedingInvoiceReferences} list
      */
     public void clearPrecedingInvoiceReferences() {
-        if (precedingInvoiceReferences == null) {
-            return;
-        }
         precedingInvoiceReferences.clear();
     }
 
@@ -366,9 +342,6 @@ public class Invoice {
      * Adds the given object to the list of {@link #invoiceNotes}
      */
     public Invoice invoiceNote(InvoiceNote invoiceNote) {
-        if (invoiceNotes == null) {
-            invoiceNotes = new ArrayList<>();
-        }
         this.invoiceNotes.add(invoiceNote);
         return this;
     }
@@ -377,9 +350,6 @@ public class Invoice {
      * Clears the {@link #invoiceNotes} list
      */
     public void clearInvoiceNotes() {
-        if (invoiceNotes == null) {
-            return;
-        }
         invoiceNotes.clear();
     }
 
@@ -387,9 +357,6 @@ public class Invoice {
      * Adds the given object to the list of {@link #allowances}
      */
     public Invoice allowance(Allowance allowance) {
-        if (allowances == null) {
-            allowances = new ArrayList<>();
-        }
         this.allowances.add(allowance);
         return this;
     }
@@ -398,9 +365,6 @@ public class Invoice {
      * Clears the {@link #allowances} list
      */
     public void clearAllowances() {
-        if (allowances == null) {
-            return;
-        }
         allowances.clear();
     }
 
@@ -408,9 +372,6 @@ public class Invoice {
      * Adds the given object to the list of {@link #charges}
      */
     public Invoice charge(Charge charge) {
-        if (charges == null) {
-            charges = new ArrayList<>();
-        }
         this.charges.add(charge);
         return this;
     }
@@ -419,9 +380,6 @@ public class Invoice {
      * Clears the {@link #charges} list
      */
     public void clearCharges() {
-        if (charges == null) {
-            return;
-        }
         charges.clear();
     }
 
@@ -492,22 +450,21 @@ public class Invoice {
      * Gets the {@link #items}.
      */
     public List<Item> getItems() {
-        return items == null ? Collections.emptyList() : Collections.unmodifiableList(items);
+        return Collections.unmodifiableList(items);
     }
 
     /**
      * Gets the {@link #vatTotals}.
      */
     public List<Vat> getVatTotals() {
-        return vatTotals == null ? Collections.emptyList() : Collections.unmodifiableList(vatTotals);
+        return Collections.unmodifiableList(vatTotals);
     }
 
     /**
      * Gets the {@link #precedingInvoiceReferences}.
      */
     public List<PrecedingInvoiceReference> getPrecedingInvoiceReferences() {
-        return precedingInvoiceReferences == null ? Collections.emptyList()
-                : Collections.unmodifiableList(precedingInvoiceReferences);
+        return Collections.unmodifiableList(precedingInvoiceReferences);
     }
 
     /**
@@ -570,20 +527,20 @@ public class Invoice {
      * Gets the {@link #invoiceNotes}.
      */
     public List<InvoiceNote> getInvoiceNotes() {
-        return invoiceNotes == null ? Collections.emptyList() : Collections.unmodifiableList(invoiceNotes);
+        return Collections.unmodifiableList(invoiceNotes);
     }
 
     /**
      * Gets the {@link #allowances}.
      */
     public List<Allowance> getAllowances() {
-        return allowances == null ? Collections.emptyList() : Collections.unmodifiableList(allowances);
+        return Collections.unmodifiableList(allowances);
     }
 
     /**
      * Gets the {@link #charges}.
      */
     public List<Charge> getCharges() {
-        return charges == null ? Collections.emptyList() : Collections.unmodifiableList(charges);
+        return Collections.unmodifiableList(charges);
     }
 }

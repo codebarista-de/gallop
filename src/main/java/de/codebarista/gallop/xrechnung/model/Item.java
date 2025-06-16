@@ -69,7 +69,7 @@ public class Item implements NetAmount {
     /**
      * Item attributes (BG-32)
      */
-    private List<ItemAttribute> itemAttributes;
+    private final List<ItemAttribute> itemAttributes = new ArrayList<>();
 
     public Item() {
     }
@@ -159,9 +159,6 @@ public class Item implements NetAmount {
      * Adds the given object to the list of {@link #itemAttributes}
      */
     public Item itemAttribute(ItemAttribute itemAttribute) {
-        if (itemAttributes == null) {
-            itemAttributes = new ArrayList<>();
-        }
         this.itemAttributes.add(itemAttribute);
         return this;
     }
@@ -170,9 +167,6 @@ public class Item implements NetAmount {
      * Clears the list of Item Attributes (BG-32). See {@link #itemAttributes}
      */
     public void clearItemAttributes() {
-        if (itemAttributes == null) {
-            return;
-        }
         itemAttributes.clear();
     }
 
@@ -243,6 +237,6 @@ public class Item implements NetAmount {
      * Gets the {@link #itemAttributes}.
      */
     public List<ItemAttribute> getItemAttributes() {
-        return itemAttributes == null ? Collections.emptyList() : Collections.unmodifiableList(itemAttributes);
+        return Collections.unmodifiableList(itemAttributes);
     }
 }
