@@ -61,18 +61,18 @@ public class Invoice {
      * Invoice Line (BG-25)<br>
      * Information about individual invoice items
      */
-    private final List<Item> items = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
 
     /**
      * VAT Breakdown (BG-23)<br>
      * VAT breakdown by different categories, tax rates, and exemption reasons
      */
-    private final List<Vat> vatTotals = new ArrayList<>();
+    private List<Vat> vatTotals = new ArrayList<>();
 
     /**
      * Information about one or more preceding invoice(s) (BG-3)
      */
-    private final List<PrecedingInvoiceReference> precedingInvoiceReferences = new ArrayList<>();
+    private List<PrecedingInvoiceReference> precedingInvoiceReferences = new ArrayList<>();
 
     /**
      * Sum of Invoice line net amount (BT-106)
@@ -117,17 +117,17 @@ public class Invoice {
     /**
      * Invoice notes (BG-1)
      */
-    private final List<InvoiceNote> invoiceNotes = new ArrayList<>();
+    private List<InvoiceNote> invoiceNotes = new ArrayList<>();
 
     /**
      * Document level allowances (BG-20)
      */
-    private final List<Allowance> allowances = new ArrayList<>();
+    private List<Allowance> allowances = new ArrayList<>();
 
     /**
      * Document level charges (BG-21)
      */
-    private final List<Charge> charges = new ArrayList<>();
+    private List<Charge> charges = new ArrayList<>();
 
     public Invoice() {
     }
@@ -214,18 +214,18 @@ public class Invoice {
     }
 
     /**
-     * Adds all elements from the given list to the list of {@link #items}
+     * Adds the given object to the list of {@link #items}
      */
-    public Invoice items(List<Item> items) {
-        this.items.addAll(items);
+    public Invoice addItem(Item item) {
+        this.items.add(item);
         return this;
     }
 
     /**
-     * Adds the given object to the list of {@link #items}
+     * Replaces the current list of {@link #items} by the given one
      */
-    public Invoice item(Item item) {
-        this.items.add(item);
+    public Invoice items(List<Item> items) {
+        this.items = new ArrayList<>(items);
         return this;
     }
 
@@ -239,16 +239,16 @@ public class Invoice {
     /**
      * Adds the given object to the list of {@link #vatTotals}
      */
-    public Invoice vatTotal(Vat vatTotal) {
+    public Invoice addVatTotal(Vat vatTotal) {
         this.vatTotals.add(vatTotal);
         return this;
     }
 
     /**
-     * Adds all elements from the given list to the list of {@link #items}
+     * Replaces the current list of {@link #vatTotals} by the given one
      */
     public Invoice vatTotals(List<Vat> vatTotals) {
-        this.vatTotals.addAll(vatTotals);
+        this.vatTotals = new ArrayList<>(vatTotals);
         return this;
     }
 
@@ -262,8 +262,16 @@ public class Invoice {
     /**
      * Adds the given object to the list of {@link #precedingInvoiceReferences}
      */
-    public Invoice precedingInvoiceReference(PrecedingInvoiceReference precedingInvoiceReference) {
+    public Invoice addPrecedingInvoiceReference(PrecedingInvoiceReference precedingInvoiceReference) {
         this.precedingInvoiceReferences.add(precedingInvoiceReference);
+        return this;
+    }
+
+    /**
+     * Replaces the current list of {@link #precedingInvoiceReferences} by the given one
+     */
+    public Invoice precedingInvoiceReferences(List<PrecedingInvoiceReference> precedingInvoiceReferences) {
+        this.precedingInvoiceReferences = new ArrayList<>(precedingInvoiceReferences);
         return this;
     }
 
@@ -341,8 +349,16 @@ public class Invoice {
     /**
      * Adds the given object to the list of {@link #invoiceNotes}
      */
-    public Invoice invoiceNote(InvoiceNote invoiceNote) {
+    public Invoice addInvoiceNote(InvoiceNote invoiceNote) {
         this.invoiceNotes.add(invoiceNote);
+        return this;
+    }
+
+    /**
+     * Replaces the current list of {@link #invoiceNotes} by the given one
+     */
+    public Invoice invoiceNotes(List<InvoiceNote> invoiceNotes) {
+        this.invoiceNotes = new ArrayList<>(invoiceNotes);
         return this;
     }
 
@@ -356,8 +372,16 @@ public class Invoice {
     /**
      * Adds the given object to the list of {@link #allowances}
      */
-    public Invoice allowance(Allowance allowance) {
+    public Invoice addAllowance(Allowance allowance) {
         this.allowances.add(allowance);
+        return this;
+    }
+
+    /**
+     * Replaces the current list of {@link #allowances} by the given one
+     */
+    public Invoice allowances(List<Allowance> allowances) {
+        this.allowances = new ArrayList<>(allowances);
         return this;
     }
 
@@ -371,8 +395,16 @@ public class Invoice {
     /**
      * Adds the given object to the list of {@link #charges}
      */
-    public Invoice charge(Charge charge) {
+    public Invoice addCharge(Charge charge) {
         this.charges.add(charge);
+        return this;
+    }
+
+    /**
+     * Replaces the current list of {@link #charges} by the given one
+     */
+    public Invoice charges(List<Charge> charges) {
+        this.charges = new ArrayList<>(charges);
         return this;
     }
 

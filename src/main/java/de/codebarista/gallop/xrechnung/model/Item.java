@@ -69,9 +69,24 @@ public class Item implements NetAmount {
     /**
      * Item attributes (BG-32)
      */
-    private final List<ItemAttribute> itemAttributes = new ArrayList<>();
+    private List<ItemAttribute> itemAttributes = new ArrayList<>();
 
-    public Item() {
+    private Item() {
+    }
+
+    private Item(Long id, Long quantity, String unitCode, BigDecimal itemTotalNetAmount, String name,
+                 String description, BigDecimal unitPrice, Vat vat, String sellerAssignedId,
+                 List<ItemAttribute> itemAttributes) {
+        this.id = id;
+        this.quantity = quantity;
+        this.unitCode = unitCode;
+        this.itemTotalNetAmount = itemTotalNetAmount;
+        this.name = name;
+        this.description = description;
+        this.unitPrice = unitPrice;
+        this.vat = vat;
+        this.sellerAssignedId = sellerAssignedId;
+        this.itemAttributes = itemAttributes;
     }
 
     /**
@@ -158,8 +173,16 @@ public class Item implements NetAmount {
     /**
      * Adds the given object to the list of {@link #itemAttributes}
      */
-    public Item itemAttribute(ItemAttribute itemAttribute) {
+    public Item addItemAttribute(ItemAttribute itemAttribute) {
         this.itemAttributes.add(itemAttribute);
+        return this;
+    }
+
+    /**
+     * Replaces the current list of {@link #itemAttributes} by the given one
+     */
+    public Item itemAttributes(List<ItemAttribute> itemAttributes) {
+        this.itemAttributes = new ArrayList<>(itemAttributes);
         return this;
     }
 
@@ -238,5 +261,19 @@ public class Item implements NetAmount {
      */
     public List<ItemAttribute> getItemAttributes() {
         return Collections.unmodifiableList(itemAttributes);
+    }
+
+    /**
+     * Creates a new instance that is a copy of this object.
+     * <p>
+     * All field values from this instance are copied to the new one.
+     * The returned object is equal to this one if no further modifications are made.
+     *
+     * @return a new instance with the same field values as this instance
+     */
+    public Item copy() {
+        return new Item(this.id, this.quantity, this.unitCode, this.itemTotalNetAmount, this.name, this.description,
+                this.unitPrice, this.vat.copy(), this.sellerAssignedId,
+                this.itemAttributes.stream().map(ItemAttribute::copy).toList());
     }
 }

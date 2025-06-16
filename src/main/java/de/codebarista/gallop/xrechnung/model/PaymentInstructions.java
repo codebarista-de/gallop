@@ -35,7 +35,7 @@ public class PaymentInstructions {
     /**
      * Credit Transfer (BG-17)
      */
-    final private List<CreditTransfer> creditTransfers = new ArrayList<>();
+    private List<CreditTransfer> creditTransfers = new ArrayList<>();
 
     /**
      * Payment Card Information (BG-18)
@@ -94,8 +94,16 @@ public class PaymentInstructions {
     /**
      * Adds the given object to the list of {@link #creditTransfers}
      */
-    public PaymentInstructions creditTransfer(CreditTransfer creditTransfer) {
+    public PaymentInstructions addCreditTransfer(CreditTransfer creditTransfer) {
         this.creditTransfers.add(creditTransfer);
+        return this;
+    }
+
+    /**
+     * Replaces the current list of {@link #creditTransfers} by the given one
+     */
+    public PaymentInstructions creditTransfer(List<CreditTransfer> creditTransfers) {
+        this.creditTransfers = new ArrayList<>(creditTransfers);
         return this;
     }
 

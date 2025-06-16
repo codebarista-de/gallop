@@ -18,7 +18,23 @@ public class ItemAttribute {
      */
     private String value;
 
-    public ItemAttribute() {
+    private ItemAttribute() {
+    }
+
+    private ItemAttribute(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
+
+    /**
+     * Creates a new item attribute instance with the given {@link #name} and {@link #value}.
+     *
+     * @param name  item attribute name
+     * @param value item attribute value
+     * @return a new item attribute instance with the given name and value
+     */
+    public static ItemAttribute of(String name, String value) {
+        return new ItemAttribute(name, value);
     }
 
     /**
@@ -60,4 +76,15 @@ public class ItemAttribute {
         return value;
     }
 
+    /**
+     * Creates a new instance that is a copy of this object.
+     * <p>
+     * All field values from this instance are copied to the new one.
+     * The returned object is equal to this one if no further modifications are made.
+     *
+     * @return a new instance with the same field values as this instance
+     */
+    public ItemAttribute copy() {
+        return new ItemAttribute(this.name, this.value);
+    }
 }

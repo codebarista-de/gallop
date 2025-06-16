@@ -50,9 +50,6 @@ public class Charge implements NetAmount {
      * Sets the {@link #netAmount}.
      */
     public Charge netAmount(BigDecimal netAmount) {
-        if (netAmount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Net amount must be zero or positive");
-        }
         this.netAmount = netAmount;
         return this;
     }
