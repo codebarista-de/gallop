@@ -1,21 +1,10 @@
 package de.codebarista.gallop.xrechnung.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.With;
-
 import java.time.OffsetDateTime;
 
 /**
  * Delivery Information (BG-13)
  */
-@Builder
-@Getter
-@With
-@NoArgsConstructor
-@AllArgsConstructor
 public class DeliveryInformation {
 
     /**
@@ -32,4 +21,64 @@ public class DeliveryInformation {
      * Date on which the delivery actually takes place or the service is actually provided (BT-72)
      */
     private OffsetDateTime actualDeliveryDate;
+
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public DeliveryInformation() {
+    }
+
+    /**
+     * Creates a new, empty instance of this class.
+     *
+     * @return a new, empty instance
+     */
+    public static DeliveryInformation create() {
+        return new DeliveryInformation();
+    }
+
+    /**
+     * Sets the {@link #name}.
+     */
+    public DeliveryInformation name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #deliveryAddress}.
+     */
+    public DeliveryInformation deliveryAddress(PostalAddress deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #actualDeliveryDate}.
+     */
+    public DeliveryInformation actualDeliveryDate(OffsetDateTime actualDeliveryDate) {
+        this.actualDeliveryDate = actualDeliveryDate;
+        return this;
+    }
+
+    /**
+     * Gets the {@link #name}.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Gets the {@link #deliveryAddress}.
+     */
+    public PostalAddress getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    /**
+     * Gets the {@link #actualDeliveryDate}.
+     */
+    public OffsetDateTime getActualDeliveryDate() {
+        return actualDeliveryDate;
+    }
 }

@@ -40,7 +40,7 @@ Add Gallop to your project via [Maven Central](https://central.sonatype.com/arti
 
 ```groovy
 dependencies {
-    implementation 'de.codebarista:gallop:1.0.1'
+    implementation 'de.codebarista:gallop:2.0.0'
 }
 ```
 
@@ -51,85 +51,70 @@ dependencies {
 <dependency>
     <groupId>de.codebarista</groupId>
     <artifactId>gallop</artifactId>
-    <version>1.0.1</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
 ### Code example
 
+You find this code in the `BuildInvoiceTest` class.
+
 ```java
-import de.codebarista.gallop.xrechnung.model.Invoice;
-import de.codebarista.gallop.xrechnung.model.Item;
-import de.codebarista.gallop.xrechnung.model.InvoiceNote;
-import de.codebarista.gallop.XmlDocumentBuilder;
-
-import java.math.BigDecimal;
-import java.time.OffsetDateTime;
-import java.util.List;
-
 public class InvoiceGenerator {
 
-    public byte[] generateInvoice() throws Exception {
-        Invoice invoice = Invoice.builder()
+    public String generateInvoice() throws XRechnungWriterException {
+        Invoice invoice = Invoice.create()
                 .documentTypeCode(InvoiceType.COMMERCIAL_INVOICE.getValue()) // Define invoice type
                 .documentId("INV-2025-1001") // Unique invoice identifier
                 .leitwegId("N/A") // Buyer reference (BT-10)
                 .currency("EUR") // Currency used for the invoice
 
                 // Payment details including method and terms
-                .paymentInstructions(PaymentInstructions.builder()
+                .paymentInstructions(PaymentInstructions.create()
                         .meansType(PaymentCode.CASH)
                         .meansText("Cash on delivery")
                         .paymentTerms("The goods remain our property until full payment is received."
-                                + "\nDate of service corresponds to invoice date.")
-                        .build())
+                                + "\nDate of service corresponds to invoice date."))
 
                 .issueDate(OffsetDateTime.now()) // Invoice issue date
 
                 // Seller details
-                .seller(SellerOrBuyer.builder()
+                .seller(SellerOrBuyer.create()
                         .name("TechNova Solutions GmbH")
-                        .address(PostalAddress.builder()
+                        .address(PostalAddress.create()
                                 .addressLineOne("Innovationsstraße 15")
                                 .city("Berlin")
                                 .zipCode("10115")
-                                .countryIsoCode("DE")
-                                .build())
+                                .countryIsoCode("DE"))
                         .vatId("DE298765432") // Seller VAT ID
                         .electronicAddress("billing@technova.com") // Electronic address for invoicing
-                        .contact(Contact.builder()
+                        .contact(Contact.create()
                                 .name("Dr. Stefan Wagner")
                                 .phone("+49 (0) 30 987654321")
-                                .email("stefan.wagner@technova.com")
-                                .build())
-                        .build())
+                                .email("stefan.wagner@technova.com")))
 
                 // Buyer details
-                .buyer(SellerOrBuyer.builder()
+                .buyer(SellerOrBuyer.create()
                         .name("Greenline Retail AG")
-                        .address(PostalAddress.builder()
+                        .address(PostalAddress.create()
                                 .addressLineOne("Einkaufsstraße 78")
                                 .city("Hamburg")
                                 .zipCode("20095")
-                                .countryIsoCode("DE")
-                                .build())
-                        .electronicAddress("finance@greenlineretail.com") // Electronic address for buyer
-                        .build())
+                                .countryIsoCode("DE"))
+                        .electronicAddress("finance@greenlineretail.com")) // Electronic address for buyer
 
                 // Delivery information
-                .deliveryInfo(DeliveryInformation.builder()
+                .deliveryInfo(DeliveryInformation.create()
                         .name("Greenline Retail AG - Warehouse")
-                        .deliveryAddress(PostalAddress.builder()
+                        .deliveryAddress(PostalAddress.create()
                                 .addressLineOne("Lagerstraße 5")
                                 .city("Hamburg")
                                 .zipCode("21079")
-                                .countryIsoCode("DE")
-                                .build())
-                        .build())
+                                .countryIsoCode("DE")))
 
                 // Invoice items
                 .items(List.of(
-                        Item.builder()
+                        Item.create()
                                 .id(1L)
                                 .name("Ergonomic Office Chair")
                                 .sellerAssignedId("CHAIR-ERG-2025") // Seller's internal product ID
@@ -137,12 +122,10 @@ public class InvoiceGenerator {
                                 .unitPrice(new BigDecimal("199.99")) // Price per unit
                                 .itemTotalNetAmount(new BigDecimal("399.98")) // Total price without VAT
                                 .unitCode(UnitCode.PIECE) // Unit of measurement
-                                .vat(Vat.builder()
+                                .vat(Vat.create()
                                         .rate(BigDecimal.valueOf(19)) // VAT rate (19%)
-                                        .category(TaxCategory.STANDARD_RATE)
-                                        .build())
-                                .build(),
-                        Item.builder()
+                                        .category(TaxCategory.STANDARD_RATE)),
+                        Item.create()
                                 .id(2L)
                                 .name("Wireless Mechanical Keyboard")
                                 .sellerAssignedId("KEY-MECH-WL")
@@ -150,21 +133,17 @@ public class InvoiceGenerator {
                                 .unitPrice(new BigDecimal("129.50"))
                                 .itemTotalNetAmount(new BigDecimal("129.50"))
                                 .unitCode(UnitCode.PIECE)
-                                .vat(Vat.builder()
+                                .vat(Vat.create()
                                         .rate(BigDecimal.valueOf(19))
-                                        .category(TaxCategory.STANDARD_RATE)
-                                        .build())
-                                .build()
-                ))
+                                        .category(TaxCategory.STANDARD_RATE))))
 
                 // VAT breakdown
                 .vatTotals(List.of(
-                        Vat.builder()
+                        Vat.create()
                                 .rate(BigDecimal.valueOf(19))
                                 .category(TaxCategory.STANDARD_RATE)
                                 .taxableAmount(BigDecimal.valueOf(529.48)) // Taxable amount
                                 .taxAmount(BigDecimal.valueOf(100.60)) // VAT amount
-                                .build()
                 ))
 
                 // Invoice totals
@@ -175,13 +154,17 @@ public class InvoiceGenerator {
                 .duePayableAmount(new BigDecimal("630.08")) // Amount due for payment
 
                 // Sales order reference
-                .salesOrderReference("SO-98765")
+                .salesOrderReference("SO-98765");
 
-                .build();
-
+        // Generate the XRechnung XML from the invoice
         byte[] xRechnungXML = XRechnungWriter.generateXRechnungXML(invoice);
+        return new String(xRechnungXML);
     }
 }
 ```
 
-You also find this code in the `BuildInvoiceTest` class.
+### Changelog
+
+- 2.0.0: Gallop no longer relies on lombok, introduce fluent api
+- 1.0.1: Add action to publish to maven central
+- 1.0.0: Initial version

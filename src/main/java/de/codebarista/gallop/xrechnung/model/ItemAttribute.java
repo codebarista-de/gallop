@@ -1,17 +1,8 @@
 package de.codebarista.gallop.xrechnung.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 /**
  * Item Attributes (BG-32)
  */
-@Builder
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public class ItemAttribute {
     /**
      * Item attribute name (BT-160)
@@ -26,4 +17,49 @@ public class ItemAttribute {
      * Value of the item attribute like "red"
      */
     private String value;
+
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public ItemAttribute() {
+    }
+
+    /**
+     * Creates a new, empty instance of this class.
+     *
+     * @return a new, empty instance
+     */
+    public static ItemAttribute create() {
+        return new ItemAttribute();
+    }
+
+    /**
+     * Sets the {@link #name}.
+     */
+    public ItemAttribute name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #value}.
+     */
+    public ItemAttribute value(String value) {
+        this.value = value;
+        return this;
+    }
+
+    /**
+     * Gets the {@link #name}.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Gets the {@link #value}.
+     */
+    public String getValue() {
+        return value;
+    }
 }

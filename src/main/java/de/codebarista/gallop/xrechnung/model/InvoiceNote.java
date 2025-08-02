@@ -1,17 +1,8 @@
 package de.codebarista.gallop.xrechnung.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 /**
  * Invoice Note (BG-1)
  */
-@Builder
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public class InvoiceNote {
     /**
      * Invoice note (BT-22)
@@ -23,4 +14,34 @@ public class InvoiceNote {
      * In the case of an already invoiced bill, for example, the reason for the correction can be stated here.
      */
     private String note;
+
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public InvoiceNote() {
+    }
+
+    /**
+     * Creates a new, empty instance of this class.
+     *
+     * @return a new, empty instance
+     */
+    public static InvoiceNote create() {
+        return new InvoiceNote();
+    }
+
+    /**
+     * Sets the {@link #note}.
+     */
+    public InvoiceNote note(String note) {
+        this.note = note;
+        return this;
+    }
+
+    /**
+     * Gets the {@link #note}.
+     */
+    public String getNote() {
+        return note;
+    }
 }

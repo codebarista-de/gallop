@@ -1,6 +1,5 @@
 package de.codebarista.gallop.xrechnung.model;
 
-import lombok.Getter;
 
 /**
  * Invoice Type Code (BT-3)<br>
@@ -8,7 +7,6 @@ import lombok.Getter;
  * <p>
  * The values in this class are an exhaustive enumeration according to the specification.
  */
-@Getter
 public enum InvoiceType {
     /**
      * Commercial invoice.
@@ -70,5 +68,12 @@ public enum InvoiceType {
 
     InvoiceType(String value) {
         this.value = value;
+    }
+
+    /**
+     * Gets the corresponding value
+     */
+    public String getValue() {
+        return value;
     }
 }

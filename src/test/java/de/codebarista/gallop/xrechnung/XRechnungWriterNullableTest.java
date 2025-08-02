@@ -17,161 +17,140 @@ import de.codebarista.gallop.xrechnung.model.SellerOrBuyer;
 import de.codebarista.gallop.xrechnung.model.Vat;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class XRechnungWriterNullableTest {
 
     @Test
     public void doesNotFailWithEmptyInvoice() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder().build())).isNotEmpty();
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create())).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyPaymentInstructions() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .paymentInstructions(PaymentInstructions.builder().build()).build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .paymentInstructions(PaymentInstructions.create()))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyPaymentCreditTransfer() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .paymentInstructions(PaymentInstructions.builder()
-                        .creditTransfer(CreditTransfer.builder().build())
-                        .build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .paymentInstructions(PaymentInstructions.create()
+                        .creditTransfers(List.of(CreditTransfer.create()))))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyPaymentCardInformation() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .paymentInstructions(PaymentInstructions.builder()
-                        .paymentCardInformation(PaymentCardInformation.builder().build())
-                        .build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .paymentInstructions(PaymentInstructions.create()
+                        .paymentCardInformation(PaymentCardInformation.create())))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyPaymentCardInstructions() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .paymentInstructions(PaymentInstructions.builder()
-                        .directDebit(DirectDebit.builder().build())
-                        .build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .paymentInstructions(PaymentInstructions.create()
+                        .directDebit(DirectDebit.create())))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptySeller() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .seller(SellerOrBuyer.builder().build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .seller(SellerOrBuyer.create()))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyPostalAddress() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .seller(SellerOrBuyer.builder()
-                        .address(PostalAddress.builder().build())
-                        .build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .seller(SellerOrBuyer.create()
+                        .address(PostalAddress.create())))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyContact() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .seller(SellerOrBuyer.builder()
-                        .contact(Contact.builder().build())
-                        .build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .seller(SellerOrBuyer.create()
+                        .contact(Contact.create())))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyBuyer() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .buyer(SellerOrBuyer.builder().build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .buyer(SellerOrBuyer.create()))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyDeliveryInformation() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .deliveryInfo(DeliveryInformation.builder().build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .deliveryInfo(DeliveryInformation.create()))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyDeliveryInformationPostAddress() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .deliveryInfo(DeliveryInformation.builder()
-                        .deliveryAddress(PostalAddress.builder().build())
-                        .build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .deliveryInfo(DeliveryInformation.create()
+                        .deliveryAddress(PostalAddress.create())))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyItem() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .item(Item.builder().build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .items(List.of(Item.create())))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyItemVat() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .item(Item.builder()
-                        .vat(Vat.builder().build())
-                        .build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .items(List.of(Item.create()
+                        .vat(Vat.create()))))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyVatTotal() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .vatTotal(Vat.builder().build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .vatTotals(List.of(Vat.create())))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyPrecedingInvoiceReference() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .precedingInvoiceReference(PrecedingInvoiceReference.builder().build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .precedingInvoiceReferences(List.of(PrecedingInvoiceReference.create())))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyInvoiceNote() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .invoiceNote(InvoiceNote.builder().build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .invoiceNotes(List.of(InvoiceNote.create().note(null))))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyAllowance() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .allowance(Allowance.builder().build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .allowances(List.of(Allowance.create())))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyCharge() {
-        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.builder()
-                .charge(Charge.builder().build())
-                .build())
+        assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
+                .charges(List.of(Charge.create())))
         ).isNotEmpty();
     }
 

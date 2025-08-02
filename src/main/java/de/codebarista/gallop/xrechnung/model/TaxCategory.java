@@ -1,7 +1,7 @@
 package de.codebarista.gallop.xrechnung.model;
 
 /**
- * Subset of Duty or tax or fee category code that may be used in a XRechnung
+ * Subset of Duty or tax or fee category code that may be used in a XRechnung.
  * <p>
  * See <a href="https://www.xrepository.de/details/urn:xoev-de:kosit:codeliste:untdid.5305_3">UNTDID 5305</a>
  * <p>

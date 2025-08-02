@@ -1,40 +1,95 @@
 package de.codebarista.gallop.xrechnung.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.With;
-
 import java.math.BigDecimal;
 
 /**
  * Document Level Charges (BG-21)
  */
-@Builder
-@With
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-public class Charge implements NetAmount {
+public class Charge implements NetAmount<Charge> {
     /**
      * Document level charge amount (BT-99). The actual amount without taxes.<br>
      * <b>Must be 0 or a positive value.</b>
      */
-    public BigDecimal netAmount;
+    private BigDecimal netAmount;
 
     /**
      * Document level charge VAT category code (BT-102)
      */
-    public TaxCategory vatCategory;
+    private TaxCategory vatCategory;
 
     /**
      * Document level charge VAT rate (BT-103)
      */
-    public BigDecimal vatRate;
+    private BigDecimal vatRate;
 
     /**
      * Document level charge reason (BT-104)
      */
-    public String reason;
+    private String reason;
+
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public Charge() {
+    }
+
+    /**
+     * Creates a new, empty instance of this class.
+     *
+     * @return a new, empty instance
+     */
+    public static Charge create() {
+        return new Charge();
+    }
+
+    /**
+     * Sets the {@link #netAmount}.
+     */
+    @Override
+    public Charge netAmount(BigDecimal netAmount) {
+        this.netAmount = netAmount;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #vatCategory}.
+     */
+    public Charge vatCategory(TaxCategory vatCategory) {
+        this.vatCategory = vatCategory;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #vatRate}.
+     */
+    public Charge vatRate(BigDecimal vatRate) {
+        this.vatRate = vatRate;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #reason}.
+     */
+    public Charge reason(String reason) {
+        this.reason = reason;
+        return this;
+    }
+
+    @Override
+    public BigDecimal getNetAmount() {
+        return netAmount;
+    }
+
+    public TaxCategory getVatCategory() {
+        return vatCategory;
+    }
+
+    @Override
+    public BigDecimal getVatRate() {
+        return vatRate;
+    }
+
+    public String getReason() {
+        return reason;
+    }
 }

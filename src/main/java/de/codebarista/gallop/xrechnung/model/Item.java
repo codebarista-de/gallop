@@ -1,24 +1,15 @@
 package de.codebarista.gallop.xrechnung.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Singular;
-import lombok.With;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Invoice Line (BG-25)
  */
-@Builder
-@With
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-public class Item implements NetAmount {
+public class Item implements NetAmount<Item> {
 
     /**
      * Invoice line identifier (BT-126)
@@ -40,14 +31,6 @@ public class Item implements NetAmount {
      * Invoice line net amount (BT-131)
      */
     private BigDecimal itemTotalNetAmount;
-
-    /**
-     * Returns the invoice line net amount (BT-131)
-     */
-    @Override
-    public BigDecimal getNetAmount() {
-        return itemTotalNetAmount;
-    }
 
     /**
      * Item name (BT-153)
@@ -78,6 +61,212 @@ public class Item implements NetAmount {
     /**
      * Item attributes (BG-32)
      */
-    @Singular
-    private List<ItemAttribute> itemAttributes;
+    private List<ItemAttribute> itemAttributes = new ArrayList<>();
+
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public Item() {
+    }
+
+    /**
+     * Creates a new, empty instance of this class.
+     *
+     * @return a new, empty instance
+     */
+    public static Item create() {
+        return new Item();
+    }
+
+    /**
+     * Sets the {@link #id}
+     */
+    public Item id(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #quantity}
+     */
+    public Item quantity(Long quantity) {
+        this.quantity = quantity;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #unitCode}
+     */
+    public Item unitCode(String unitCode) {
+        this.unitCode = unitCode;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #itemTotalNetAmount}
+     */
+    public Item itemTotalNetAmount(BigDecimal itemTotalNetAmount) {
+        this.itemTotalNetAmount = itemTotalNetAmount;
+        return this;
+    }
+
+    /**
+     * Alias for {@link #itemTotalNetAmount}. Sets the {@link #itemTotalNetAmount}.
+     */
+    @Override
+    public Item netAmount(BigDecimal amount) {
+        itemTotalNetAmount = amount;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #name}
+     */
+    public Item name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #description}
+     */
+    public Item description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #unitPrice}
+     */
+    public Item unitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #vat}
+     */
+    public Item vat(Vat vat) {
+        this.vat = vat;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #sellerAssignedId}
+     */
+    public Item sellerAssignedId(String sellerAssignedId) {
+        this.sellerAssignedId = sellerAssignedId;
+        return this;
+    }
+
+    /**
+     * Adds the given object to the list of {@link #itemAttributes}
+     */
+    public Item addItemAttribute(ItemAttribute itemAttribute) {
+        this.itemAttributes.add(itemAttribute);
+        return this;
+    }
+
+    /**
+     * Replaces the current list of {@link #itemAttributes} by the given one
+     */
+    public Item itemAttributes(List<ItemAttribute> itemAttributes) {
+        this.itemAttributes = new ArrayList<>(itemAttributes);
+        return this;
+    }
+
+    /**
+     * Clears the list of Item Attributes (BG-32). See {@link #itemAttributes}
+     */
+    public void clearItemAttributes() {
+        itemAttributes.clear();
+    }
+
+    /**
+     * Gets the {@link #id}.
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * Gets the {@link #quantity}.
+     */
+    public Long getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * Gets the {@link #unitCode}.
+     */
+    public String getUnitCode() {
+        return unitCode;
+    }
+
+    /**
+     * Gets the {@link #itemTotalNetAmount}.
+     */
+    public BigDecimal getItemTotalNetAmount() {
+        return itemTotalNetAmount;
+    }
+
+    /**
+     * Alias for {@link #getItemTotalNetAmount}. Returns the invoice line net amount (BT-131)
+     */
+    @Override
+    public BigDecimal getNetAmount() {
+        return itemTotalNetAmount;
+    }
+
+    /**
+     * Gets the {@link #name}.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Gets the {@link #description}.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Gets the {@link #unitPrice}.
+     */
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    /**
+     * Gets the {@link #vat}.
+     */
+    public Vat getVat() {
+        return vat;
+    }
+
+    /**
+     * Returns the actual VAT rate (BT-152/BT-119) instead of the Line Vat Information (BG-30)
+     *
+     * @return the actual VAT rate (BT-152/BT-119) as a {@link BigDecimal}
+     */
+    @Override
+    public BigDecimal getVatRate() {
+        return vat.getRate();
+    }
+
+    /**
+     * Gets the {@link #sellerAssignedId}.
+     */
+    public String getSellerAssignedId() {
+        return sellerAssignedId;
+    }
+
+    /**
+     * Gets the {@link #itemAttributes}.
+     */
+    public List<ItemAttribute> getItemAttributes() {
+        return Collections.unmodifiableList(itemAttributes);
+    }
 }

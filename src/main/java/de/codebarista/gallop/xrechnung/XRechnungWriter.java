@@ -15,7 +15,6 @@ import de.codebarista.gallop.xrechnung.model.PostalAddress;
 import de.codebarista.gallop.xrechnung.model.PrecedingInvoiceReference;
 import de.codebarista.gallop.xrechnung.model.SellerOrBuyer;
 import de.codebarista.gallop.xrechnung.model.Vat;
-import lombok.NonNull;
 import org.w3c.dom.Element;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,6 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Writes a XRechnung XML with the data of an {@linkplain Invoice} object
@@ -55,18 +55,20 @@ public class XRechnungWriter {
      *
      * @param invoice the invoice to be written, must not be {@code null}
      */
-    public XRechnungWriter(@NonNull Invoice invoice) {
+    public XRechnungWriter(Invoice invoice) {
+        Objects.requireNonNull(invoice, "Invoice must not be null");
         this.invoice = invoice;
     }
 
     /**
      * Convert an invoice to a XRechnung XML
      *
-     * @param invoice the Invoice object to serialize to XML
+     * @param invoice the Invoice object to serialize to XML, must not be {@code null}
      * @return binary XRechnung XML document
      * @throws XRechnungWriterException if the creation of the XRechnung failed
      */
-    public static byte[] generateXRechnungXML(@NonNull Invoice invoice) {
+    public static byte[] generateXRechnungXML(Invoice invoice) {
+        Objects.requireNonNull(invoice, "Invoice must not be null");
         var xmlWriter = new XRechnungWriter(invoice);
         try {
             return xmlWriter.getXML();
@@ -315,17 +317,13 @@ public class XRechnungWriter {
 
         if (invoice.getChargeTotalAmount() != null) {
             Element chargeTotal = builder.createElement(NS_RAM, "ChargeTotalAmount"); // BT-108
-            if (invoice.getChargeTotalAmount() != null) {
-                chargeTotal.setTextContent(invoice.getChargeTotalAmount().toString());
-            }
+            chargeTotal.setTextContent(invoice.getChargeTotalAmount().toString());
             sum.appendChild(chargeTotal);
         }
 
         if (invoice.getAllowanceTotalAmount() != null) {
             Element allowanceTotal = builder.createElement(NS_RAM, "AllowanceTotalAmount");
-            if (invoice.getAllowanceTotalAmount() != null) {
-                allowanceTotal.setTextContent(invoice.getAllowanceTotalAmount().toString());
-            }
+            allowanceTotal.setTextContent(invoice.getAllowanceTotalAmount().toString());
             sum.appendChild(allowanceTotal);
         }
 
@@ -368,7 +366,7 @@ public class XRechnungWriter {
         element.appendChild(issuerAssignedId);
         if (reference.getPrecedingInvoiceIssueDate() != null) { // BT-26, optional
             Element issueDateTime = builder.createElement(NS_RAM, "FormattedIssueDateTime");
-            issueDateTime.appendChild(createDateTimeString(builder, invoice.getIssueDate(), NS_QDT));
+            issueDateTime.appendChild(createDateTimeString(builder, reference.getPrecedingInvoiceIssueDate(), NS_QDT));
             element.appendChild(issueDateTime);
         }
         return element;
