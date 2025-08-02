@@ -24,22 +24,6 @@ public class ItemAttribute {
     public ItemAttribute() {
     }
 
-    private ItemAttribute(String name, String value) {
-        this.name = name;
-        this.value = value;
-    }
-
-    /**
-     * Creates a new item attribute instance with the given {@link #name} and {@link #value}.
-     *
-     * @param name  item attribute name
-     * @param value item attribute value
-     * @return a new item attribute instance with the given name and value
-     */
-    public static ItemAttribute of(String name, String value) {
-        return new ItemAttribute(name, value);
-    }
-
     /**
      * Creates a new, empty instance of this class.
      *

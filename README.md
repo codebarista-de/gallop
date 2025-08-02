@@ -40,7 +40,7 @@ Add Gallop to your project via [Maven Central](https://central.sonatype.com/arti
 
 ```groovy
 dependencies {
-    implementation 'de.codebarista:gallop:1.1.0'
+    implementation 'de.codebarista:gallop:2.0.0'
 }
 ```
 
@@ -51,7 +51,7 @@ dependencies {
 <dependency>
     <groupId>de.codebarista</groupId>
     <artifactId>gallop</artifactId>
-    <version>1.1.0</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
@@ -165,6 +165,6 @@ public class InvoiceGenerator {
 
 ### Changelog
 
-- 1.1.0: Gallop no longer relies on lombok, introduce fluent api
+- 2.0.0: Gallop no longer relies on lombok, introduce fluent api
 - 1.0.1: Add action to publish to maven central
 - 1.0.0: Initial version

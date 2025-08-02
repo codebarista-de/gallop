@@ -33,13 +33,6 @@ public class Charge implements NetAmount<Charge> {
     public Charge() {
     }
 
-    private Charge(BigDecimal netAmount, TaxCategory vatCategory, BigDecimal vatRate, String reason) {
-        this.netAmount = netAmount;
-        this.vatCategory = vatCategory;
-        this.vatRate = vatRate;
-        this.reason = reason;
-    }
-
     /**
      * Creates a new, empty instance of this class.
      *

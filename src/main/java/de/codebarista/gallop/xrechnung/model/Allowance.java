@@ -27,17 +27,10 @@ public class Allowance implements NetAmount<Allowance> {
      */
     private String reason;
 
-    private Allowance(BigDecimal netAmount, TaxCategory vatCategory, BigDecimal vatRate, String reason) {
-        this.netAmount = netAmount;
-        this.vatCategory = vatCategory;
-        this.vatRate = vatRate;
-        this.reason = reason;
-    }
-
     /**
      * Creates a new, empty instance of this class.
      */
-    Allowance() {
+    public Allowance() {
     }
 
     /**

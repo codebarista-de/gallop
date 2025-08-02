@@ -42,16 +42,6 @@ public class PostalAddress {
     public PostalAddress() {
     }
 
-    public PostalAddress(String addressLineOne, String addressLineTwo, String addressLineThree, String city,
-                         String zipCode, String countryIsoCode) {
-        this.addressLineOne = addressLineOne;
-        this.addressLineTwo = addressLineTwo;
-        this.addressLineThree = addressLineThree;
-        this.city = city;
-        this.zipCode = zipCode;
-        this.countryIsoCode = countryIsoCode;
-    }
-
     /**
      * Creates a new, empty instance of this class.
      *

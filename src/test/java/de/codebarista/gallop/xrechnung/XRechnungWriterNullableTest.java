@@ -136,7 +136,7 @@ public class XRechnungWriterNullableTest {
     @Test
     public void doesNotFailWithEmptyInvoiceNote() {
         assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
-                .invoiceNotes(List.of(InvoiceNote.of(null))))
+                .invoiceNotes(List.of(InvoiceNote.create().note(null))))
         ).isNotEmpty();
     }
 

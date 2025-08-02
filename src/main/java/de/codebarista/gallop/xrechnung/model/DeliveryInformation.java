@@ -28,12 +28,6 @@ public class DeliveryInformation {
     public DeliveryInformation() {
     }
 
-    private DeliveryInformation(String name, PostalAddress deliveryAddress, OffsetDateTime actualDeliveryDate) {
-        this.name = name;
-        this.deliveryAddress = deliveryAddress;
-        this.actualDeliveryDate = actualDeliveryDate;
-    }
-
     /**
      * Creates a new, empty instance of this class.
      *

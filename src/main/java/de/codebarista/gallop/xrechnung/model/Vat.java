@@ -45,17 +45,7 @@ public class Vat {
      */
     public Vat() {
     }
-
-    private Vat(BigDecimal rate, TaxCategory category, BigDecimal taxableAmount, BigDecimal taxAmount,
-                String vatExemptionReasonText, String vatExemptionReasonCode) {
-        this.rate = rate;
-        this.category = category;
-        this.taxableAmount = taxableAmount;
-        this.taxAmount = taxAmount;
-        this.vatExemptionReasonText = vatExemptionReasonText;
-        this.vatExemptionReasonCode = vatExemptionReasonCode;
-    }
-
+    
     /**
      * Creates a new, empty instance of this class.
      *

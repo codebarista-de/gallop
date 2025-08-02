@@ -69,21 +69,6 @@ public class Item implements NetAmount<Item> {
     public Item() {
     }
 
-    private Item(Long id, Long quantity, String unitCode, BigDecimal itemTotalNetAmount, String name,
-                 String description, BigDecimal unitPrice, Vat vat, String sellerAssignedId,
-                 List<ItemAttribute> itemAttributes) {
-        this.id = id;
-        this.quantity = quantity;
-        this.unitCode = unitCode;
-        this.itemTotalNetAmount = itemTotalNetAmount;
-        this.name = name;
-        this.description = description;
-        this.unitPrice = unitPrice;
-        this.vat = vat;
-        this.sellerAssignedId = sellerAssignedId;
-        this.itemAttributes = itemAttributes;
-    }
-
     /**
      * Creates a new, empty instance of this class.
      *

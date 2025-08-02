@@ -22,14 +22,20 @@ public class InvoiceNote {
     }
 
     /**
-     * Creates a new invoice note instance with the given {@link #note}.
+     * Creates a new, empty instance of this class.
      *
-     * @return a new invoice note instance with the given note
+     * @return a new, empty instance
      */
-    public static InvoiceNote of(String note) {
-        InvoiceNote invoiceNote = new InvoiceNote();
-        invoiceNote.note = note;
-        return invoiceNote;
+    public static InvoiceNote create() {
+        return new InvoiceNote();
+    }
+
+    /**
+     * Sets the {@link #note}.
+     */
+    public InvoiceNote note(String note) {
+        this.note = note;
+        return this;
     }
 
     /**
