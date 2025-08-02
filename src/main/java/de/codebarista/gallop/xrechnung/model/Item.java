@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Invoice Line (BG-25)
  */
-public class Item implements NetAmount {
+public class Item implements NetAmount<Item> {
 
     /**
      * Invoice line identifier (BT-126)
@@ -31,14 +31,6 @@ public class Item implements NetAmount {
      * Invoice line net amount (BT-131)
      */
     private BigDecimal itemTotalNetAmount;
-
-    /**
-     * Returns the invoice line net amount (BT-131)
-     */
-    @Override
-    public BigDecimal getNetAmount() {
-        return itemTotalNetAmount;
-    }
 
     /**
      * Item name (BT-153)
@@ -71,7 +63,10 @@ public class Item implements NetAmount {
      */
     private List<ItemAttribute> itemAttributes = new ArrayList<>();
 
-    private Item() {
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public Item() {
     }
 
     private Item(Long id, Long quantity, String unitCode, BigDecimal itemTotalNetAmount, String name,
@@ -127,6 +122,15 @@ public class Item implements NetAmount {
      */
     public Item itemTotalNetAmount(BigDecimal itemTotalNetAmount) {
         this.itemTotalNetAmount = itemTotalNetAmount;
+        return this;
+    }
+
+    /**
+     * Alias for {@link #itemTotalNetAmount}. Sets the {@link #itemTotalNetAmount}.
+     */
+    @Override
+    public Item netAmount(BigDecimal amount) {
+        itemTotalNetAmount = amount;
         return this;
     }
 
@@ -222,6 +226,14 @@ public class Item implements NetAmount {
     }
 
     /**
+     * Alias for {@link #getItemTotalNetAmount}. Returns the invoice line net amount (BT-131)
+     */
+    @Override
+    public BigDecimal getNetAmount() {
+        return itemTotalNetAmount;
+    }
+
+    /**
      * Gets the {@link #name}.
      */
     public String getName() {
@@ -250,6 +262,16 @@ public class Item implements NetAmount {
     }
 
     /**
+     * Returns the actual VAT rate (BT-152/BT-119) instead of the Line Vat Information (BG-30)
+     *
+     * @return the actual VAT rate (BT-152/BT-119) as a {@link BigDecimal}
+     */
+    @Override
+    public BigDecimal getVatRate() {
+        return vat.getRate();
+    }
+
+    /**
      * Gets the {@link #sellerAssignedId}.
      */
     public String getSellerAssignedId() {
@@ -261,19 +283,5 @@ public class Item implements NetAmount {
      */
     public List<ItemAttribute> getItemAttributes() {
         return Collections.unmodifiableList(itemAttributes);
-    }
-
-    /**
-     * Creates a new instance that is a copy of this object.
-     * <p>
-     * All field values from this instance are copied to the new one.
-     * The returned object is equal to this one if no further modifications are made.
-     *
-     * @return a new instance with the same field values as this instance
-     */
-    public Item copy() {
-        return new Item(this.id, this.quantity, this.unitCode, this.itemTotalNetAmount, this.name, this.description,
-                this.unitPrice, this.vat.copy(), this.sellerAssignedId,
-                this.itemAttributes.stream().map(ItemAttribute::copy).toList());
     }
 }

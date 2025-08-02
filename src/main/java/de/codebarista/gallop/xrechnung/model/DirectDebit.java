@@ -19,6 +19,9 @@ public class DirectDebit {
      */
     private String debitedAccountIban;
 
+    /**
+     * Creates a new, empty instance of this class.
+     */
     public DirectDebit() {
     }
 

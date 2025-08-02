@@ -22,7 +22,10 @@ public class DeliveryInformation {
      */
     private OffsetDateTime actualDeliveryDate;
 
-    private DeliveryInformation() {
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public DeliveryInformation() {
     }
 
     private DeliveryInformation(String name, PostalAddress deliveryAddress, OffsetDateTime actualDeliveryDate) {
@@ -83,17 +86,5 @@ public class DeliveryInformation {
      */
     public OffsetDateTime getActualDeliveryDate() {
         return actualDeliveryDate;
-    }
-
-    /**
-     * Creates a new instance that is a copy of this object.
-     * <p>
-     * All field values from this instance are copied to the new one.
-     * The returned object is equal to this one if no further modifications are made.
-     *
-     * @return a new instance with the same field values as this instance
-     */
-    public DeliveryInformation copy() {
-        return new DeliveryInformation(this.name, this.deliveryAddress.copy(), this.actualDeliveryDate);
     }
 }

@@ -18,7 +18,10 @@ public class ItemAttribute {
      */
     private String value;
 
-    private ItemAttribute() {
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public ItemAttribute() {
     }
 
     private ItemAttribute(String name, String value) {
@@ -74,17 +77,5 @@ public class ItemAttribute {
      */
     public String getValue() {
         return value;
-    }
-
-    /**
-     * Creates a new instance that is a copy of this object.
-     * <p>
-     * All field values from this instance are copied to the new one.
-     * The returned object is equal to this one if no further modifications are made.
-     *
-     * @return a new instance with the same field values as this instance
-     */
-    public ItemAttribute copy() {
-        return new ItemAttribute(this.name, this.value);
     }
 }

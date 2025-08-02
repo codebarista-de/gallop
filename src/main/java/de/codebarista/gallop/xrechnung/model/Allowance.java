@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * Document Level Allowances (BG-20)
  */
-public class Allowance implements NetAmount {
+public class Allowance implements NetAmount<Allowance> {
     /**
      * Document level allowance amount (BT-92). The actual amount without taxes.<br>
      * <b>Must be 0 or a positive value.</b>
@@ -34,7 +34,10 @@ public class Allowance implements NetAmount {
         this.reason = reason;
     }
 
-    private Allowance() {
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    Allowance() {
     }
 
     /**
@@ -49,6 +52,7 @@ public class Allowance implements NetAmount {
     /**
      * Sets the {@link #netAmount}.
      */
+    @Override
     public Allowance netAmount(BigDecimal netAmount) {
         this.netAmount = netAmount;
         return this;
@@ -93,6 +97,7 @@ public class Allowance implements NetAmount {
     /**
      * Gets the {@link #vatRate}.
      */
+    @Override
     public BigDecimal getVatRate() {
         return vatRate;
     }
@@ -102,17 +107,5 @@ public class Allowance implements NetAmount {
      */
     public String getReason() {
         return reason;
-    }
-
-    /**
-     * Creates a new instance that is a copy of this object.
-     * <p>
-     * All field values from this instance are copied to the new one.
-     * The returned object is equal to this one if no further modifications are made.
-     *
-     * @return a new instance with the same field values as this instance
-     */
-    public Allowance copy() {
-        return new Allowance(this.netAmount, this.vatCategory, this.vatRate, this.reason);
     }
 }

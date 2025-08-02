@@ -40,7 +40,10 @@ public class Vat {
      */
     private String vatExemptionReasonCode;
 
-    private Vat() {
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public Vat() {
     }
 
     private Vat(BigDecimal rate, TaxCategory category, BigDecimal taxableAmount, BigDecimal taxAmount,
@@ -150,18 +153,5 @@ public class Vat {
      */
     public String getVatExemptionReasonCode() {
         return vatExemptionReasonCode;
-    }
-
-    /**
-     * Creates a new instance that is a copy of this object.
-     * <p>
-     * All field values from this instance are copied to the new one.
-     * The returned object is equal to this one if no further modifications are made.
-     *
-     * @return a new instance with the same field values as this instance
-     */
-    public Vat copy() {
-        return new Vat(this.rate, this.category, this.taxableAmount, this.taxAmount, this.vatExemptionReasonText,
-                this.vatExemptionReasonCode);
     }
 }

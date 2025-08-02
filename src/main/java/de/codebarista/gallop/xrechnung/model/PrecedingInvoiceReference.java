@@ -20,7 +20,10 @@ public class PrecedingInvoiceReference {
      */
     private OffsetDateTime precedingInvoiceIssueDate;
 
-    private PrecedingInvoiceReference() {
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public PrecedingInvoiceReference() {
     }
 
     /**

@@ -50,7 +50,10 @@ public class SellerOrBuyer {
      */
     private Contact contact;
 
-    private SellerOrBuyer() {
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public SellerOrBuyer() {
     }
 
     /**

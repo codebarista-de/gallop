@@ -17,6 +17,8 @@ import de.codebarista.gallop.xrechnung.model.SellerOrBuyer;
 import de.codebarista.gallop.xrechnung.model.Vat;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class XRechnungWriterNullableTest {
@@ -37,7 +39,7 @@ public class XRechnungWriterNullableTest {
     public void doesNotFailWithEmptyPaymentCreditTransfer() {
         assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
                 .paymentInstructions(PaymentInstructions.create()
-                        .creditTransfer(CreditTransfer.create())))
+                        .creditTransfers(List.of(CreditTransfer.create()))))
         ).isNotEmpty();
     }
 
@@ -105,50 +107,50 @@ public class XRechnungWriterNullableTest {
     @Test
     public void doesNotFailWithEmptyItem() {
         assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
-                .item(Item.create()))
+                .items(List.of(Item.create())))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyItemVat() {
         assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
-                .item(Item.create()
-                        .vat(Vat.create())))
+                .items(List.of(Item.create()
+                        .vat(Vat.create()))))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyVatTotal() {
         assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
-                .vatTotal(Vat.create()))
+                .vatTotals(List.of(Vat.create())))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyPrecedingInvoiceReference() {
         assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
-                .precedingInvoiceReference(PrecedingInvoiceReference.create()))
+                .precedingInvoiceReferences(List.of(PrecedingInvoiceReference.create())))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyInvoiceNote() {
         assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
-                .invoiceNote(InvoiceNote.of(null)))
+                .invoiceNotes(List.of(InvoiceNote.of(null))))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyAllowance() {
         assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
-                .allowance(Allowance.create()))
+                .allowances(List.of(Allowance.create())))
         ).isNotEmpty();
     }
 
     @Test
     public void doesNotFailWithEmptyCharge() {
         assertThat(XRechnungWriter.generateXRechnungXML(Invoice.create()
-                .charge(Charge.create()))
+                .charges(List.of(Charge.create())))
         ).isNotEmpty();
     }
 

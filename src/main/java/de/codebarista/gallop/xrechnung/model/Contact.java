@@ -19,6 +19,9 @@ public class Contact {
      */
     private String email;
 
+    /**
+     * Creates a new, empty instance of this class.
+     */
     public Contact() {
     }
 

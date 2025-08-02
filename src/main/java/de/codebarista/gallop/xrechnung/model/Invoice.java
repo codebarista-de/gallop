@@ -129,6 +129,9 @@ public class Invoice {
      */
     private List<Charge> charges = new ArrayList<>();
 
+    /**
+     * Creates a new, empty instance of this class.
+     */
     public Invoice() {
     }
 

@@ -15,7 +15,10 @@ public class InvoiceNote {
      */
     private String note;
 
-    private InvoiceNote() {
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public InvoiceNote() {
     }
 
     /**

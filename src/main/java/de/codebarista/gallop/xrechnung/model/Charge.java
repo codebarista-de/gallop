@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * Document Level Charges (BG-21)
  */
-public class Charge implements NetAmount {
+public class Charge implements NetAmount<Charge> {
     /**
      * Document level charge amount (BT-99). The actual amount without taxes.<br>
      * <b>Must be 0 or a positive value.</b>
@@ -27,7 +27,10 @@ public class Charge implements NetAmount {
      */
     private String reason;
 
-    private Charge() {
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public Charge() {
     }
 
     private Charge(BigDecimal netAmount, TaxCategory vatCategory, BigDecimal vatRate, String reason) {
@@ -49,6 +52,7 @@ public class Charge implements NetAmount {
     /**
      * Sets the {@link #netAmount}.
      */
+    @Override
     public Charge netAmount(BigDecimal netAmount) {
         this.netAmount = netAmount;
         return this;
@@ -87,23 +91,12 @@ public class Charge implements NetAmount {
         return vatCategory;
     }
 
+    @Override
     public BigDecimal getVatRate() {
         return vatRate;
     }
 
     public String getReason() {
         return reason;
-    }
-
-    /**
-     * Creates a new instance that is a copy of this object.
-     * <p>
-     * All field values from this instance are copied to the new one.
-     * The returned object is equal to this one if no further modifications are made.
-     *
-     * @return a new instance with the same field values as this instance
-     */
-    public Charge copy() {
-        return new Charge(this.netAmount, this.vatCategory, this.vatRate, this.reason);
     }
 }

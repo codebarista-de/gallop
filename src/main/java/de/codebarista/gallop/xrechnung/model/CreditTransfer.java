@@ -19,7 +19,10 @@ public class CreditTransfer {
      */
     private String bic;
 
-    private CreditTransfer() {
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public CreditTransfer() {
     }
 
     /**

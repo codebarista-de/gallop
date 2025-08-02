@@ -36,7 +36,10 @@ public class PostalAddress {
      */
     private String countryIsoCode;
 
-    private PostalAddress() {
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public PostalAddress() {
     }
 
     public PostalAddress(String addressLineOne, String addressLineTwo, String addressLineThree, String city,
@@ -146,18 +149,5 @@ public class PostalAddress {
      */
     public String getCountryIsoCode() {
         return countryIsoCode;
-    }
-
-    /**
-     * Creates a new instance that is a copy of this object.
-     * <p>
-     * All field values from this instance are copied to the new one.
-     * The returned object is equal to this one if no further modifications are made.
-     *
-     * @return a new instance with the same field values as this instance
-     */
-    public PostalAddress copy() {
-        return new PostalAddress(this.addressLineOne, this.addressLineTwo, this.addressLineThree, this.city,
-                this.zipCode, this.countryIsoCode);
     }
 }

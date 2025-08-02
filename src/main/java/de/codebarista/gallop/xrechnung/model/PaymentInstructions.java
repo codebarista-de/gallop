@@ -47,7 +47,10 @@ public class PaymentInstructions {
      */
     private DirectDebit directDebit;
 
-    private PaymentInstructions() {
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public PaymentInstructions() {
     }
 
     /**
@@ -102,7 +105,7 @@ public class PaymentInstructions {
     /**
      * Replaces the current list of {@link #creditTransfers} by the given one
      */
-    public PaymentInstructions creditTransfer(List<CreditTransfer> creditTransfers) {
+    public PaymentInstructions creditTransfers(List<CreditTransfer> creditTransfers) {
         this.creditTransfers = new ArrayList<>(creditTransfers);
         return this;
     }

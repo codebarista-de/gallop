@@ -14,7 +14,10 @@ public class PaymentCardInformation {
      */
     private String cardHolderName;
 
-    private PaymentCardInformation() {
+    /**
+     * Creates a new, empty instance of this class.
+     */
+    public PaymentCardInformation() {
     }
 
     /**
