@@ -317,17 +317,13 @@ public class XRechnungWriter {
 
         if (invoice.getChargeTotalAmount() != null) {
             Element chargeTotal = builder.createElement(NS_RAM, "ChargeTotalAmount"); // BT-108
-            if (invoice.getChargeTotalAmount() != null) {
-                chargeTotal.setTextContent(invoice.getChargeTotalAmount().toString());
-            }
+            chargeTotal.setTextContent(invoice.getChargeTotalAmount().toString());
             sum.appendChild(chargeTotal);
         }
 
         if (invoice.getAllowanceTotalAmount() != null) {
             Element allowanceTotal = builder.createElement(NS_RAM, "AllowanceTotalAmount");
-            if (invoice.getAllowanceTotalAmount() != null) {
-                allowanceTotal.setTextContent(invoice.getAllowanceTotalAmount().toString());
-            }
+            allowanceTotal.setTextContent(invoice.getAllowanceTotalAmount().toString());
             sum.appendChild(allowanceTotal);
         }
 
@@ -370,7 +366,7 @@ public class XRechnungWriter {
         element.appendChild(issuerAssignedId);
         if (reference.getPrecedingInvoiceIssueDate() != null) { // BT-26, optional
             Element issueDateTime = builder.createElement(NS_RAM, "FormattedIssueDateTime");
-            issueDateTime.appendChild(createDateTimeString(builder, invoice.getIssueDate(), NS_QDT));
+            issueDateTime.appendChild(createDateTimeString(builder, reference.getPrecedingInvoiceIssueDate(), NS_QDT));
             element.appendChild(issueDateTime);
         }
         return element;
