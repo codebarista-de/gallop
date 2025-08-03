@@ -1,5 +1,7 @@
 # Gallop 🐎 XRechnung Library
 
+[![Tests](https://github.com/codebarista-de/gallop/actions/workflows/test.yml/badge.svg)](https://github.com/codebarista-de/gallop/actions/workflows/test.yml)
+
 Gallop is a Java library for creating electronic invoices (E-Invoices) compliant to
 the [XRechnung standard](https://xeinkauf.de/dokumente/).
 
