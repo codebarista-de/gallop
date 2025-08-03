@@ -28,3 +28,11 @@ jobs:
       - name: Generate test report
         run: ./gradlew jacocoTestReport
         if: always()
+
+      - name: Publish test results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Test Results
+          path: build/test-results/test/*.xml
+          reporter: java-junit
