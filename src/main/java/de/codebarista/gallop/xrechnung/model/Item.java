@@ -256,6 +256,11 @@ public class Item implements NetAmount<Item> {
         return vat.getRate();
     }
 
+    @Override
+    public TaxCategory getVatCategory() {
+        return vat.getCategory();
+    }
+
     /**
      * Gets the {@link #sellerAssignedId}.
      */

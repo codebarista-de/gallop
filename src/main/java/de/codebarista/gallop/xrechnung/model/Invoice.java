@@ -105,6 +105,11 @@ public class Invoice {
     private BigDecimal grandTotalAmount;
 
     /**
+     * Sum of the amount that has already been paid (BT-113)
+     */
+    private BigDecimal paidAmount;
+
+    /**
      * Amount due for payment (BT-115)
      */
     private BigDecimal duePayableAmount;
@@ -334,6 +339,14 @@ public class Invoice {
     }
 
     /**
+     * Sets the {@link #paidAmount}
+     */
+    public Invoice paidAmount(BigDecimal paidAmount) {
+        this.paidAmount = paidAmount;
+        return this;
+    }
+
+    /**
      * Sets the {@link #duePayableAmount}
      */
     public Invoice duePayableAmount(BigDecimal duePayableAmount) {
@@ -542,6 +555,13 @@ public class Invoice {
      */
     public BigDecimal getGrandTotalAmount() {
         return grandTotalAmount;
+    }
+
+    /**
+     * Gets the {@link #paidAmount}
+     */
+    public BigDecimal getPaidAmount() {
+        return paidAmount;
     }
 
     /**

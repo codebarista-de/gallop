@@ -48,7 +48,10 @@ public class XRechnungWriterScenariosTest {
             "order_with_paypal_direct_debit",
             "order_with_paypal_invoice",
             "order_with_shipping_costs_with_multiple_taxes",
-            "order_with_tax_free_product"
+            "order_with_tax_free_product",
+            "order_with_already_paid_amount",
+            "order_without_vatid",
+            "order_with_legal_registration_identifiers"
     })
     public void writeXRechnung(String testFile) throws ParserConfigurationException, TransformerException {
         TestHelper testHelper = new TestHelper("invoice");

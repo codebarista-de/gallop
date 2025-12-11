@@ -116,7 +116,8 @@ public class BuildInvoiceTest {
                 .taxBasisTotalAmount(new BigDecimal("529.48")) // Tax basis total
                 .taxTotalAmount(new BigDecimal("100.60")) // Total VAT amount
                 .grandTotalAmount(new BigDecimal("630.08")) // Invoice total with VAT
-                .duePayableAmount(new BigDecimal("630.08")) // Amount due for payment
+                .paidAmount(new BigDecimal("100.00")) // Already paid amount
+                .duePayableAmount(new BigDecimal("530.08")) // Amount due for payment
 
                 // Sales order reference
                 .salesOrderReference("SO-98765");
