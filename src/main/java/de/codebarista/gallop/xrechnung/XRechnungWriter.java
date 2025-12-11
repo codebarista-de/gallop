@@ -220,11 +220,25 @@ public class XRechnungWriter {
             Element seller = builder.createElement(NS_RAM, "SellerTradeParty");
             tradeHeader.appendChild(seller);
             seller.appendChild(createName(builder, sellerInfo.getName()));
+            if (XRechnungUtils.isNotNullOrBlank(sellerInfo.getSellerAdditionalLegalInfo())) {
+                seller.appendChild(createDescription(builder, sellerInfo.getSellerAdditionalLegalInfo()));
+            }
+            if (XRechnungUtils.isNotNullOrBlank(sellerInfo.getLegalRegistrationIdentifier())) {
+                Element specifiedLegalOrganization = builder.createElement(NS_RAM, "SpecifiedLegalOrganization");
+                specifiedLegalOrganization.appendChild(
+                        createID(builder,
+                                sellerInfo.getLegalRegistrationIdentifier(),
+                                sellerInfo.getLegalRegistrationIdentifierScheme()));
+                seller.appendChild(specifiedLegalOrganization);
+            }
             seller.appendChild(createTradeContact(builder, sellerInfo.getContact()));
             seller.appendChild(createAddress(builder, sellerInfo.getAddress()));
             seller.appendChild(createElectronicAddressEmailElement(builder, sellerInfo.getElectronicAddress()));
             if (XRechnungUtils.isNotNullOrBlank(sellerInfo.getVatId())) {
                 seller.appendChild(createTaxRegistration(builder, "VA", sellerInfo.getVatId()));
+            }
+            if (XRechnungUtils.isNotNullOrBlank(sellerInfo.getSellerTaxRegistrationIdentifier())) {
+                seller.appendChild(createTaxRegistration(builder, "FC", sellerInfo.getSellerTaxRegistrationIdentifier()));
             }
         }
 
@@ -233,6 +247,14 @@ public class XRechnungWriter {
             Element buyer = builder.createElement(NS_RAM, "BuyerTradeParty");
             tradeHeader.appendChild(buyer);
             buyer.appendChild(createName(builder, buyerInfo.getName()));
+            if (XRechnungUtils.isNotNullOrBlank(buyerInfo.getLegalRegistrationIdentifier())) {
+                Element specifiedLegalOrganization = builder.createElement(NS_RAM, "SpecifiedLegalOrganization");
+                specifiedLegalOrganization.appendChild(
+                        createID(builder,
+                                buyerInfo.getLegalRegistrationIdentifier(),
+                                buyerInfo.getLegalRegistrationIdentifierScheme()));
+                buyer.appendChild(specifiedLegalOrganization);
+            }
             buyer.appendChild(createAddress(builder, buyerInfo.getAddress()));
             buyer.appendChild(createElectronicAddressEmailElement(builder, buyerInfo.getElectronicAddress()));
             if (XRechnungUtils.isNotNullOrBlank(buyerInfo.getVatId())) {
@@ -343,6 +365,11 @@ public class XRechnungWriter {
             grandTotal.setTextContent(invoice.getGrandTotalAmount().toString());
         }
         sum.appendChild(grandTotal);
+        if (invoice.getPaidAmount() != null) {
+            Element totalPrepaid = builder.createElement(NS_RAM, "TotalPrepaidAmount"); // BT-113
+            totalPrepaid.setTextContent(invoice.getPaidAmount().toString());
+            sum.appendChild(totalPrepaid);
+        }
         Element duePayable = builder.createElement(NS_RAM, "DuePayableAmount");
         if (invoice.getDuePayableAmount() != null) {
             duePayable.setTextContent(invoice.getDuePayableAmount().toString());
@@ -472,8 +499,15 @@ public class XRechnungWriter {
     }
 
     private static Element createID(XmlDocumentBuilder builder, String id) {
+        return createID(builder, id, null);
+    }
+
+    private static Element createID(XmlDocumentBuilder builder, String id, String schemeID) {
         Element element = builder.createElement(NS_RAM, "ID");
         element.setTextContent(id);
+        if (XRechnungUtils.isNotNullOrBlank(schemeID)) {
+            element.setAttribute("schemeID", schemeID);
+        }
         return element;
     }
 
@@ -506,9 +540,7 @@ public class XRechnungWriter {
 
     private static Element createTaxRegistration(XmlDocumentBuilder builder, String scheme, String id) {
         Element element = builder.createElement(NS_RAM, "SpecifiedTaxRegistration");
-        Element idElement = createID(builder, id);
-        idElement.setAttribute("schemeID", scheme);
-        element.appendChild(idElement);
+        element.appendChild(createID(builder, id, scheme));
         return element;
     }
 

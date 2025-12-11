@@ -80,6 +80,7 @@ public class Charge implements NetAmount<Charge> {
         return netAmount;
     }
 
+    @Override
     public TaxCategory getVatCategory() {
         return vatCategory;
     }

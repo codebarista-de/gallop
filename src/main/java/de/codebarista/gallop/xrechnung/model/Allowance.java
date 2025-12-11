@@ -83,6 +83,7 @@ public class Allowance implements NetAmount<Allowance> {
     /**
      * Gets the {@link #vatCategory}.
      */
+    @Override
     public TaxCategory getVatCategory() {
         return vatCategory;
     }

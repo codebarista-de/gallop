@@ -29,4 +29,9 @@ public interface NetAmount<T> {
      * @return the vat rate as a {@link BigDecimal}
      */
     BigDecimal getVatRate();
+
+    /**
+     * Returns the vat category.
+     */
+    TaxCategory getVatCategory();
 }

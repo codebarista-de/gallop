@@ -1,0 +1,125 @@
+{
+  "documentTypeCode": "380",
+  "documentId": "1013",
+  "leitwegId": null,
+  "currency": "EUR",
+  "paymentInstructions": {
+    "meansType": "58",
+    "meansText": null,
+    "remittanceInfo": "RE-2024-0042",
+    "paymentTerms": "Zahlung innerhalb von 30 Tagen nach Erhalt der Rechnung.",
+    "creditTransfers": [
+      {
+        "iban": "DE86500105173557491398",
+        "accountName": "Firmenkonto Beispiel GmbH",
+        "bic": "AAAAZZZ0BBB"
+      }
+    ],
+    "paymentCardInformation": null,
+    "directDebit": null
+  },
+  "issueDate": "2024-12-07T10:33:25.540+00:00",
+  "seller": {
+    "name": "Beispiel GmbH",
+    "tradingName": "Beispiel Handelsgesellschaft",
+    "legalRegistrationIdentifier": "555444333",
+    "legalRegistrationIdentifierScheme": "0060",
+    "vatId": "DE987654321",
+    "electronicAddress": "info@beispiel-gmbh.de",
+    "electronicAddressScheme": "EM",
+    "address": {
+      "addressLineOne": "Musterstraße 42",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Berlin",
+      "zipCode": "10115",
+      "countryIsoCode": "DE"
+    },
+    "contact": {
+      "name": "Max Mustermann",
+      "phone": "030123456789",
+      "email": "kontakt@beispiel-gmbh.de"
+    }
+  },
+  "buyer": {
+    "name": "Gerhard Gewerbetreibender",
+    "tradingName": null,
+    "legalRegistrationIdentifier": "4000000123456",
+    "legalRegistrationIdentifierScheme": "0088",
+    "vatId": "DE123456789",
+    "electronicAddress": "gerhard@gerhards-gmbh.de",
+    "electronicAddressScheme": null,
+    "address": {
+      "addressLineOne": "Gerhardstraße",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Großgerau",
+      "zipCode": "64521",
+      "countryIsoCode": "DE"
+    },
+    "contact": null
+  },
+  "deliveryInfo": {
+    "name": "Gerhard Gewerbetreibender",
+    "deliveryAddress": {
+      "addressLineOne": "Gerhardstraße",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Großgerau",
+      "zipCode": "64521",
+      "countryIsoCode": "DE"
+    },
+    "actualDeliveryDate": null
+  },
+  "items": [
+    {
+      "id": 1,
+      "quantity": 1,
+      "unitCode": "XPP",
+      "itemTotalNetAmount": 416.76,
+      "name": "Hauptartikel",
+      "description": null,
+      "unitPrice": 416.7600,
+      "vat": {
+        "rate": 19,
+        "category": "S",
+        "taxableAmount": null,
+        "taxAmount": null,
+        "vatExemptionReasonText": null,
+        "vatExemptionReasonCode": null
+      },
+      "sellerAssignedId": "10001",
+      "itemAttributes": [],
+      "netAmount": 416.76
+    }
+  ],
+  "vatTotals": [
+    {
+      "rate": 19,
+      "category": "S",
+      "taxableAmount": 416.76,
+      "taxAmount": 79.19,
+      "vatExemptionReasonText": null,
+      "vatExemptionReasonCode": null
+    }
+  ],
+  "precedingInvoiceReferences": [],
+  "lineTotalAmount": 416.76,
+  "allowanceTotalAmount": 0.00,
+  "chargeTotalAmount": 0.00,
+  "taxBasisTotalAmount": 416.76,
+  "taxTotalAmount": 79.19,
+  "grandTotalAmount": 495.95,
+  "duePayableAmount": 495.95,
+  "salesOrderReference": "10011",
+  "invoiceNotes": [],
+  "allowances": [],
+  "charges": [
+    {
+      "netAmount": 0.00,
+      "vatCategory": "S",
+      "vatRate": 19,
+      "reason": "Versandkosten"
+    }
+  ]
+}

@@ -10,6 +10,7 @@ public class SellerOrBuyer {
      * The official/legal name under which the seller/buyer can be found.
      */
     private String name;
+
     /**
      * Seller/Buyer trading name (BT-28/BT-45)
      * <p>
@@ -18,9 +19,48 @@ public class SellerOrBuyer {
     private String tradingName;
 
     /**
+     * Seller/Buyer legal registration identifier (BT-30/BT-47)
+     * <p>
+     * An identifier issued by an official registration authority that identifies the seller/buyer
+     * as a legal entity or legal person.
+     */
+    private String legalRegistrationIdentifier;
+
+    /**
+     * Seller/Buyer legal registration identifier scheme for (BT-30/BT-47)
+     * <p>
+     * A code from <a href="https://www.xrepository.de/details/urn:xoev-de:kosit:codeliste:icd_5">ISO/IEC 17 6523</a>
+     * that describes the schema/type of the legal registration identifier.
+     * <p>
+     * No schema is set for BT-30 if this is null or empty.
+     */
+    private String legalRegistrationIdentifierScheme;
+
+    /**
      * Seller/Buyer VAT identifier (BT-31/BT-48)
      */
     private String vatId;
+
+    /**
+     * Seller tax registration identifier (BT-32)
+     * <p>
+     * A local tax identification of the seller (determined by their address)
+     * or a reference to their registered tax status.
+     * (If applicable, the indication "reverse charge" or the VAT exemption of
+     * the invoice issuer should be entered here.)
+     * <p>
+     * Usually the Tax-ID.
+     * <p>
+     * Only necessary if VAT identifier (BT-31) is not present.
+     */
+    private String sellerTaxRegistrationIdentifier;
+
+    /**
+     * Seller additional legal information (BT-33)
+     * <p>
+     * Additional legal information that is relevant for the seller (such as share capital).
+     */
+    private String sellerAdditionalLegalInfo;
 
     /**
      * Seller/Buyer electronic address (BT-34/BT-49)
@@ -90,6 +130,38 @@ public class SellerOrBuyer {
     }
 
     /**
+     * Sets the {@link #sellerTaxRegistrationIdentifier}.
+     */
+    public SellerOrBuyer sellerTaxRegistrationIdentifier(String taxId) {
+        this.sellerTaxRegistrationIdentifier = taxId;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #legalRegistrationIdentifier}.
+     */
+    public SellerOrBuyer legalRegistrationIdentifier(String legalRegistrationIdentifier) {
+        this.legalRegistrationIdentifier = legalRegistrationIdentifier;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #legalRegistrationIdentifierScheme}.
+     */
+    public SellerOrBuyer legalRegistrationIdentifierScheme(String legalRegistrationIdentifierScheme) {
+        this.legalRegistrationIdentifierScheme = legalRegistrationIdentifierScheme;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #sellerAdditionalLegalInfo}.
+     */
+    public SellerOrBuyer sellerAdditionalLegalInfo(String info) {
+        this.sellerAdditionalLegalInfo = info;
+        return this;
+    }
+
+    /**
      * Sets the {@link #electronicAddress}.
      */
     public SellerOrBuyer electronicAddress(String electronicAddress) {
@@ -140,6 +212,34 @@ public class SellerOrBuyer {
      */
     public String getVatId() {
         return vatId;
+    }
+
+    /**
+     * Gets the {@link #sellerTaxRegistrationIdentifier}
+     */
+    public String getSellerTaxRegistrationIdentifier() {
+        return sellerTaxRegistrationIdentifier;
+    }
+
+    /**
+     * Gets the {@link #legalRegistrationIdentifier}
+     */
+    public String getLegalRegistrationIdentifier() {
+        return legalRegistrationIdentifier;
+    }
+
+    /**
+     * Gets the {@link #legalRegistrationIdentifierScheme}
+     */
+    public String getLegalRegistrationIdentifierScheme() {
+        return legalRegistrationIdentifierScheme;
+    }
+
+    /**
+     * Gets the {@link #sellerAdditionalLegalInfo}
+     */
+    public String getSellerAdditionalLegalInfo() {
+        return sellerAdditionalLegalInfo;
     }
 
     /**
