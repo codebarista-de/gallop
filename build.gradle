@@ -67,7 +67,7 @@ mavenPublishing {
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
 
     // Only sign if publishing to Maven Central (not for local)
-    if (project.hasProperty("signing.keyId")) {
+    if (project.hasProperty("signingInMemoryKeyId") || project.hasProperty("signing.keyId")) {
         signAllPublications()
     }
 }
