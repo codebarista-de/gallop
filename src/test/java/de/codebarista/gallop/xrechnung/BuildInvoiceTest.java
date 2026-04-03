@@ -117,7 +117,8 @@ public class BuildInvoiceTest {
                 .taxTotalAmount(new BigDecimal("100.60")) // Total VAT amount
                 .grandTotalAmount(new BigDecimal("630.08")) // Invoice total with VAT
                 .paidAmount(new BigDecimal("100.00")) // Already paid amount
-                .duePayableAmount(new BigDecimal("530.08")) // Amount due for payment
+                .roundingAmount(new BigDecimal("0.02")) // Rounding amount
+                .duePayableAmount(new BigDecimal("530.10")) // Amount due for payment
 
                 // Sales order reference
                 .salesOrderReference("SO-98765");
