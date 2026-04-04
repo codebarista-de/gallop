@@ -360,6 +360,11 @@ public class XRechnungWriter {
             taxTotal.setTextContent(invoice.getTaxTotalAmount().toString());
             sum.appendChild(taxTotal);
         }
+        if (invoice.getRoundingAmount() != null) {
+            Element roundingAmount = builder.createElement(NS_RAM, "RoundingAmount"); // BT-114
+            roundingAmount.setTextContent(invoice.getRoundingAmount().toString());
+            sum.appendChild(roundingAmount);
+        }
         Element grandTotal = builder.createElement(NS_RAM, "GrandTotalAmount"); // BT-112
         if (invoice.getGrandTotalAmount() != null) {
             grandTotal.setTextContent(invoice.getGrandTotalAmount().toString());

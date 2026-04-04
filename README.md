@@ -42,7 +42,7 @@ Add Gallop to your project via [Maven Central](https://central.sonatype.com/arti
 
 ```groovy
 dependencies {
-    implementation 'de.codebarista:gallop:2.1.0'
+    implementation 'de.codebarista:gallop:2.2.0'
 }
 ```
 
@@ -53,7 +53,7 @@ dependencies {
 <dependency>
     <groupId>de.codebarista</groupId>
     <artifactId>gallop</artifactId>
-    <version>2.1.0</version>
+    <version>2.2.0</version>
 </dependency>
 ```
 
@@ -154,7 +154,8 @@ public class InvoiceGenerator {
                 .taxTotalAmount(new BigDecimal("100.60")) // Total VAT amount
                 .grandTotalAmount(new BigDecimal("630.08")) // Invoice total with VAT
                 .paidAmount(new BigDecimal("100.00")) // Already paid amount
-                .duePayableAmount(new BigDecimal("530.08")) // Amount due for payment
+                .roundingAmount(new BigDecimal("0.02")) // Rounding amount
+                .duePayableAmount(new BigDecimal("530.10")) // Amount due for payment
 
                 // Sales order reference
                 .salesOrderReference("SO-98765");
@@ -168,6 +169,7 @@ public class InvoiceGenerator {
 
 ### Changelog
 
+- 2.2.0: Add BT-114 (Rounding amount)
 - 2.1.0: Add BT-30/BT-47 (Seller/Buyer legal registration identifier),
          BT-32 (Seller tax registration identifier),
          BT-33 (Seller additional legal information),

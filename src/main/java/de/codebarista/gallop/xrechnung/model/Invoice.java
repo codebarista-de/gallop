@@ -110,6 +110,11 @@ public class Invoice {
     private BigDecimal paidAmount;
 
     /**
+     * The amount by which the grand total amount was rounded (BT-114)
+     */
+    private BigDecimal roundingAmount;
+
+    /**
      * Amount due for payment (BT-115)
      */
     private BigDecimal duePayableAmount;
@@ -347,6 +352,14 @@ public class Invoice {
     }
 
     /**
+     * Sets the {@link #roundingAmount}
+     */
+    public Invoice roundingAmount(BigDecimal roundingAmount) {
+        this.roundingAmount = roundingAmount;
+        return this;
+    }
+
+    /**
      * Sets the {@link #duePayableAmount}
      */
     public Invoice duePayableAmount(BigDecimal duePayableAmount) {
@@ -562,6 +575,13 @@ public class Invoice {
      */
     public BigDecimal getPaidAmount() {
         return paidAmount;
+    }
+
+    /**
+     * Gets the {@link #roundingAmount}.
+     */
+    public BigDecimal getRoundingAmount() {
+        return roundingAmount;
     }
 
     /**
