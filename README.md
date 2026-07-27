@@ -34,6 +34,24 @@ but will not notice or complain when the result does not meet all the rules spec
 There are other tools like the [KOSIT Validator](https://github.com/itplr-kosit/validator)
 which verify that the generated XML is a valid X-Rechnung.
 
+## Supported formats
+
+By default, `XRechnungWriter` produces XRechnung 3.0 XML. It can also produce the EN16931
+("COMFORT") conformance level of ZUGFeRD (Germany) and Factur-X (France) by passing a `Profile`:
+
+```java
+byte[] xml = XRechnungWriter.generateXML(invoice, Profile.ZUGFERD_EN16931);
+```
+
+XRechnung, ZUGFeRD and Factur-X all share the same Cross Industry Invoice (CII) syntax and the
+same EN16931 semantic data model, so the same `Invoice` object works for all three — only the
+document context identifiers differ, and Gallop takes care of that based on the `Profile`.
+
+Note that ZUGFeRD and Factur-X are hybrid formats combining a PDF/A-3 document with embedded XML;
+Gallop only produces the XML part, embedding it into a PDF/A-3 document is up to you. Also note
+that unit codes conventionally differ by format: XRechnung examples use `XPP` for "piece", while
+ZUGFeRD examples use `H87` (see `UnitCode.java`) — pick the unit code your target format/validator expects.
+
 ## Usage
 
 Add Gallop to your project via [Maven Central](https://central.sonatype.com/artifact/de.codebarista/gallop):
@@ -161,7 +179,7 @@ public class InvoiceGenerator {
                 .salesOrderReference("SO-98765");
 
         // Generate the XRechnung XML from the invoice
-        byte[] xRechnungXML = XRechnungWriter.generateXRechnungXML(invoice);
+        byte[] xRechnungXML = XRechnungWriter.generateXML(invoice, Profile.XRECHNUNG);
         return new String(xRechnungXML);
     }
 }
@@ -169,6 +187,9 @@ public class InvoiceGenerator {
 
 ### Changelog
 
+- 2.3.0: Add `Profile` parameter for ZUGFeRD/Factur-X (EN16931) support alongside XRechnung;
+         deprecate `generateXRechnungXML(Invoice)` and `XRechnungWriter(Invoice)` in favor of the
+         explicit-profile `generateXML(Invoice, Profile)` and `XRechnungWriter(Invoice, Profile)`
 - 2.2.0: Add BT-114 (Rounding amount)
 - 2.1.0: Add BT-30/BT-47 (Seller/Buyer legal registration identifier),
          BT-32 (Seller tax registration identifier),

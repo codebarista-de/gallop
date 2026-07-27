@@ -49,15 +49,32 @@ public class XRechnungWriter {
     private static final String NS_UDT = "urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100";
     private static final String NS_QDT = "urn:un:unece:uncefact:data:standard:QualifiedDataType:100";
     private final Invoice invoice;
+    private final Profile profile;
 
     /**
-     * Constructs a new {@code XRechnungWriter} with the specified invoice.
+     * Constructs a new {@code XRechnungWriter} with the specified invoice, using the {@link Profile#XRECHNUNG} profile.
      *
      * @param invoice the invoice to be written, must not be {@code null}
+     * @deprecated use {@link #XRechnungWriter(Invoice, Profile)} and pass a {@link Profile} explicitly,
+     * e.g. {@link Profile#XRECHNUNG}. This constructor will keep defaulting to {@code Profile.XRECHNUNG}
+     * for backwards compatibility, but new code should not rely on an implicit profile.
      */
+    @Deprecated
     public XRechnungWriter(Invoice invoice) {
+        this(invoice, Profile.XRECHNUNG);
+    }
+
+    /**
+     * Constructs a new {@code XRechnungWriter} with the specified invoice and profile.
+     *
+     * @param invoice the invoice to be written, must not be {@code null}
+     * @param profile the profile determining which document context identifiers are written, must not be {@code null}
+     */
+    public XRechnungWriter(Invoice invoice, Profile profile) {
         Objects.requireNonNull(invoice, "Invoice must not be null");
+        Objects.requireNonNull(profile, "Profile must not be null");
         this.invoice = invoice;
+        this.profile = profile;
     }
 
     /**
@@ -66,10 +83,27 @@ public class XRechnungWriter {
      * @param invoice the Invoice object to serialize to XML, must not be {@code null}
      * @return binary XRechnung XML document
      * @throws XRechnungWriterException if the creation of the XRechnung failed
+     * @deprecated use {@link #generateXML(Invoice, Profile)} and pass a {@link Profile} explicitly,
+     * e.g. {@link Profile#XRECHNUNG}. This method will keep defaulting to {@code Profile.XRECHNUNG}
+     * for backwards compatibility, but new code should not rely on an implicit profile.
      */
+    @Deprecated
     public static byte[] generateXRechnungXML(Invoice invoice) {
+        return generateXML(invoice, Profile.XRECHNUNG);
+    }
+
+    /**
+     * Convert an invoice to a CII XML document for the given {@link Profile} (XRechnung, ZUGFeRD or Factur-X).
+     *
+     * @param invoice the Invoice object to serialize to XML, must not be {@code null}
+     * @param profile the profile determining which document context identifiers are written, must not be {@code null}
+     * @return binary CII XML document
+     * @throws XRechnungWriterException if the creation of the XML failed
+     */
+    public static byte[] generateXML(Invoice invoice, Profile profile) {
         Objects.requireNonNull(invoice, "Invoice must not be null");
-        var xmlWriter = new XRechnungWriter(invoice);
+        Objects.requireNonNull(profile, "Profile must not be null");
+        var xmlWriter = new XRechnungWriter(invoice, profile);
         try {
             return xmlWriter.getXML();
         } catch (Exception e) {
@@ -112,11 +146,13 @@ public class XRechnungWriter {
 
     private Element createExchangedDocumentContext(XmlDocumentBuilder builder) {
         Element exchangedDocumentContext = builder.createElement(NS_RSM, "ExchangedDocumentContext");
-        Element businessContextParam = builder.createElement(NS_RAM, "BusinessProcessSpecifiedDocumentContextParameter");
-        businessContextParam.appendChild(createID(builder, "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0"));
-        exchangedDocumentContext.appendChild(businessContextParam);
+        if (profile.getBusinessProcessUrn() != null) {
+            Element businessContextParam = builder.createElement(NS_RAM, "BusinessProcessSpecifiedDocumentContextParameter");
+            businessContextParam.appendChild(createID(builder, profile.getBusinessProcessUrn()));
+            exchangedDocumentContext.appendChild(businessContextParam);
+        }
         Element guidelineContextParam = builder.createElement(NS_RAM, "GuidelineSpecifiedDocumentContextParameter");
-        guidelineContextParam.appendChild(createID(builder, "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0"));
+        guidelineContextParam.appendChild(createID(builder, profile.getGuidelineUrn()));
         exchangedDocumentContext.appendChild(guidelineContextParam);
         return exchangedDocumentContext;
     }
