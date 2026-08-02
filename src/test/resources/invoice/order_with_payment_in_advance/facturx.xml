@@ -8,10 +8,10 @@
      </ram:GuidelineSpecifiedDocumentContextParameter>
    </rsm:ExchangedDocumentContext>
    <rsm:ExchangedDocument>
-      <ram:ID>1008</ram:ID>
+      <ram:ID>1075</ram:ID>
       <ram:TypeCode>380</ram:TypeCode>
       <ram:IssueDateTime>
-         <udt:DateTimeString format="102">20241203</udt:DateTimeString>
+         <udt:DateTimeString format="102">20241215</udt:DateTimeString>
       </ram:IssueDateTime>
    </rsm:ExchangedDocument>
    <rsm:SupplyChainTradeTransaction>
@@ -20,78 +20,78 @@
             <ram:LineID>1</ram:LineID>
          </ram:AssociatedDocumentLineDocument>
          <ram:SpecifiedTradeProduct>
-            <ram:SellerAssignedID>10001</ram:SellerAssignedID>
-            <ram:Name>Hauptartikel</ram:Name>
+            <ram:SellerAssignedID>100013</ram:SellerAssignedID>
+            <ram:Name>Hauptprodukt mit Bewertungen</ram:Name>
          </ram:SpecifiedTradeProduct>
          <ram:SpecifiedLineTradeAgreement>
             <ram:NetPriceProductTradePrice>
-               <ram:ChargeAmount>416.7600</ram:ChargeAmount>
+               <ram:ChargeAmount>1.8600</ram:ChargeAmount>
                <ram:BasisQuantity unitCode="XPP">1</ram:BasisQuantity>
             </ram:NetPriceProductTradePrice>
          </ram:SpecifiedLineTradeAgreement>
          <ram:SpecifiedLineTradeDelivery>
-            <ram:BilledQuantity unitCode="XPP">1</ram:BilledQuantity>
+            <ram:BilledQuantity unitCode="XPP">5</ram:BilledQuantity>
          </ram:SpecifiedLineTradeDelivery>
          <ram:SpecifiedLineTradeSettlement>
             <ram:ApplicableTradeTax>
                <ram:TypeCode>VAT</ram:TypeCode>
                <ram:CategoryCode>S</ram:CategoryCode>
-               <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
+               <ram:RateApplicablePercent>7</ram:RateApplicablePercent>
             </ram:ApplicableTradeTax>
             <ram:SpecifiedTradeSettlementLineMonetarySummation>
-               <ram:LineTotalAmount>416.76</ram:LineTotalAmount>
+               <ram:LineTotalAmount>9.30</ram:LineTotalAmount>
             </ram:SpecifiedTradeSettlementLineMonetarySummation>
          </ram:SpecifiedLineTradeSettlement>
       </ram:IncludedSupplyChainTradeLineItem>
       <ram:ApplicableHeaderTradeAgreement>
          <ram:BuyerReference>N/A</ram:BuyerReference>
          <ram:SellerTradeParty>
-            <ram:Name>Example Company</ram:Name>
+            <ram:Name>Gesunde Naturprodukte GmbH</ram:Name>
             <ram:DefinedTradeContact>
-               <ram:PersonName>Kim Elliot</ram:PersonName>
+               <ram:PersonName>Maximilian Müller</ram:PersonName>
                <ram:TelephoneUniversalCommunication>
-                  <ram:CompleteNumber>0123456789</ram:CompleteNumber>
+                  <ram:CompleteNumber>+49 (0) 30 12345678</ram:CompleteNumber>
                </ram:TelephoneUniversalCommunication>
                <ram:EmailURIUniversalCommunication>
-                  <ram:URIID>mail@company.com</ram:URIID>
+                  <ram:URIID>info@gesunde-naturprodukte.de</ram:URIID>
                </ram:EmailURIUniversalCommunication>
             </ram:DefinedTradeContact>
             <ram:PostalTradeAddress>
                <ram:PostcodeCode>12345</ram:PostcodeCode>
-               <ram:LineOne>Revenue Row 42</ram:LineOne>
-               <ram:CityName>Taxora</ram:CityName>
+               <ram:LineOne>Blumenstraße 15</ram:LineOne>
+               <ram:CityName>Musterstadt</ram:CityName>
                <ram:CountryID>DE</ram:CountryID>
             </ram:PostalTradeAddress>
             <ram:URIUniversalCommunication>
-               <ram:URIID schemeID="EM">mail@company.com</ram:URIID>
+               <ram:URIID schemeID="EM">info@gesunde-naturprodukte.de</ram:URIID>
             </ram:URIUniversalCommunication>
             <ram:SpecifiedTaxRegistration>
-               <ram:ID schemeID="VA">DE987654321</ram:ID>
+               <ram:ID schemeID="VA">DE123456789</ram:ID>
             </ram:SpecifiedTaxRegistration>
          </ram:SellerTradeParty>
          <ram:BuyerTradeParty>
-            <ram:Name>Frida Fehlerfinder</ram:Name>
+            <ram:Name>Silke Süßigkeiten</ram:Name>
             <ram:PostalTradeAddress>
-               <ram:PostcodeCode>10004</ram:PostcodeCode>
-               <ram:LineOne>Problemstraße</ram:LineOne>
-               <ram:CityName>Fehlstadt</ram:CityName>
+               <ram:PostcodeCode>17984</ram:PostcodeCode>
+               <ram:LineOne>Dessertstraße</ram:LineOne>
+               <ram:CityName>Puddingdorf</ram:CityName>
                <ram:CountryID>DE</ram:CountryID>
             </ram:PostalTradeAddress>
             <ram:URIUniversalCommunication>
-               <ram:URIID schemeID="EM">frida@dau.de</ram:URIID>
+               <ram:URIID schemeID="EM">sile.suessigkeiten@web.de</ram:URIID>
             </ram:URIUniversalCommunication>
          </ram:BuyerTradeParty>
          <ram:SellerOrderReferencedDocument>
-            <ram:IssuerAssignedID>10007</ram:IssuerAssignedID>
+            <ram:IssuerAssignedID>10127</ram:IssuerAssignedID>
          </ram:SellerOrderReferencedDocument>
       </ram:ApplicableHeaderTradeAgreement>
       <ram:ApplicableHeaderTradeDelivery>
          <ram:ShipToTradeParty>
-            <ram:Name>Frida Fehlerfinder</ram:Name>
+            <ram:Name>Silke Süßigkeiten</ram:Name>
             <ram:PostalTradeAddress>
-               <ram:PostcodeCode>10004</ram:PostcodeCode>
-               <ram:LineOne>Problemstraße</ram:LineOne>
-               <ram:CityName>Fehlstadt</ram:CityName>
+               <ram:PostcodeCode>17984</ram:PostcodeCode>
+               <ram:LineOne>Dessertstraße</ram:LineOne>
+               <ram:CityName>Puddingdorf</ram:CityName>
                <ram:CountryID>DE</ram:CountryID>
             </ram:PostalTradeAddress>
          </ram:ShipToTradeParty>
@@ -99,25 +99,32 @@
       <ram:ApplicableHeaderTradeSettlement>
          <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
          <ram:SpecifiedTradeSettlementPaymentMeans>
-            <ram:TypeCode>68</ram:TypeCode>
+            <ram:TypeCode>58</ram:TypeCode>
+             <ram:Information>Paid in advance</ram:Information>
+             <ram:PayeePartyCreditorFinancialAccount>
+                 <ram:IBANID>DE12 3456 7890 1234 5678 90</ram:IBANID>
+             </ram:PayeePartyCreditorFinancialAccount>
+             <ram:PayeeSpecifiedCreditorFinancialInstitution>
+                 <ram:BICID>YYYYZZZ2XXX</ram:BICID>
+             </ram:PayeeSpecifiedCreditorFinancialInstitution>
          </ram:SpecifiedTradeSettlementPaymentMeans>
          <ram:ApplicableTradeTax>
-            <ram:CalculatedAmount>79.19</ram:CalculatedAmount>
+            <ram:CalculatedAmount>1.44</ram:CalculatedAmount>
             <ram:TypeCode>VAT</ram:TypeCode>
-            <ram:BasisAmount>416.76</ram:BasisAmount>
+            <ram:BasisAmount>20.51</ram:BasisAmount>
             <ram:CategoryCode>S</ram:CategoryCode>
-            <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
+            <ram:RateApplicablePercent>7</ram:RateApplicablePercent>
          </ram:ApplicableTradeTax>
          <ram:SpecifiedTradeAllowanceCharge>
             <ram:ChargeIndicator>
                <udt:Indicator>true</udt:Indicator>
             </ram:ChargeIndicator>
-            <ram:ActualAmount>0.00</ram:ActualAmount>
+            <ram:ActualAmount>11.21</ram:ActualAmount>
             <ram:Reason>Versandkosten</ram:Reason>
             <ram:CategoryTradeTax>
                <ram:TypeCode>VAT</ram:TypeCode>
                <ram:CategoryCode>S</ram:CategoryCode>
-               <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
+               <ram:RateApplicablePercent>7</ram:RateApplicablePercent>
             </ram:CategoryTradeTax>
          </ram:SpecifiedTradeAllowanceCharge>
          <ram:SpecifiedTradePaymentTerms>
@@ -125,13 +132,13 @@
 Leistungsdatum entspricht Rechnungsdatum</ram:Description>
          </ram:SpecifiedTradePaymentTerms>
          <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-            <ram:LineTotalAmount>416.76</ram:LineTotalAmount>
-            <ram:ChargeTotalAmount>0.00</ram:ChargeTotalAmount>
+            <ram:LineTotalAmount>9.30</ram:LineTotalAmount>
+            <ram:ChargeTotalAmount>11.21</ram:ChargeTotalAmount>
             <ram:AllowanceTotalAmount>0.00</ram:AllowanceTotalAmount>
-            <ram:TaxBasisTotalAmount>416.76</ram:TaxBasisTotalAmount>
-            <ram:TaxTotalAmount currencyID="EUR">79.19</ram:TaxTotalAmount>
-            <ram:GrandTotalAmount>495.95</ram:GrandTotalAmount>
-            <ram:DuePayableAmount>495.95</ram:DuePayableAmount>
+            <ram:TaxBasisTotalAmount>20.51</ram:TaxBasisTotalAmount>
+            <ram:TaxTotalAmount currencyID="EUR">1.44</ram:TaxTotalAmount>
+            <ram:GrandTotalAmount>21.95</ram:GrandTotalAmount>
+            <ram:DuePayableAmount>21.95</ram:DuePayableAmount>
          </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
       </ram:ApplicableHeaderTradeSettlement>
    </rsm:SupplyChainTradeTransaction>

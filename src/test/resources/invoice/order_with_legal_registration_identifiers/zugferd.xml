@@ -8,10 +8,10 @@
      </ram:GuidelineSpecifiedDocumentContextParameter>
    </rsm:ExchangedDocumentContext>
    <rsm:ExchangedDocument>
-      <ram:ID>1008</ram:ID>
+      <ram:ID>1013</ram:ID>
       <ram:TypeCode>380</ram:TypeCode>
       <ram:IssueDateTime>
-         <udt:DateTimeString format="102">20241203</udt:DateTimeString>
+         <udt:DateTimeString format="102">20241207</udt:DateTimeString>
       </ram:IssueDateTime>
    </rsm:ExchangedDocument>
    <rsm:SupplyChainTradeTransaction>
@@ -46,60 +46,77 @@
       <ram:ApplicableHeaderTradeAgreement>
          <ram:BuyerReference>N/A</ram:BuyerReference>
          <ram:SellerTradeParty>
-            <ram:Name>Example Company</ram:Name>
+            <ram:Name>Beispiel GmbH</ram:Name>
+            <ram:SpecifiedLegalOrganization>
+               <ram:ID schemeID="0060">555444333</ram:ID>
+            </ram:SpecifiedLegalOrganization>
             <ram:DefinedTradeContact>
-               <ram:PersonName>Kim Elliot</ram:PersonName>
+               <ram:PersonName>Max Mustermann</ram:PersonName>
                <ram:TelephoneUniversalCommunication>
-                  <ram:CompleteNumber>0123456789</ram:CompleteNumber>
+                  <ram:CompleteNumber>030123456789</ram:CompleteNumber>
                </ram:TelephoneUniversalCommunication>
                <ram:EmailURIUniversalCommunication>
-                  <ram:URIID>mail@company.com</ram:URIID>
+                  <ram:URIID>kontakt@beispiel-gmbh.de</ram:URIID>
                </ram:EmailURIUniversalCommunication>
             </ram:DefinedTradeContact>
             <ram:PostalTradeAddress>
-               <ram:PostcodeCode>12345</ram:PostcodeCode>
-               <ram:LineOne>Revenue Row 42</ram:LineOne>
-               <ram:CityName>Taxora</ram:CityName>
+               <ram:PostcodeCode>10115</ram:PostcodeCode>
+               <ram:LineOne>Musterstraße 42</ram:LineOne>
+               <ram:CityName>Berlin</ram:CityName>
                <ram:CountryID>DE</ram:CountryID>
             </ram:PostalTradeAddress>
             <ram:URIUniversalCommunication>
-               <ram:URIID schemeID="EM">mail@company.com</ram:URIID>
+               <ram:URIID schemeID="EM">info@beispiel-gmbh.de</ram:URIID>
             </ram:URIUniversalCommunication>
             <ram:SpecifiedTaxRegistration>
                <ram:ID schemeID="VA">DE987654321</ram:ID>
             </ram:SpecifiedTaxRegistration>
          </ram:SellerTradeParty>
          <ram:BuyerTradeParty>
-            <ram:Name>Frida Fehlerfinder</ram:Name>
+            <ram:Name>Gerhard Gewerbetreibender</ram:Name>
+            <ram:SpecifiedLegalOrganization>
+               <ram:ID schemeID="0088">4000000123456</ram:ID>
+            </ram:SpecifiedLegalOrganization>
             <ram:PostalTradeAddress>
-               <ram:PostcodeCode>10004</ram:PostcodeCode>
-               <ram:LineOne>Problemstraße</ram:LineOne>
-               <ram:CityName>Fehlstadt</ram:CityName>
+               <ram:PostcodeCode>64521</ram:PostcodeCode>
+               <ram:LineOne>Gerhardstraße</ram:LineOne>
+               <ram:CityName>Großgerau</ram:CityName>
                <ram:CountryID>DE</ram:CountryID>
             </ram:PostalTradeAddress>
             <ram:URIUniversalCommunication>
-               <ram:URIID schemeID="EM">frida@dau.de</ram:URIID>
+               <ram:URIID schemeID="EM">gerhard@gerhards-gmbh.de</ram:URIID>
             </ram:URIUniversalCommunication>
+            <ram:SpecifiedTaxRegistration>
+               <ram:ID schemeID="VA">DE123456789</ram:ID>
+            </ram:SpecifiedTaxRegistration>
          </ram:BuyerTradeParty>
          <ram:SellerOrderReferencedDocument>
-            <ram:IssuerAssignedID>10007</ram:IssuerAssignedID>
+            <ram:IssuerAssignedID>10011</ram:IssuerAssignedID>
          </ram:SellerOrderReferencedDocument>
       </ram:ApplicableHeaderTradeAgreement>
       <ram:ApplicableHeaderTradeDelivery>
          <ram:ShipToTradeParty>
-            <ram:Name>Frida Fehlerfinder</ram:Name>
+            <ram:Name>Gerhard Gewerbetreibender</ram:Name>
             <ram:PostalTradeAddress>
-               <ram:PostcodeCode>10004</ram:PostcodeCode>
-               <ram:LineOne>Problemstraße</ram:LineOne>
-               <ram:CityName>Fehlstadt</ram:CityName>
+               <ram:PostcodeCode>64521</ram:PostcodeCode>
+               <ram:LineOne>Gerhardstraße</ram:LineOne>
+               <ram:CityName>Großgerau</ram:CityName>
                <ram:CountryID>DE</ram:CountryID>
             </ram:PostalTradeAddress>
          </ram:ShipToTradeParty>
       </ram:ApplicableHeaderTradeDelivery>
       <ram:ApplicableHeaderTradeSettlement>
+         <ram:PaymentReference>RE-2024-0042</ram:PaymentReference>
          <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
          <ram:SpecifiedTradeSettlementPaymentMeans>
-            <ram:TypeCode>68</ram:TypeCode>
+            <ram:TypeCode>58</ram:TypeCode>
+            <ram:PayeePartyCreditorFinancialAccount>
+               <ram:IBANID>DE86500105173557491398</ram:IBANID>
+               <ram:AccountName>Firmenkonto Beispiel GmbH</ram:AccountName>
+            </ram:PayeePartyCreditorFinancialAccount>
+            <ram:PayeeSpecifiedCreditorFinancialInstitution>
+               <ram:BICID>AAAAZZZ0BBB</ram:BICID>
+            </ram:PayeeSpecifiedCreditorFinancialInstitution>
          </ram:SpecifiedTradeSettlementPaymentMeans>
          <ram:ApplicableTradeTax>
             <ram:CalculatedAmount>79.19</ram:CalculatedAmount>
@@ -121,8 +138,7 @@
             </ram:CategoryTradeTax>
          </ram:SpecifiedTradeAllowanceCharge>
          <ram:SpecifiedTradePaymentTerms>
-            <ram:Description>Die Ware bleibt, bis zur vollständigen Bezahlung, unser Eigentum.
-Leistungsdatum entspricht Rechnungsdatum</ram:Description>
+            <ram:Description>Zahlung innerhalb von 30 Tagen nach Erhalt der Rechnung.</ram:Description>
          </ram:SpecifiedTradePaymentTerms>
          <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
             <ram:LineTotalAmount>416.76</ram:LineTotalAmount>

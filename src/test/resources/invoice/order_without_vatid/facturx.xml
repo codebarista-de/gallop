@@ -8,10 +8,10 @@
      </ram:GuidelineSpecifiedDocumentContextParameter>
    </rsm:ExchangedDocumentContext>
    <rsm:ExchangedDocument>
-      <ram:ID>1008</ram:ID>
+      <ram:ID>1032</ram:ID>
       <ram:TypeCode>380</ram:TypeCode>
       <ram:IssueDateTime>
-         <udt:DateTimeString format="102">20241203</udt:DateTimeString>
+         <udt:DateTimeString format="102">20241216</udt:DateTimeString>
       </ram:IssueDateTime>
    </rsm:ExchangedDocument>
    <rsm:SupplyChainTradeTransaction>
@@ -20,12 +20,12 @@
             <ram:LineID>1</ram:LineID>
          </ram:AssociatedDocumentLineDocument>
          <ram:SpecifiedTradeProduct>
-            <ram:SellerAssignedID>10001</ram:SellerAssignedID>
-            <ram:Name>Hauptartikel</ram:Name>
+            <ram:SellerAssignedID>SW10002</ram:SellerAssignedID>
+            <ram:Name>Tax free product</ram:Name>
          </ram:SpecifiedTradeProduct>
          <ram:SpecifiedLineTradeAgreement>
             <ram:NetPriceProductTradePrice>
-               <ram:ChargeAmount>416.7600</ram:ChargeAmount>
+               <ram:ChargeAmount>100.0000</ram:ChargeAmount>
                <ram:BasisQuantity unitCode="XPP">1</ram:BasisQuantity>
             </ram:NetPriceProductTradePrice>
          </ram:SpecifiedLineTradeAgreement>
@@ -35,63 +35,67 @@
          <ram:SpecifiedLineTradeSettlement>
             <ram:ApplicableTradeTax>
                <ram:TypeCode>VAT</ram:TypeCode>
-               <ram:CategoryCode>S</ram:CategoryCode>
-               <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
+               <ram:CategoryCode>E</ram:CategoryCode>
+               <ram:RateApplicablePercent>0</ram:RateApplicablePercent>
             </ram:ApplicableTradeTax>
             <ram:SpecifiedTradeSettlementLineMonetarySummation>
-               <ram:LineTotalAmount>416.76</ram:LineTotalAmount>
+               <ram:LineTotalAmount>100.00</ram:LineTotalAmount>
             </ram:SpecifiedTradeSettlementLineMonetarySummation>
          </ram:SpecifiedLineTradeSettlement>
       </ram:IncludedSupplyChainTradeLineItem>
       <ram:ApplicableHeaderTradeAgreement>
          <ram:BuyerReference>N/A</ram:BuyerReference>
          <ram:SellerTradeParty>
-            <ram:Name>Example Company</ram:Name>
+            <ram:Name>Test Gbr</ram:Name>
+            <ram:Description>Kein Ausweis von Umsatzsteuer, da Kleinunternehmer gemäß § 19 UStG</ram:Description>
+            <ram:SpecifiedLegalOrganization>
+               <ram:ID>123/456/789</ram:ID>
+            </ram:SpecifiedLegalOrganization>
             <ram:DefinedTradeContact>
-               <ram:PersonName>Kim Elliot</ram:PersonName>
+               <ram:PersonName>Uwe Klein</ram:PersonName>
                <ram:TelephoneUniversalCommunication>
-                  <ram:CompleteNumber>0123456789</ram:CompleteNumber>
+                  <ram:CompleteNumber>0123456/789</ram:CompleteNumber>
                </ram:TelephoneUniversalCommunication>
                <ram:EmailURIUniversalCommunication>
-                  <ram:URIID>mail@company.com</ram:URIID>
+                  <ram:URIID>ceo@kleinunternehmer.de</ram:URIID>
                </ram:EmailURIUniversalCommunication>
             </ram:DefinedTradeContact>
             <ram:PostalTradeAddress>
-               <ram:PostcodeCode>12345</ram:PostcodeCode>
-               <ram:LineOne>Revenue Row 42</ram:LineOne>
-               <ram:CityName>Taxora</ram:CityName>
+               <ram:PostcodeCode>12123</ram:PostcodeCode>
+               <ram:LineOne>Teststraße 42</ram:LineOne>
+               <ram:CityName>Testdorf</ram:CityName>
                <ram:CountryID>DE</ram:CountryID>
             </ram:PostalTradeAddress>
             <ram:URIUniversalCommunication>
-               <ram:URIID schemeID="EM">mail@company.com</ram:URIID>
+               <ram:URIID schemeID="EM">info@kleinunternehmer.de</ram:URIID>
             </ram:URIUniversalCommunication>
             <ram:SpecifiedTaxRegistration>
-               <ram:ID schemeID="VA">DE987654321</ram:ID>
+               <ram:ID schemeID="FC">123/456/789</ram:ID>
             </ram:SpecifiedTaxRegistration>
          </ram:SellerTradeParty>
          <ram:BuyerTradeParty>
-            <ram:Name>Frida Fehlerfinder</ram:Name>
+            <ram:Name>Testonia Test</ram:Name>
             <ram:PostalTradeAddress>
-               <ram:PostcodeCode>10004</ram:PostcodeCode>
-               <ram:LineOne>Problemstraße</ram:LineOne>
-               <ram:CityName>Fehlstadt</ram:CityName>
+               <ram:PostcodeCode>12345</ram:PostcodeCode>
+               <ram:LineOne>Teststreet</ram:LineOne>
+               <ram:CityName>Testing</ram:CityName>
                <ram:CountryID>DE</ram:CountryID>
             </ram:PostalTradeAddress>
             <ram:URIUniversalCommunication>
-               <ram:URIID schemeID="EM">frida@dau.de</ram:URIID>
+               <ram:URIID schemeID="EM">test@test.test</ram:URIID>
             </ram:URIUniversalCommunication>
          </ram:BuyerTradeParty>
          <ram:SellerOrderReferencedDocument>
-            <ram:IssuerAssignedID>10007</ram:IssuerAssignedID>
+            <ram:IssuerAssignedID>10013</ram:IssuerAssignedID>
          </ram:SellerOrderReferencedDocument>
       </ram:ApplicableHeaderTradeAgreement>
       <ram:ApplicableHeaderTradeDelivery>
          <ram:ShipToTradeParty>
-            <ram:Name>Frida Fehlerfinder</ram:Name>
+            <ram:Name>Testonia Test</ram:Name>
             <ram:PostalTradeAddress>
-               <ram:PostcodeCode>10004</ram:PostcodeCode>
-               <ram:LineOne>Problemstraße</ram:LineOne>
-               <ram:CityName>Fehlstadt</ram:CityName>
+               <ram:PostcodeCode>12345</ram:PostcodeCode>
+               <ram:LineOne>Teststreet</ram:LineOne>
+               <ram:CityName>Testing</ram:CityName>
                <ram:CountryID>DE</ram:CountryID>
             </ram:PostalTradeAddress>
          </ram:ShipToTradeParty>
@@ -99,25 +103,27 @@
       <ram:ApplicableHeaderTradeSettlement>
          <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
          <ram:SpecifiedTradeSettlementPaymentMeans>
-            <ram:TypeCode>68</ram:TypeCode>
+            <ram:TypeCode>10</ram:TypeCode>
+            <ram:Information>Cash on delivery</ram:Information>
          </ram:SpecifiedTradeSettlementPaymentMeans>
          <ram:ApplicableTradeTax>
-            <ram:CalculatedAmount>79.19</ram:CalculatedAmount>
+            <ram:CalculatedAmount>0.00</ram:CalculatedAmount>
             <ram:TypeCode>VAT</ram:TypeCode>
-            <ram:BasisAmount>416.76</ram:BasisAmount>
-            <ram:CategoryCode>S</ram:CategoryCode>
-            <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
+            <ram:ExemptionReason>Kein Ausweis von Umsatzsteuer, da Kleinunternehmer gemäß § 19 UStG</ram:ExemptionReason>
+            <ram:BasisAmount>105.00</ram:BasisAmount>
+            <ram:CategoryCode>E</ram:CategoryCode>
+            <ram:RateApplicablePercent>0</ram:RateApplicablePercent>
          </ram:ApplicableTradeTax>
          <ram:SpecifiedTradeAllowanceCharge>
             <ram:ChargeIndicator>
                <udt:Indicator>true</udt:Indicator>
             </ram:ChargeIndicator>
-            <ram:ActualAmount>0.00</ram:ActualAmount>
+            <ram:ActualAmount>5.00</ram:ActualAmount>
             <ram:Reason>Versandkosten</ram:Reason>
             <ram:CategoryTradeTax>
                <ram:TypeCode>VAT</ram:TypeCode>
-               <ram:CategoryCode>S</ram:CategoryCode>
-               <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
+               <ram:CategoryCode>E</ram:CategoryCode>
+               <ram:RateApplicablePercent>0</ram:RateApplicablePercent>
             </ram:CategoryTradeTax>
          </ram:SpecifiedTradeAllowanceCharge>
          <ram:SpecifiedTradePaymentTerms>
@@ -125,13 +131,13 @@
 Leistungsdatum entspricht Rechnungsdatum</ram:Description>
          </ram:SpecifiedTradePaymentTerms>
          <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-            <ram:LineTotalAmount>416.76</ram:LineTotalAmount>
-            <ram:ChargeTotalAmount>0.00</ram:ChargeTotalAmount>
+            <ram:LineTotalAmount>100.00</ram:LineTotalAmount>
+            <ram:ChargeTotalAmount>5.00</ram:ChargeTotalAmount>
             <ram:AllowanceTotalAmount>0.00</ram:AllowanceTotalAmount>
-            <ram:TaxBasisTotalAmount>416.76</ram:TaxBasisTotalAmount>
-            <ram:TaxTotalAmount currencyID="EUR">79.19</ram:TaxTotalAmount>
-            <ram:GrandTotalAmount>495.95</ram:GrandTotalAmount>
-            <ram:DuePayableAmount>495.95</ram:DuePayableAmount>
+            <ram:TaxBasisTotalAmount>105.00</ram:TaxBasisTotalAmount>
+            <ram:TaxTotalAmount currencyID="EUR">0.00</ram:TaxTotalAmount>
+            <ram:GrandTotalAmount>105.00</ram:GrandTotalAmount>
+            <ram:DuePayableAmount>105.00</ram:DuePayableAmount>
          </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
       </ram:ApplicableHeaderTradeSettlement>
    </rsm:SupplyChainTradeTransaction>

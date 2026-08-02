@@ -8,7 +8,7 @@
      </ram:GuidelineSpecifiedDocumentContextParameter>
    </rsm:ExchangedDocumentContext>
    <rsm:ExchangedDocument>
-      <ram:ID>1008</ram:ID>
+      <ram:ID>1007</ram:ID>
       <ram:TypeCode>380</ram:TypeCode>
       <ram:IssueDateTime>
          <udt:DateTimeString format="102">20241203</udt:DateTimeString>
@@ -20,12 +20,16 @@
             <ram:LineID>1</ram:LineID>
          </ram:AssociatedDocumentLineDocument>
          <ram:SpecifiedTradeProduct>
-            <ram:SellerAssignedID>10001</ram:SellerAssignedID>
-            <ram:Name>Hauptartikel</ram:Name>
+            <ram:SellerAssignedID>10007.1</ram:SellerAssignedID>
+            <ram:Name>Hauptprodukt mit Eigenschaften</ram:Name>
+            <ram:ApplicableProductCharacteristic>
+               <ram:Description>Größe</ram:Description>
+               <ram:Value>S</ram:Value>
+            </ram:ApplicableProductCharacteristic>
          </ram:SpecifiedTradeProduct>
          <ram:SpecifiedLineTradeAgreement>
             <ram:NetPriceProductTradePrice>
-               <ram:ChargeAmount>416.7600</ram:ChargeAmount>
+               <ram:ChargeAmount>16.8000</ram:ChargeAmount>
                <ram:BasisQuantity unitCode="XPP">1</ram:BasisQuantity>
             </ram:NetPriceProductTradePrice>
          </ram:SpecifiedLineTradeAgreement>
@@ -39,7 +43,7 @@
                <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
             </ram:ApplicableTradeTax>
             <ram:SpecifiedTradeSettlementLineMonetarySummation>
-               <ram:LineTotalAmount>416.76</ram:LineTotalAmount>
+               <ram:LineTotalAmount>16.80</ram:LineTotalAmount>
             </ram:SpecifiedTradeSettlementLineMonetarySummation>
          </ram:SpecifiedLineTradeSettlement>
       </ram:IncludedSupplyChainTradeLineItem>
@@ -82,7 +86,7 @@
             </ram:URIUniversalCommunication>
          </ram:BuyerTradeParty>
          <ram:SellerOrderReferencedDocument>
-            <ram:IssuerAssignedID>10007</ram:IssuerAssignedID>
+            <ram:IssuerAssignedID>10006</ram:IssuerAssignedID>
          </ram:SellerOrderReferencedDocument>
       </ram:ApplicableHeaderTradeAgreement>
       <ram:ApplicableHeaderTradeDelivery>
@@ -102,9 +106,9 @@
             <ram:TypeCode>68</ram:TypeCode>
          </ram:SpecifiedTradeSettlementPaymentMeans>
          <ram:ApplicableTradeTax>
-            <ram:CalculatedAmount>79.19</ram:CalculatedAmount>
+            <ram:CalculatedAmount>3.19</ram:CalculatedAmount>
             <ram:TypeCode>VAT</ram:TypeCode>
-            <ram:BasisAmount>416.76</ram:BasisAmount>
+            <ram:BasisAmount>16.80</ram:BasisAmount>
             <ram:CategoryCode>S</ram:CategoryCode>
             <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
          </ram:ApplicableTradeTax>
@@ -125,13 +129,13 @@
 Leistungsdatum entspricht Rechnungsdatum</ram:Description>
          </ram:SpecifiedTradePaymentTerms>
          <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-            <ram:LineTotalAmount>416.76</ram:LineTotalAmount>
+            <ram:LineTotalAmount>16.80</ram:LineTotalAmount>
             <ram:ChargeTotalAmount>0.00</ram:ChargeTotalAmount>
             <ram:AllowanceTotalAmount>0.00</ram:AllowanceTotalAmount>
-            <ram:TaxBasisTotalAmount>416.76</ram:TaxBasisTotalAmount>
-            <ram:TaxTotalAmount currencyID="EUR">79.19</ram:TaxTotalAmount>
-            <ram:GrandTotalAmount>495.95</ram:GrandTotalAmount>
-            <ram:DuePayableAmount>495.95</ram:DuePayableAmount>
+            <ram:TaxBasisTotalAmount>16.80</ram:TaxBasisTotalAmount>
+            <ram:TaxTotalAmount currencyID="EUR">3.19</ram:TaxTotalAmount>
+            <ram:GrandTotalAmount>19.99</ram:GrandTotalAmount>
+            <ram:DuePayableAmount>19.99</ram:DuePayableAmount>
          </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
       </ram:ApplicableHeaderTradeSettlement>
    </rsm:SupplyChainTradeTransaction>
