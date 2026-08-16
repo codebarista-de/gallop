@@ -10,7 +10,9 @@ package de.codebarista.gallop.xrechnung;
  * <p>
  * Note that {@code ZUGFERD_EN16931} and {@code FACTURX_EN16931} only cover the EN16931 ("COMFORT")
  * conformance level. Other conformance levels (e.g. ZUGFeRD/Factur-X BASIC, MINIMUM, EXTENDED) use
- * different guideline URNs and are not covered by this enum. Also note that ZUGFeRD and Factur-X are
+ * different guideline URNs and are not covered by this profile.
+ * <p>
+ * Also note that ZUGFeRD and Factur-X are
  * hybrid formats that combine a PDF/A-3 document with an embedded XML; {@link XRechnungWriter} only
  * produces the XML part — embedding it into a PDF/A-3 document is the caller's responsibility.
  */
@@ -22,6 +24,7 @@ public class InvoiceProfile {
      * {@link XRechnungWriter} class javadoc.
      */
     public static final InvoiceProfile XRECHNUNG = new InvoiceProfile(
+            "XRECHNUNG",
             "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0",
             "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0");
 
@@ -33,6 +36,7 @@ public class InvoiceProfile {
      * business-process URN.
      */
     public static final InvoiceProfile ZUGFERD_EN16931 = new InvoiceProfile(
+            "ZUGFERD_EN16931",
             "urn:cen.eu:en16931:2017",
             null);
 
@@ -44,15 +48,25 @@ public class InvoiceProfile {
      * business-process URN.
      */
     public static final InvoiceProfile FACTURX_EN16931 = new InvoiceProfile(
+            "FACTURX_EN16931",
             "urn:cen.eu:en16931:2017",
             null);
 
+    private final String name;
     private final String guidelineUrn;
     private final String businessProcessUrn;
 
-    InvoiceProfile(String guidelineUrn, String businessProcessUrn) {
+    InvoiceProfile(String name, String guidelineUrn, String businessProcessUrn) {
+        this.name = name;
         this.guidelineUrn = guidelineUrn;
         this.businessProcessUrn = businessProcessUrn;
+    }
+
+    /**
+     * @return the name of this profile, e.g. {@code "ZUGFERD_EN16931"}, never {@code null}
+     */
+    public String getName() {
+        return name;
     }
 
     /**
@@ -68,5 +82,10 @@ public class InvoiceProfile {
      */
     public String getBusinessProcessUrn() {
         return businessProcessUrn;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
