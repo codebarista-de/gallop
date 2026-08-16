@@ -49,32 +49,32 @@ public class XRechnungWriter {
     private static final String NS_UDT = "urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100";
     private static final String NS_QDT = "urn:un:unece:uncefact:data:standard:QualifiedDataType:100";
     private final Invoice invoice;
-    private final Profile profile;
+    private final InvoiceProfile invoiceProfile;
 
     /**
-     * Constructs a new {@code XRechnungWriter} with the specified invoice, using the {@link Profile#XRECHNUNG} profile.
+     * Constructs a new {@code XRechnungWriter} with the specified invoice, using the {@link InvoiceProfile#XRECHNUNG} profile.
      *
      * @param invoice the invoice to be written, must not be {@code null}
-     * @deprecated use {@link #XRechnungWriter(Invoice, Profile)} and pass a {@link Profile} explicitly,
-     * e.g. {@link Profile#XRECHNUNG}. This constructor will keep defaulting to {@code Profile.XRECHNUNG}
+     * @deprecated use {@link #XRechnungWriter(Invoice, InvoiceProfile)} and pass a {@link InvoiceProfile} explicitly,
+     * e.g. {@link InvoiceProfile#XRECHNUNG}. This constructor will keep defaulting to {@code Profile.XRECHNUNG}
      * for backwards compatibility, but new code should not rely on an implicit profile.
      */
     @Deprecated
     public XRechnungWriter(Invoice invoice) {
-        this(invoice, Profile.XRECHNUNG);
+        this(invoice, InvoiceProfile.XRECHNUNG);
     }
 
     /**
      * Constructs a new {@code XRechnungWriter} with the specified invoice and profile.
      *
-     * @param invoice the invoice to be written, must not be {@code null}
-     * @param profile the profile determining which document context identifiers are written, must not be {@code null}
+     * @param invoice        the invoice to be written, must not be {@code null}
+     * @param invoiceProfile the profile determining which document context identifiers are written, must not be {@code null}
      */
-    public XRechnungWriter(Invoice invoice, Profile profile) {
+    public XRechnungWriter(Invoice invoice, InvoiceProfile invoiceProfile) {
         Objects.requireNonNull(invoice, "Invoice must not be null");
-        Objects.requireNonNull(profile, "Profile must not be null");
+        Objects.requireNonNull(invoiceProfile, "Profile must not be null");
         this.invoice = invoice;
-        this.profile = profile;
+        this.invoiceProfile = invoiceProfile;
     }
 
     /**
@@ -83,27 +83,28 @@ public class XRechnungWriter {
      * @param invoice the Invoice object to serialize to XML, must not be {@code null}
      * @return binary XRechnung XML document
      * @throws XRechnungWriterException if the creation of the XRechnung failed
-     * @deprecated use {@link #generateXML(Invoice, Profile)} and pass a {@link Profile} explicitly,
-     * e.g. {@link Profile#XRECHNUNG}. This method will keep defaulting to {@code Profile.XRECHNUNG}
+     * @deprecated use {@link #generateXML(Invoice, InvoiceProfile)} and pass a {@link InvoiceProfile} explicitly,
+     * e.g. {@link InvoiceProfile#XRECHNUNG}. This method will keep defaulting to {@code Profile.XRECHNUNG}
      * for backwards compatibility, but new code should not rely on an implicit profile.
      */
     @Deprecated
     public static byte[] generateXRechnungXML(Invoice invoice) {
-        return generateXML(invoice, Profile.XRECHNUNG);
+        return generateXML(invoice, InvoiceProfile.XRECHNUNG);
     }
 
     /**
-     * Convert an invoice to a CII XML document for the given {@link Profile} (XRechnung, ZUGFeRD or Factur-X).
+     * Convert an invoice to a CII XML document for the given {@link InvoiceProfile} (XRechnung, ZUGFeRD or Factur-X).
      *
-     * @param invoice the Invoice object to serialize to XML, must not be {@code null}
-     * @param profile the profile determining which document context identifiers are written, must not be {@code null}
+     * @param invoice        the Invoice object to serialize to XML, must not be {@code null}
+     * @param invoiceProfile the profile determining which document context identifiers are written,
+     *                       must not be {@code null}
      * @return binary CII XML document
      * @throws XRechnungWriterException if the creation of the XML failed
      */
-    public static byte[] generateXML(Invoice invoice, Profile profile) {
+    public static byte[] generateXML(Invoice invoice, InvoiceProfile invoiceProfile) {
         Objects.requireNonNull(invoice, "Invoice must not be null");
-        Objects.requireNonNull(profile, "Profile must not be null");
-        var xmlWriter = new XRechnungWriter(invoice, profile);
+        Objects.requireNonNull(invoiceProfile, "Profile must not be null");
+        var xmlWriter = new XRechnungWriter(invoice, invoiceProfile);
         try {
             return xmlWriter.getXML();
         } catch (Exception e) {
@@ -146,13 +147,13 @@ public class XRechnungWriter {
 
     private Element createExchangedDocumentContext(XmlDocumentBuilder builder) {
         Element exchangedDocumentContext = builder.createElement(NS_RSM, "ExchangedDocumentContext");
-        if (profile.getBusinessProcessUrn() != null) {
+        if (invoiceProfile.getBusinessProcessUrn() != null) {
             Element businessContextParam = builder.createElement(NS_RAM, "BusinessProcessSpecifiedDocumentContextParameter");
-            businessContextParam.appendChild(createID(builder, profile.getBusinessProcessUrn()));
+            businessContextParam.appendChild(createID(builder, invoiceProfile.getBusinessProcessUrn()));
             exchangedDocumentContext.appendChild(businessContextParam);
         }
         Element guidelineContextParam = builder.createElement(NS_RAM, "GuidelineSpecifiedDocumentContextParameter");
-        guidelineContextParam.appendChild(createID(builder, profile.getGuidelineUrn()));
+        guidelineContextParam.appendChild(createID(builder, invoiceProfile.getGuidelineUrn()));
         exchangedDocumentContext.appendChild(guidelineContextParam);
         return exchangedDocumentContext;
     }

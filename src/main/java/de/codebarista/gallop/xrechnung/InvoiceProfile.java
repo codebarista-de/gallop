@@ -14,16 +14,16 @@ package de.codebarista.gallop.xrechnung;
  * hybrid formats that combine a PDF/A-3 document with an embedded XML; {@link XRechnungWriter} only
  * produces the XML part — embedding it into a PDF/A-3 document is the caller's responsibility.
  */
-public enum Profile {
+public class InvoiceProfile {
     /**
      * XRechnung 3.0.
      * <p>
      * Source: {@code XRechnung-v3.0.2-Syntax-Binding-Extension-UBL.pdf} (KOSIT), see also
      * {@link XRechnungWriter} class javadoc.
      */
-    XRECHNUNG(
+    public static final InvoiceProfile XRECHNUNG = new InvoiceProfile(
             "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0",
-            "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0"),
+            "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0");
 
     /**
      * ZUGFeRD 2.x, EN16931 conformance level.
@@ -32,7 +32,9 @@ public enum Profile {
      * {@code GuidelineSpecifiedDocumentContextParameter}. ZUGFeRD does not require a
      * business-process URN.
      */
-    ZUGFERD_EN16931("urn:cen.eu:en16931:2017", null),
+    public static final InvoiceProfile ZUGFERD_EN16931 = new InvoiceProfile(
+            "urn:cen.eu:en16931:2017",
+            null);
 
     /**
      * Factur-X 1.0.7x, EN16931 ("COMFORT") conformance level.
@@ -41,12 +43,14 @@ public enum Profile {
      * with ZUGFeRD 2.x, so both use the same guideline URN. Factur-X does not require a
      * business-process URN.
      */
-    FACTURX_EN16931("urn:cen.eu:en16931:2017", null);
+    public static final InvoiceProfile FACTURX_EN16931 = new InvoiceProfile(
+            "urn:cen.eu:en16931:2017",
+            null);
 
     private final String guidelineUrn;
     private final String businessProcessUrn;
 
-    Profile(String guidelineUrn, String businessProcessUrn) {
+    InvoiceProfile(String guidelineUrn, String businessProcessUrn) {
         this.guidelineUrn = guidelineUrn;
         this.businessProcessUrn = businessProcessUrn;
     }
