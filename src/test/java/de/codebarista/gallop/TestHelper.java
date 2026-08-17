@@ -7,12 +7,16 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import de.codebarista.gallop.xrechnung.InvoiceProfile;
 import de.codebarista.gallop.xrechnung.model.TaxCategory;
+import org.junit.jupiter.params.provider.Arguments;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * Utility class for assisting with test data loading and deserialization.
@@ -26,8 +30,8 @@ public class TestHelper {
      * Names of the invoice scenario directories under {@code src/test/resources/invoice}.
      * <p>
      * Every scenario directory holds an {@code invoice.json} plus one expected XML per
-     * {@link de.codebarista.gallop.xrechnung.InvoiceProfile}. Shared by all scenario-driven tests via
-     * {@code @MethodSource} so a new scenario only has to be registered once.
+     * {@link InvoiceProfile} (see {@link #EXPECTED_XML_FILE_NAMES}). Shared by all scenario-driven tests
+     * via {@code @MethodSource} so a new scenario only has to be registered once.
      */
     public static final List<String> INVOICE_SCENARIOS = List.of(
             "order_with_allowance",
@@ -56,6 +60,44 @@ public class TestHelper {
      */
     public static List<String> invoiceScenarios() {
         return INVOICE_SCENARIOS;
+    }
+
+    /**
+     * Every profile Gallop can write, paired with the name of the expected-output file that each
+     * scenario directory holds for it.
+     * <p>
+     * {@link InvoiceProfile} is a class rather than an enum (so profiles can be added without breaking
+     * exhaustive switches downstream), which means there is no {@code values()} to enumerate. Adding a
+     * profile therefore means adding it here — and adding the matching fixtures, so it does not
+     * silently go untested.
+     */
+    public static final Map<InvoiceProfile, String> EXPECTED_XML_FILE_NAMES = Map.of(
+            InvoiceProfile.XRECHNUNG, "xrechnung.xml",
+            InvoiceProfile.ZUGFERD_EN16931, "zugferd.xml",
+            InvoiceProfile.FACTURX_EN16931, "facturx.xml"
+    );
+
+    /**
+     * @return every {@link InvoiceProfile}, for use as a JUnit {@code @MethodSource}
+     */
+    public static Stream<InvoiceProfile> invoiceProfiles() {
+        return EXPECTED_XML_FILE_NAMES.keySet().stream();
+    }
+
+    /**
+     * @return the cartesian product of every profile and every scenario, for use as a JUnit
+     * {@code @MethodSource}
+     */
+    public static Stream<Arguments> invoiceProfilesAndScenarios() {
+        return invoiceProfiles().flatMap(profile ->
+                INVOICE_SCENARIOS.stream().map(scenario -> Arguments.of(profile, scenario)));
+    }
+
+    /**
+     * @return the expected-output file name for {@code profile}, e.g. {@code "zugferd.xml"}
+     */
+    public static String expectedXmlFileName(InvoiceProfile profile) {
+        return EXPECTED_XML_FILE_NAMES.get(profile);
     }
 
     private final ObjectMapper objectMapper;
