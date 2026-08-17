@@ -2,13 +2,15 @@ package de.codebarista.gallop.xrechnung;
 
 import de.codebarista.gallop.TestHelper;
 import de.codebarista.gallop.xrechnung.model.Invoice;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Verifies that {@link InvoiceProfile} specifics are handled correctly.
@@ -18,15 +20,15 @@ public class InvoiceProfileTest {
     @ParameterizedTest(name = "{0}")
     @MethodSource("de.codebarista.gallop.TestHelper#invoiceProfiles")
     public void declaresAGuidelineUrn(InvoiceProfile profile) {
-        Assertions.assertFalse(profile.getGuidelineUrn().isBlank());
+        assertThat(profile.getGuidelineUrn()).isNotBlank();
     }
 
     @Test
     public void onlyXRechnungDeclaresABusinessProcessUrn() {
-        Assertions.assertEquals("urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
-                InvoiceProfile.XRECHNUNG.getBusinessProcessUrn());
-        Assertions.assertNull(InvoiceProfile.ZUGFERD_EN16931.getBusinessProcessUrn());
-        Assertions.assertNull(InvoiceProfile.FACTURX_EN16931.getBusinessProcessUrn());
+        assertThat("urn:fdc:peppol.eu:2017:poacc:billing:01:1.0")
+                .isEqualTo(InvoiceProfile.XRECHNUNG.getBusinessProcessUrn());
+        assertThat(InvoiceProfile.ZUGFERD_EN16931.getBusinessProcessUrn()).isNull();
+        assertThat(InvoiceProfile.FACTURX_EN16931.getBusinessProcessUrn()).isNull();
     }
 
     /**
@@ -38,9 +40,8 @@ public class InvoiceProfileTest {
     public void profilesDifferOnlyInDocumentContext(InvoiceProfile profile, String scenario) {
         Invoice invoice = new TestHelper("invoice").deserialize(scenario + "/invoice.json", Invoice.class);
 
-        Assertions.assertEquals(
-                stripDocumentContext(XRechnungWriter.generateXML(invoice, InvoiceProfile.XRECHNUNG)),
-                stripDocumentContext(XRechnungWriter.generateXML(invoice, profile)));
+        assertThat(stripDocumentContext(XRechnungWriter.generateXML(invoice, InvoiceProfile.XRECHNUNG)))
+                .isEqualTo(stripDocumentContext(XRechnungWriter.generateXML(invoice, profile)));
     }
 
     private static String stripDocumentContext(byte[] xml) {
@@ -58,9 +59,8 @@ public class InvoiceProfileTest {
     public void zugferdAndFacturXProduceIdenticalXml(String scenario) {
         Invoice invoice = new TestHelper("invoice").deserialize(scenario + "/invoice.json", Invoice.class);
 
-        Assertions.assertEquals(
-                new String(XRechnungWriter.generateXML(invoice, InvoiceProfile.ZUGFERD_EN16931)),
-                new String(XRechnungWriter.generateXML(invoice, InvoiceProfile.FACTURX_EN16931)));
+        assertThat(new String(XRechnungWriter.generateXML(invoice, InvoiceProfile.ZUGFERD_EN16931)))
+                .isEqualTo(new String(XRechnungWriter.generateXML(invoice, InvoiceProfile.FACTURX_EN16931)));
     }
 
     /**
@@ -77,21 +77,26 @@ public class InvoiceProfileTest {
 
         String explicit = new String(XRechnungWriter.generateXML(invoice, InvoiceProfile.XRECHNUNG));
 
-        Assertions.assertEquals(explicit, new String(XRechnungWriter.generateXRechnungXML(invoice)));
-        Assertions.assertEquals(explicit, new String(new XRechnungWriter(invoice).getXML()));
+        assertThat(explicit)
+                .isEqualTo(new String(XRechnungWriter.generateXRechnungXML(invoice)));
+        assertThat(explicit)
+                .isEqualTo(new String(new XRechnungWriter(invoice).getXML()));
     }
 
     @Test
     public void rejectsNullArguments() {
         Invoice invoice = Invoice.create();
 
-        Assertions.assertThrows(NullPointerException.class,
-                () -> new XRechnungWriter(null, InvoiceProfile.XRECHNUNG));
-        Assertions.assertThrows(NullPointerException.class,
-                () -> new XRechnungWriter(invoice, null));
-        Assertions.assertThrows(NullPointerException.class,
-                () -> XRechnungWriter.generateXML(null, InvoiceProfile.XRECHNUNG));
-        Assertions.assertThrows(NullPointerException.class,
-                () -> XRechnungWriter.generateXML(invoice, null));
+        assertThatThrownBy(() -> new XRechnungWriter(null, InvoiceProfile.XRECHNUNG))
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> new XRechnungWriter(null, InvoiceProfile.XRECHNUNG))
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> new XRechnungWriter(invoice, null))
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> XRechnungWriter.generateXML(null, InvoiceProfile.XRECHNUNG))
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> XRechnungWriter.generateXML(invoice, null))
+                .isInstanceOf(NullPointerException.class);
+
     }
 }
