@@ -26,9 +26,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Verifies that the writer never blows up on partially-filled invoices.
  * Each case leaves one model object entirely unset and asserts only that XML comes out.
- * What that XML looks like for realistic input is {@link InvoiceScenarioXmlTest}'s concern.
+ * What that XML looks like for realistic input is {@link XRechnungWriterScenariosTest}'s concern.
  */
-public class PartialInvoiceWriterTest {
+public class XRechnungWriterNullableTest {
     private static final InvoiceProfile PROFILE = InvoiceProfile.XRECHNUNG;
 
     @ParameterizedTest(name = "{0}")
