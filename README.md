@@ -18,7 +18,7 @@ permissive license combined with complete control over the output. Gallop was bu
 
 ### Gallop does not impose
 
-Gallop does not manipulate your data. It writes the exact values you provide into the XRechnung XML, with no
+Gallop does not manipulate your data. It writes the exact values you provide into the XML, with no
 calculations or transformations (aside from necessary XML escaping).
 
 This preservation of your original values eliminates rounding discrepancies between source data and the final invoice.
@@ -27,8 +27,8 @@ This is ideal, when creating an e-invoice that must match an existing PDF invoic
 ### Gallop does not judge
 
 Gallop does not validate the e-invoices it generates. It will happily accept any input and do its best to create a valid
-e-invoice, but will not notice or complain when the result does not meet all the rules specified in the XRechnung
-standard.
+e-invoice, but will not notice or complain when the result does not meet all the rules specified in the 
+choosen e-invoice format.
 
 There are other tools like the [KOSIT Validator](https://github.com/itplr-kosit/validator)
 which verify that the generated XML is a valid X-Rechnung.
@@ -43,12 +43,12 @@ byte[] xml = XRechnungWriter.generateXML(invoice, Profile.ZUGFERD_EN16931);
 ```
 
 XRechnung, ZUGFeRD and Factur-X all share the same Cross Industry Invoice (CII) syntax and the same EN16931 semantic
-data model, so the same `Invoice` object works for all three — only the document context identifiers differ, and Gallop
+data model, so the same `Invoice` object works for all three. Only the document context identifiers differ, and Gallop
 takes care of that based on the `Profile`.
 
 Note that ZUGFeRD and Factur-X are hybrid formats combining a PDF/A-3 document with embedded XML; Gallop only produces
 the XML part, embedding it into a PDF/A-3 document is up to you. Also note that unit codes conventionally differ by
-format: XRechnung examples use `XPP` for "piece", while ZUGFeRD examples use `H87` (see `UnitCode.java`) — pick the unit
+format: XRechnung examples use `XPP` for "piece", while ZUGFeRD examples use `H87` (see `UnitCode.java`). Pick the unit
 code your target format/validator expects.
 
 ## Usage
@@ -187,7 +187,7 @@ public class InvoiceGenerator {
 ### Changelog
 
 - 2.3.0: Add `Profile` parameter for ZUGFeRD/Factur-X (EN16931) support alongside XRechnung; deprecate
-  `generateXRechnungXML(Invoice)` and `XRechnungWriter(Invoice)` in favor of the explicit-profile
+  `generateXRechnungXML(Invoice)` and `XRechnungWriter(Invoice)` in favor of the explicit-profile methods
   `generateXML(Invoice, Profile)` and `XRechnungWriter(Invoice, Profile)`
 - 2.2.0: Add BT-114 (Rounding amount)
 - 2.1.0: Add BT-30/BT-47 (Seller/Buyer legal registration identifier), BT-32 (Seller tax registration identifier), BT-33
