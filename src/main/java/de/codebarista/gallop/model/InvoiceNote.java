@@ -1,4 +1,4 @@
-package de.codebarista.gallop.xrechnung.model;
+package de.codebarista.gallop.model;
 
 /**
  * Invoice Note (BG-1)

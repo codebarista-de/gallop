@@ -1,10 +1,10 @@
-package de.codebarista.gallop.xrechnung;
+package de.codebarista.gallop;
 
 /**
- * Utility class for handling XRechnung-related operations.
+ * Internal helper methods shared across Gallop.
  */
-public final class XRechnungUtils {
-    private XRechnungUtils() {
+public final class GallopUtils {
+    private GallopUtils() {
     }
 
     /**

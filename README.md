@@ -1,9 +1,9 @@
-# Gallop 🐎 XRechnung Library
+# Gallop 🐎 E-Invoice Library
 
 [![Tests](https://github.com/codebarista-de/gallop/actions/workflows/test.yml/badge.svg)](https://github.com/codebarista-de/gallop/actions/workflows/test.yml)
 
-Gallop is a Java library for creating electronic invoices (E-Invoices) compliant to
-the [XRechnung standard](https://xeinkauf.de/dokumente/).
+Gallop is a Java library for creating electronic invoices (E-Invoices) in the Cross Industry Invoice (CII) syntax:
+[XRechnung](https://xeinkauf.de/dokumente/), ZUGFeRD and Factur-X.
 
     Specification: Standard XRechnung
     Version: XRechnung 3.0.2
@@ -27,7 +27,7 @@ This is ideal, when creating an e-invoice that must match an existing PDF invoic
 ### Gallop does not judge
 
 Gallop does not validate the e-invoices it generates. It will happily accept any input and do its best to create a valid
-e-invoice, but will not notice or complain when the result does not meet all the rules specified in the 
+e-invoice, but will not notice or complain when the result does not meet all the rules specified in the
 choosen e-invoice format.
 
 There are other tools like the [KOSIT Validator](https://github.com/itplr-kosit/validator)
@@ -35,16 +35,16 @@ which verify that the generated XML is a valid X-Rechnung.
 
 ## Supported formats
 
-By default, `XRechnungWriter` produces XRechnung 3.0 XML. It can also produce the EN16931 ("COMFORT") conformance level
-of ZUGFeRD (Germany) and Factur-X (France) by passing a `Profile`:
+`CIIXMLEInvoiceWriter` writes XRechnung 3.0 as well as the EN16931 ("COMFORT") conformance level of ZUGFeRD (Germany)
+and Factur-X (France). Which one you get is decided by the `EInvoiceProfile` you pass:
 
 ```java
-byte[] xml = XRechnungWriter.generateXML(invoice, Profile.ZUGFERD_EN16931);
+byte[] xml = CIIXMLEInvoiceWriter.generateXML(invoice, EInvoiceProfile.ZUGFERD_EN16931);
 ```
 
 XRechnung, ZUGFeRD and Factur-X all share the same Cross Industry Invoice (CII) syntax and the same EN16931 semantic
 data model, so the same `Invoice` object works for all three. Only the document context identifiers differ, and Gallop
-takes care of that based on the `Profile`.
+takes care of that based on the `EInvoiceProfile`.
 
 Note that ZUGFeRD and Factur-X are hybrid formats combining a PDF/A-3 document with embedded XML; Gallop only produces
 the XML part, embedding it into a PDF/A-3 document is up to you. Also note that unit codes conventionally differ by
@@ -59,7 +59,7 @@ Add Gallop to your project via [Maven Central](https://central.sonatype.com/arti
 
 ```groovy
 dependencies {
-    implementation 'de.codebarista:gallop:2.2.0'
+    implementation 'de.codebarista:gallop:3.0.0'
 }
 ```
 
@@ -70,7 +70,7 @@ dependencies {
 <dependency>
     <groupId>de.codebarista</groupId>
     <artifactId>gallop</artifactId>
-    <version>2.2.0</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
@@ -81,7 +81,7 @@ You find this code in the `BuildInvoiceTest` class.
 ```java
 public class InvoiceGenerator {
 
-    public String generateInvoice() throws XRechnungWriterException {
+    public String generateInvoice() throws EInvoiceWriterException {
         Invoice invoice = Invoice.create()
                 .documentTypeCode(InvoiceType.COMMERCIAL_INVOICE.getValue()) // Define invoice type
                 .documentId("INV-2025-1001") // Unique invoice identifier
@@ -178,7 +178,7 @@ public class InvoiceGenerator {
                 .salesOrderReference("SO-98765");
 
         // Generate the XRechnung XML from the invoice
-        byte[] xRechnungXML = XRechnungWriter.generateXML(invoice, Profile.XRECHNUNG);
+        byte[] xRechnungXML = CIIXMLEInvoiceWriter.generateXML(invoice, EInvoiceProfile.XRECHNUNG);
         return new String(xRechnungXML);
     }
 }
@@ -186,9 +186,12 @@ public class InvoiceGenerator {
 
 ### Changelog
 
-- 2.3.0: Add `Profile` parameter for ZUGFeRD/Factur-X (EN16931) support alongside XRechnung; deprecate
-  `generateXRechnungXML(Invoice)` and `XRechnungWriter(Invoice)` in favor of the explicit-profile methods
-  `generateXML(Invoice, Profile)` and `XRechnungWriter(Invoice, Profile)`
+- 3.0.0: Add ZUGFeRD and Factur-X (EN16931) support alongside XRechnung via the new `EInvoiceProfile` parameter of
+  `CIIXMLEInvoiceWriter`. **Breaking:** the packages were reorganized: the model classes moved from
+  `de.codebarista.gallop.xrechnung.model` to `de.codebarista.gallop.model`, and
+  `XRechnungWriterException` became `de.codebarista.gallop.EInvoiceWriterException`.
+  `de.codebarista.gallop.xrechnung.XRechnungWriter` keeps its package and its API, and now delegates to
+  `CIIXMLEInvoiceWriter`.
 - 2.2.0: Add BT-114 (Rounding amount)
 - 2.1.0: Add BT-30/BT-47 (Seller/Buyer legal registration identifier), BT-32 (Seller tax registration identifier), BT-33
   (Seller additional legal information), BT-113 (Paid amount)

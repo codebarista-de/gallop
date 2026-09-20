@@ -1,4 +1,4 @@
-package de.codebarista.gallop.xrechnung.model;
+package de.codebarista.gallop.model;
 
 /**
  * Unit codes as defined in Codes for Passengers, Types of Cargo, Packages and Packaging Materials

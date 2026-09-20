@@ -1,16 +1,15 @@
-package de.codebarista.gallop.xrechnung;
+package de.codebarista.gallop;
 
 /**
  * Formats of e-invoices.
+ * <p>
+ * The constants defined here cover the formats Gallop ships with; you can supply profiles Gallop does not define yet.
  */
-public class InvoiceProfile {
+public class EInvoiceProfile {
     /**
      * XRechnung 3.0.
-     * <p>
-     * Source: {@code XRechnung-v3.0.2-Syntax-Binding-Extension-UBL.pdf} (KOSIT), see also
-     * {@link XRechnungWriter} class javadoc.
      */
-    public static final InvoiceProfile XRECHNUNG = new InvoiceProfile(
+    public static final EInvoiceProfile XRECHNUNG = new EInvoiceProfile(
             "XRECHNUNG",
             "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0",
             "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0");
@@ -21,8 +20,11 @@ public class InvoiceProfile {
      * Source: ZUGFeRD 2.1.1 specification (FeRD/AWV), part 1, section on
      * {@code GuidelineSpecifiedDocumentContextParameter}. ZUGFeRD does not require a
      * business-process URN.
+     * <p>
+     * Note that ZUGFeRD is a hybrid format combining a PDF/A-3 document with embedded XML;
+     * Gallop only produces the XML part.
      */
-    public static final InvoiceProfile ZUGFERD_EN16931 = new InvoiceProfile(
+    public static final EInvoiceProfile ZUGFERD_EN16931 = new EInvoiceProfile(
             "ZUGFERD_EN16931",
             "urn:cen.eu:en16931:2017",
             null);
@@ -33,8 +35,11 @@ public class InvoiceProfile {
      * Source: Factur-X 1.07 specification (FNFE-MPE). Factur-X aligned its EN16931/COMFORT profile
      * with ZUGFeRD 2.x, so both use the same guideline URN. Factur-X does not require a
      * business-process URN.
+     * <p>
+     * Note that Factur-X is a hybrid format combining a PDF/A-3 document with embedded XML;
+     * Gallop only produces the XML part.
      */
-    public static final InvoiceProfile FACTURX_EN16931 = new InvoiceProfile(
+    public static final EInvoiceProfile FACTURX_EN16931 = new EInvoiceProfile(
             "FACTURX_EN16931",
             "urn:cen.eu:en16931:2017",
             null);
@@ -43,7 +48,16 @@ public class InvoiceProfile {
     private final String guidelineUrn;
     private final String businessProcessUrn;
 
-    InvoiceProfile(String name, String guidelineUrn, String businessProcessUrn) {
+    /**
+     * Defines a profile. Use the constants of this class for the formats Gallop already covers.
+     *
+     * @param name               the name of the profile, used for {@link #toString()}
+     * @param guidelineUrn       the URN written as {@code GuidelineSpecifiedDocumentContextParameter},
+     *                           identifying the specification the invoice claims to follow
+     * @param businessProcessUrn the URN written as {@code BusinessProcessSpecifiedDocumentContextParameter},
+     *                           or {@code null} if the format does not require one
+     */
+    public EInvoiceProfile(String name, String guidelineUrn, String businessProcessUrn) {
         this.name = name;
         this.guidelineUrn = guidelineUrn;
         this.businessProcessUrn = businessProcessUrn;

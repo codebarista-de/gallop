@@ -7,14 +7,11 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import de.codebarista.gallop.xrechnung.InvoiceProfile;
-import de.codebarista.gallop.xrechnung.model.TaxCategory;
+import de.codebarista.gallop.model.TaxCategory;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
-import java.util.Map;
-import java.util.stream.Stream;
 
 /**
  * Utility class for assisting with test data loading and deserialization.
@@ -24,35 +21,6 @@ import java.util.stream.Stream;
  * handling {@link TaxCategory} values.</p>
  */
 public class TestHelper {
-    /**
-     * Every profile Gallop can write, paired with the name of the expected-output file that each
-     * scenario directory holds for it.
-     * <p>
-     * {@link InvoiceProfile} is a class rather than an enum (so profiles can be added without breaking
-     * exhaustive switches downstream), which means there is no {@code values()} to enumerate. Adding a
-     * profile therefore means adding it here — and adding the matching fixtures, so it does not
-     * silently go untested.
-     */
-    public static final Map<InvoiceProfile, String> EXPECTED_XML_FILE_NAMES = Map.of(
-            InvoiceProfile.XRECHNUNG, "xrechnung.xml",
-            InvoiceProfile.ZUGFERD_EN16931, "zugferd.xml",
-            InvoiceProfile.FACTURX_EN16931, "facturx.xml"
-    );
-
-    /**
-     * @return every {@link InvoiceProfile}, for use as a JUnit {@code @MethodSource}
-     */
-    public static Stream<InvoiceProfile> invoiceProfiles() {
-        return EXPECTED_XML_FILE_NAMES.keySet().stream();
-    }
-
-    /**
-     * @return the expected-output file name for {@code profile}, e.g. {@code "zugferd.xml"}
-     */
-    public static String expectedXmlFileName(InvoiceProfile profile) {
-        return EXPECTED_XML_FILE_NAMES.get(profile);
-    }
-
     private final ObjectMapper objectMapper;
     private final String basePath;
 

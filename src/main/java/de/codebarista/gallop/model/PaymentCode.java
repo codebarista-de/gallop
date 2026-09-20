@@ -1,4 +1,4 @@
-package de.codebarista.gallop.xrechnung.model;
+package de.codebarista.gallop.model;
 
 /**
  * Codes for "means of payment" as defined in UNTDID 4461 (UN/EDIFACT 4461)

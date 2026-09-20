@@ -1,4 +1,4 @@
-package de.codebarista.gallop.xrechnung.model;
+package de.codebarista.gallop.model;
 
 import java.math.BigDecimal;
 
@@ -45,7 +45,7 @@ public class Vat {
      */
     public Vat() {
     }
-    
+
     /**
      * Creates a new, empty instance of this class.
      *

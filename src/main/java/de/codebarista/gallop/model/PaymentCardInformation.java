@@ -1,4 +1,4 @@
-package de.codebarista.gallop.xrechnung.model;
+package de.codebarista.gallop.model;
 
 /**
  * Payment Card Information (BG-18)

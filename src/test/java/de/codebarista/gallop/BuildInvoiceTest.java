@@ -1,17 +1,18 @@
-package de.codebarista.gallop.xrechnung;
+package de.codebarista.gallop;
 
-import de.codebarista.gallop.xrechnung.model.Contact;
-import de.codebarista.gallop.xrechnung.model.DeliveryInformation;
-import de.codebarista.gallop.xrechnung.model.Invoice;
-import de.codebarista.gallop.xrechnung.model.InvoiceType;
-import de.codebarista.gallop.xrechnung.model.Item;
-import de.codebarista.gallop.xrechnung.model.PaymentCode;
-import de.codebarista.gallop.xrechnung.model.PaymentInstructions;
-import de.codebarista.gallop.xrechnung.model.PostalAddress;
-import de.codebarista.gallop.xrechnung.model.SellerOrBuyer;
-import de.codebarista.gallop.xrechnung.model.TaxCategory;
-import de.codebarista.gallop.xrechnung.model.UnitCode;
-import de.codebarista.gallop.xrechnung.model.Vat;
+import de.codebarista.gallop.cii.CIIXMLEInvoiceWriter;
+import de.codebarista.gallop.model.Contact;
+import de.codebarista.gallop.model.DeliveryInformation;
+import de.codebarista.gallop.model.Invoice;
+import de.codebarista.gallop.model.InvoiceType;
+import de.codebarista.gallop.model.Item;
+import de.codebarista.gallop.model.PaymentCode;
+import de.codebarista.gallop.model.PaymentInstructions;
+import de.codebarista.gallop.model.PostalAddress;
+import de.codebarista.gallop.model.SellerOrBuyer;
+import de.codebarista.gallop.model.TaxCategory;
+import de.codebarista.gallop.model.UnitCode;
+import de.codebarista.gallop.model.Vat;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -127,7 +128,7 @@ public class BuildInvoiceTest {
         assertThat(invoice).isNotNull();
 
         // Generate the XRechnung XML from the invoice
-        byte[] xRechnungXML = XRechnungWriter.generateXML(invoice, InvoiceProfile.XRECHNUNG);
+        byte[] xRechnungXML = CIIXMLEInvoiceWriter.generateXML(invoice, EInvoiceProfile.XRECHNUNG);
         String xml = new String(xRechnungXML);
 
         // Print the generated XML to the console

@@ -1,4 +1,4 @@
-package de.codebarista.gallop.xrechnung.model;
+package de.codebarista.gallop.model;
 
 /**
  * Seller/Buyer Contact (BG-6/BG-9)

@@ -1,4 +1,4 @@
-package de.codebarista.gallop.xrechnung.model;
+package de.codebarista.gallop.model;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * XRechnung root element
+ * E-invoice root element
  */
 public class Invoice {
     /**

@@ -1,4 +1,4 @@
-package de.codebarista.gallop.xrechnung.model;
+package de.codebarista.gallop.model;
 
 /**
  * Seller/Buyer Postal Address (BG-5/BG-8) and Deliver to Address (BG-15)
