@@ -1,5 +1,7 @@
 package de.codebarista.gallop;
 
+import java.util.Objects;
+
 /**
  * Formats of e-invoices.
  * <p>
@@ -58,8 +60,8 @@ public class EInvoiceProfile {
      *                           or {@code null} if the format does not require one
      */
     public EInvoiceProfile(String name, String guidelineUrn, String businessProcessUrn) {
-        this.name = name;
-        this.guidelineUrn = guidelineUrn;
+        this.name = Objects.requireNonNull(name);
+        this.guidelineUrn = Objects.requireNonNull(guidelineUrn);
         this.businessProcessUrn = businessProcessUrn;
     }
 
@@ -88,5 +90,22 @@ public class EInvoiceProfile {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (!(o instanceof EInvoiceProfile that)) return false;
+
+        return name.equals(that.name)
+                && guidelineUrn.equals(that.guidelineUrn)
+                && Objects.equals(businessProcessUrn, that.businessProcessUrn);
+    }
+
+    @Override
+    public final int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + guidelineUrn.hashCode();
+        result = 31 * result + Objects.hashCode(businessProcessUrn);
+        return result;
     }
 }

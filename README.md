@@ -189,7 +189,9 @@ public class InvoiceGenerator {
 - 3.0.0: Add ZUGFeRD and Factur-X (EN16931) support alongside XRechnung via the new `EInvoiceProfile` parameter of
   `CIIXMLEInvoiceWriter`. **Breaking:** the packages were reorganized: the model classes moved from
   `de.codebarista.gallop.xrechnung.model` to `de.codebarista.gallop.model`, and
-  `XRechnungWriterException` became `de.codebarista.gallop.EInvoiceWriterException`.
+  `XRechnungWriterException` became `de.codebarista.gallop.EInvoiceWriterException`;
+  `XRechnungUtils` moved to `de.codebarista.gallop.GallopUtils` and
+  `XmlDocumentBuilder` to `de.codebarista.gallop.XmlDocumentBuilder`.
   `de.codebarista.gallop.xrechnung.XRechnungWriter` keeps its package and its API, and now delegates to
   `CIIXMLEInvoiceWriter`.
 - 2.2.0: Add BT-114 (Rounding amount)
