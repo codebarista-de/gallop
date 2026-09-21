@@ -47,8 +47,7 @@ public class ScenarioHelper {
      */
     public static final Map<EInvoiceProfile, String> EXPECTED_XML_FILE_NAMES = Map.of(
             EInvoiceProfile.XRECHNUNG, "xrechnung.xml",
-            EInvoiceProfile.ZUGFERD_EN16931, "zugferd.xml",
-            EInvoiceProfile.FACTURX_EN16931, "facturx.xml"
+            EInvoiceProfile.EN16931_CII, "en16931-cii.xml"
     );
 
     /**
@@ -68,7 +67,7 @@ public class ScenarioHelper {
     }
 
     /**
-     * @return the expected-output file name for {@code profile}, e.g. {@code "zugferd.xml"}
+     * @return the expected-output file name for {@code profile}, e.g. {@code "en16931-cii.xml"}
      */
     public static String expectedXmlFileName(EInvoiceProfile profile) {
         return EXPECTED_XML_FILE_NAMES.get(profile);

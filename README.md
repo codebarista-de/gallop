@@ -39,17 +39,22 @@ which verify that the generated XML is a valid X-Rechnung.
 and Factur-X (France). Which one you get is decided by the `EInvoiceProfile` you pass:
 
 ```java
-byte[] xml = CIIXMLEInvoiceWriter.generateXML(invoice, EInvoiceProfile.ZUGFERD_EN16931);
+byte[] xml = CIIXMLEInvoiceWriter.generateXML(invoice, EInvoiceProfile.EN16931_CII);
 ```
 
 XRechnung, ZUGFeRD and Factur-X all share the same Cross Industry Invoice (CII) syntax and the same EN16931 semantic
 data model, so the same `Invoice` object works for all three. Only the document context identifiers differ, and Gallop
 takes care of that based on the `EInvoiceProfile`.
 
+ZUGFeRD and Factur-X aligned their specifications at the EN16931 level, so a single profile,
+`EInvoiceProfile.EN16931_CII`, covers both. The XML Gallop writes is the same document.
+The constants `ZUGFERD_EN16931` and `FACTURX_EN16931` are aliases of `EN16931_CII`.
+
 Note that ZUGFeRD and Factur-X are hybrid formats combining a PDF/A-3 document with embedded XML; Gallop only produces
-the XML part, embedding it into a PDF/A-3 document is up to you. Also note that unit codes conventionally differ by
-format: XRechnung examples use `XPP` for "piece", while ZUGFeRD examples use `H87` (see `UnitCode.java`). Pick the unit
-code your target format/validator expects.
+the XML part, embedding it into a PDF/A-3 document is up to you.
+
+Also note that unit codes conventionally differ by format: XRechnung examples use `XPP` for "piece",
+while ZUGFeRD examples use `H87` (see `UnitCode.java`). Pick the unit code your target format/validator expects.
 
 ## Usage
 
@@ -186,8 +191,9 @@ public class InvoiceGenerator {
 
 ### Changelog
 
-- 3.0.0: Add ZUGFeRD and Factur-X (EN16931) support alongside XRechnung via the new `EInvoiceProfile` parameter of
-  `CIIXMLEInvoiceWriter`. **Breaking:** the packages were reorganized: the model classes moved from
+- 3.0.0: Add ZUGFeRD and Factur-X (both covered by the single shared profile `EN16931_CII`) support alongside
+  XRechnung via the new `EInvoiceProfile` parameter of `CIIXMLEInvoiceWriter`. **Breaking:** the packages were
+  reorganized: the model classes moved from
   `de.codebarista.gallop.xrechnung.model` to `de.codebarista.gallop.model`, and
   `XRechnungWriterException` became `de.codebarista.gallop.EInvoiceWriterException`;
   `XRechnungUtils` moved to `de.codebarista.gallop.GallopUtils` and
