@@ -10,7 +10,7 @@ public class ScenarioHelper {
     /**
      * Names of the invoice scenario directories under {@code src/test/resources/invoice}.
      * <p>
-     * Every scenario directory holds an {@code invoice.json} plus one expected XML per {@link EInvoiceProfile}.
+     * Every scenario directory holds an {@code invoice.json} plus one expected XML per {@link EInvoiceFormat}.
      */
     public static final List<String> INVOICE_SCENARIOS = List.of(
             "order_with_allowance",
@@ -42,34 +42,34 @@ public class ScenarioHelper {
     }
 
     /**
-     * Every profile Gallop can write, paired with the name of the expected-output file that each
+     * Every format Gallop can write, paired with the name of the expected-output file that each
      * scenario directory holds for it.
      */
-    public static final Map<EInvoiceProfile, String> EXPECTED_XML_FILE_NAMES = Map.of(
-            EInvoiceProfile.XRECHNUNG, "xrechnung.xml",
-            EInvoiceProfile.EN16931_CII, "en16931-cii.xml"
+    public static final Map<EInvoiceFormat, String> EXPECTED_XML_FILE_NAMES = Map.of(
+            EInvoiceFormat.XRECHNUNG, "xrechnung.xml",
+            EInvoiceFormat.EN16931_CORE, "en16931-core.xml"
     );
 
     /**
-     * @return every {@link EInvoiceProfile}, for use as a JUnit {@code @MethodSource}
+     * @return every {@link EInvoiceFormat}, for use as a JUnit {@code @MethodSource}
      */
-    public static Stream<EInvoiceProfile> invoiceProfiles() {
+    public static Stream<EInvoiceFormat> invoiceFormats() {
         return EXPECTED_XML_FILE_NAMES.keySet().stream();
     }
 
     /**
-     * @return the cartesian product of every profile and every scenario, for use as a JUnit
+     * @return the cartesian product of every format and every scenario, for use as a JUnit
      * {@code @MethodSource}
      */
-    public static Stream<Arguments> invoiceProfilesAndScenarios() {
-        return invoiceProfiles().flatMap(profile ->
-                INVOICE_SCENARIOS.stream().map(scenario -> Arguments.of(profile, scenario)));
+    public static Stream<Arguments> invoiceFormatsAndScenarios() {
+        return invoiceFormats().flatMap(format ->
+                INVOICE_SCENARIOS.stream().map(scenario -> Arguments.of(format, scenario)));
     }
 
     /**
-     * @return the expected-output file name for {@code profile}, e.g. {@code "en16931-cii.xml"}
+     * @return the expected-output file name for {@code format}, e.g. {@code "en16931-core.xml"}
      */
-    public static String expectedXmlFileName(EInvoiceProfile profile) {
-        return EXPECTED_XML_FILE_NAMES.get(profile);
+    public static String expectedXmlFileName(EInvoiceFormat format) {
+        return EXPECTED_XML_FILE_NAMES.get(format);
     }
 }

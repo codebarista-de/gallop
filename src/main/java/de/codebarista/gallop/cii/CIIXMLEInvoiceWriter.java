@@ -1,6 +1,6 @@
 package de.codebarista.gallop.cii;
 
-import de.codebarista.gallop.EInvoiceProfile;
+import de.codebarista.gallop.EInvoiceFormat;
 import de.codebarista.gallop.EInvoiceWriterException;
 import de.codebarista.gallop.GallopUtils;
 import de.codebarista.gallop.XmlDocumentBuilder;
@@ -38,7 +38,7 @@ import java.util.Objects;
  * Writes a Cross Industry Invoice (CII) XML with the data of an {@linkplain Invoice} object.
  * <p>
  * The writer will always produce valid XML, but it does not guarantee that the generated e-invoice is valid
- * according to the schema and the business rules of the selected profile.
+ * according to the schema and the business rules of the selected format.
  */
 public class CIIXMLEInvoiceWriter {
     private static final String VAT_TYPE_CODE = "VAT";
@@ -47,34 +47,34 @@ public class CIIXMLEInvoiceWriter {
     private static final String NS_UDT = "urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100";
     private static final String NS_QDT = "urn:un:unece:uncefact:data:standard:QualifiedDataType:100";
     private final Invoice invoice;
-    private final EInvoiceProfile eInvoiceProfile;
+    private final EInvoiceFormat eInvoiceFormat;
 
     /**
-     * Constructs a new {@code CIIXMLEInvoiceWriter} with the specified invoice and profile.
+     * Constructs a new {@code CIIXMLEInvoiceWriter} with the specified invoice and format.
      *
-     * @param invoice         the invoice to be written, must not be {@code null}
-     * @param eInvoiceProfile the profile determining which document context identifiers are written, must not be {@code null}
+     * @param invoice        the invoice to be written, must not be {@code null}
+     * @param eInvoiceFormat the format determining which document context identifiers are written, must not be {@code null}
      */
-    public CIIXMLEInvoiceWriter(Invoice invoice, EInvoiceProfile eInvoiceProfile) {
+    public CIIXMLEInvoiceWriter(Invoice invoice, EInvoiceFormat eInvoiceFormat) {
         Objects.requireNonNull(invoice, "Invoice must not be null");
-        Objects.requireNonNull(eInvoiceProfile, "Profile must not be null");
+        Objects.requireNonNull(eInvoiceFormat, "Format must not be null");
         this.invoice = invoice;
-        this.eInvoiceProfile = eInvoiceProfile;
+        this.eInvoiceFormat = eInvoiceFormat;
     }
 
     /**
-     * Convert an invoice to a CII XML document for the given {@link EInvoiceProfile}.
+     * Convert an invoice to a CII XML document for the given {@link EInvoiceFormat}.
      *
-     * @param invoice         the Invoice object to serialize to XML, must not be {@code null}
-     * @param eInvoiceProfile the profile determining which document context identifiers are written,
-     *                        must not be {@code null}
+     * @param invoice        the Invoice object to serialize to XML, must not be {@code null}
+     * @param eInvoiceFormat the format determining which document context identifiers are written,
+     *                       must not be {@code null}
      * @return binary CII XML document
      * @throws EInvoiceWriterException if the creation of the XML failed
      */
-    public static byte[] generateXML(Invoice invoice, EInvoiceProfile eInvoiceProfile) {
+    public static byte[] generateXML(Invoice invoice, EInvoiceFormat eInvoiceFormat) {
         Objects.requireNonNull(invoice, "Invoice must not be null");
-        Objects.requireNonNull(eInvoiceProfile, "Profile must not be null");
-        var xmlWriter = new CIIXMLEInvoiceWriter(invoice, eInvoiceProfile);
+        Objects.requireNonNull(eInvoiceFormat, "Format must not be null");
+        var xmlWriter = new CIIXMLEInvoiceWriter(invoice, eInvoiceFormat);
         try {
             return xmlWriter.getXML();
         } catch (Exception e) {
@@ -113,13 +113,13 @@ public class CIIXMLEInvoiceWriter {
 
     private Element createExchangedDocumentContext(XmlDocumentBuilder builder) {
         Element exchangedDocumentContext = builder.createElement(NS_RSM, "ExchangedDocumentContext");
-        if (eInvoiceProfile.getBusinessProcessUrn() != null) {
+        if (eInvoiceFormat.getBusinessProcessUrn() != null) {
             Element businessContextParam = builder.createElement(NS_RAM, "BusinessProcessSpecifiedDocumentContextParameter");
-            businessContextParam.appendChild(createID(builder, eInvoiceProfile.getBusinessProcessUrn()));
+            businessContextParam.appendChild(createID(builder, eInvoiceFormat.getBusinessProcessUrn()));
             exchangedDocumentContext.appendChild(businessContextParam);
         }
         Element guidelineContextParam = builder.createElement(NS_RAM, "GuidelineSpecifiedDocumentContextParameter");
-        guidelineContextParam.appendChild(createID(builder, eInvoiceProfile.getGuidelineUrn()));
+        guidelineContextParam.appendChild(createID(builder, eInvoiceFormat.getGuidelineUrn()));
         exchangedDocumentContext.appendChild(guidelineContextParam);
         return exchangedDocumentContext;
     }

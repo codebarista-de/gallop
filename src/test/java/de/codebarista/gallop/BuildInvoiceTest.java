@@ -128,7 +128,7 @@ public class BuildInvoiceTest {
         assertThat(invoice).isNotNull();
 
         // Generate the XRechnung XML from the invoice
-        byte[] xRechnungXML = CIIXMLEInvoiceWriter.generateXML(invoice, EInvoiceProfile.XRECHNUNG);
+        byte[] xRechnungXML = CIIXMLEInvoiceWriter.generateXML(invoice, EInvoiceFormat.XRECHNUNG);
         String xml = new String(xRechnungXML);
 
         // Print the generated XML to the console

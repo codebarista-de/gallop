@@ -36,19 +36,19 @@ which verify that the generated XML is a valid X-Rechnung.
 ## Supported formats
 
 `CIIXMLEInvoiceWriter` writes XRechnung 3.0 as well as the EN16931 ("COMFORT") conformance level of ZUGFeRD (Germany)
-and Factur-X (France). Which one you get is decided by the `EInvoiceProfile` you pass:
+and Factur-X (France). Which one you get is decided by the `EInvoiceFormat` you pass:
 
 ```java
-byte[] xml = CIIXMLEInvoiceWriter.generateXML(invoice, EInvoiceProfile.EN16931_CII);
+byte[] xml = CIIXMLEInvoiceWriter.generateXML(invoice, EInvoiceFormat.EN16931_CORE);
 ```
 
 XRechnung, ZUGFeRD and Factur-X all share the same Cross Industry Invoice (CII) syntax and the same EN16931 semantic
 data model, so the same `Invoice` object works for all three. Only the document context identifiers differ, and Gallop
-takes care of that based on the `EInvoiceProfile`.
+takes care of that based on the `EInvoiceFormat`.
 
-ZUGFeRD and Factur-X aligned their specifications at the EN16931 level, so a single profile,
-`EInvoiceProfile.EN16931_CII`, covers both. The XML Gallop writes is the same document.
-The constants `ZUGFERD_EN16931` and `FACTURX_EN16931` are aliases of `EN16931_CII`.
+ZUGFeRD and Factur-X aligned their specifications at the EN16931 level, so a single format,
+`EInvoiceFormat.EN16931_CORE`, covers both. The XML Gallop writes is the same document.
+The constants `ZUGFERD_EN16931` and `FACTURX_EN16931` are aliases of `EN16931_CORE`.
 
 Note that ZUGFeRD and Factur-X are hybrid formats combining a PDF/A-3 document with embedded XML; Gallop only produces
 the XML part, embedding it into a PDF/A-3 document is up to you.
@@ -183,7 +183,7 @@ public class InvoiceGenerator {
                 .salesOrderReference("SO-98765");
 
         // Generate the XRechnung XML from the invoice
-        byte[] xRechnungXML = CIIXMLEInvoiceWriter.generateXML(invoice, EInvoiceProfile.XRECHNUNG);
+        byte[] xRechnungXML = CIIXMLEInvoiceWriter.generateXML(invoice, EInvoiceFormat.XRECHNUNG);
         return new String(xRechnungXML);
     }
 }
@@ -191,8 +191,8 @@ public class InvoiceGenerator {
 
 ### Changelog
 
-- 3.0.0: Add ZUGFeRD and Factur-X (both covered by the single shared profile `EN16931_CII`) support alongside
-  XRechnung via the new `EInvoiceProfile` parameter of `CIIXMLEInvoiceWriter`. **Breaking:** the packages were
+- 3.0.0: Add ZUGFeRD and Factur-X (both covered by the single shared format `EN16931_CORE`) support alongside
+  XRechnung via the new `EInvoiceFormat` parameter of `CIIXMLEInvoiceWriter`. **Breaking:** the packages were
   reorganized: the model classes moved from
   `de.codebarista.gallop.xrechnung.model` to `de.codebarista.gallop.model`, and
   `XRechnungWriterException` became `de.codebarista.gallop.EInvoiceWriterException`;

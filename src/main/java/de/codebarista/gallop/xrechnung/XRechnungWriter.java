@@ -1,6 +1,6 @@
 package de.codebarista.gallop.xrechnung;
 
-import de.codebarista.gallop.EInvoiceProfile;
+import de.codebarista.gallop.EInvoiceFormat;
 import de.codebarista.gallop.EInvoiceWriterException;
 import de.codebarista.gallop.cii.CIIXMLEInvoiceWriter;
 import de.codebarista.gallop.model.Invoice;
@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * Writes a XRechnung XML with the data of an {@linkplain Invoice} object.
  * <p>
- * This is a convenience wrapper around {@link CIIXMLEInvoiceWriter} with {@link EInvoiceProfile#XRECHNUNG} preselected.
+ * This is a convenience wrapper around {@link CIIXMLEInvoiceWriter} with {@link EInvoiceFormat#XRECHNUNG} preselected.
  */
 public class XRechnungWriter {
     private final CIIXMLEInvoiceWriter writer;
@@ -23,7 +23,7 @@ public class XRechnungWriter {
      * @param invoice the invoice to be written, must not be {@code null}
      */
     public XRechnungWriter(Invoice invoice) {
-        this.writer = new CIIXMLEInvoiceWriter(invoice, EInvoiceProfile.XRECHNUNG);
+        this.writer = new CIIXMLEInvoiceWriter(invoice, EInvoiceFormat.XRECHNUNG);
     }
 
     /**

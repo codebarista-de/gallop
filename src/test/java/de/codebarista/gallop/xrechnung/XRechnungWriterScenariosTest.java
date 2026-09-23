@@ -1,6 +1,6 @@
 package de.codebarista.gallop.xrechnung;
 
-import de.codebarista.gallop.EInvoiceProfile;
+import de.codebarista.gallop.EInvoiceFormat;
 import de.codebarista.gallop.ScenarioHelper;
 import de.codebarista.gallop.TestHelper;
 import de.codebarista.gallop.model.Invoice;
@@ -16,7 +16,7 @@ import java.io.InputStream;
 /**
  * For every invoice scenario, the generated XML must match the checked-in expected XRechnung output.
  *
- * <p>Scenarios and profiles are registered once in {@link ScenarioHelper}.</p>
+ * <p>Scenarios and formats are registered once in {@link ScenarioHelper}.</p>
  */
 public class XRechnungWriterScenariosTest {
 
@@ -24,7 +24,7 @@ public class XRechnungWriterScenariosTest {
     @MethodSource("de.codebarista.gallop.ScenarioHelper#invoiceScenarios")
     public void writesExpectedXml(String scenario)
             throws ParserConfigurationException, TransformerException {
-        String expectedFileName = ScenarioHelper.expectedXmlFileName(EInvoiceProfile.XRECHNUNG);
+        String expectedFileName = ScenarioHelper.expectedXmlFileName(EInvoiceFormat.XRECHNUNG);
         TestHelper testHelper = new TestHelper("invoice");
         var invoice = testHelper.deserialize(scenario + "/invoice.json", Invoice.class);
 
