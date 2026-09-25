@@ -35,11 +35,19 @@ which verify that the generated XML is a valid X-Rechnung.
 
 ## Supported formats
 
-`CIIXMLEInvoiceWriter` writes XRechnung 3.0 as well as the EN16931 ("COMFORT") conformance level of ZUGFeRD (Germany)
-and Factur-X (France). Which one you get is decided by the `EInvoiceFormat` you pass:
+`EInvoiceWriter` writes XRechnung 3.0 as well as the EN16931 ("COMFORT") conformance level of ZUGFeRD (Germany)
+and Factur-X (France). There is a convenience method for each format:
 
 ```java
-byte[] xml = CIIXMLEInvoiceWriter.generateXML(invoice, EInvoiceFormat.EN16931_CORE);
+byte[] xRechnung = EInvoiceWriter.generateXRechnungCIIXML(invoice);
+byte[] zugferd = EInvoiceWriter.generateZugferdXML(invoice);
+byte[] facturX = EInvoiceWriter.generateFacturXXML(invoice);
+```
+
+They are shortcuts for `generateCIIXML`, where the `EInvoiceFormat` you pass decides which format you get:
+
+```java
+byte[] xml = EInvoiceWriter.generateCIIXML(invoice, EInvoiceFormat.EN16931_CORE);
 ```
 
 XRechnung, ZUGFeRD and Factur-X all share the same Cross Industry Invoice (CII) syntax and the same EN16931 semantic
@@ -183,7 +191,7 @@ public class InvoiceGenerator {
                 .salesOrderReference("SO-98765");
 
         // Generate the XRechnung XML from the invoice
-        byte[] xRechnungXML = CIIXMLEInvoiceWriter.generateXML(invoice, EInvoiceFormat.XRECHNUNG);
+        byte[] xRechnungXML = EInvoiceWriter.generateXRechnungCIIXML(invoice);
         return new String(xRechnungXML);
     }
 }
@@ -192,14 +200,14 @@ public class InvoiceGenerator {
 ### Changelog
 
 - 3.0.0: Add ZUGFeRD and Factur-X (both covered by the single shared format `EN16931_CORE`) support alongside
-  XRechnung via the new `EInvoiceFormat` parameter of `CIIXMLEInvoiceWriter`. **Breaking:** the packages were
-  reorganized: the model classes moved from
+  XRechnung. The new entry point `de.codebarista.gallop.EInvoiceWriter` offers convenience methods. **Breaking:**
+  `de.codebarista.gallop.xrechnung.XRechnungWriter` was removed, use
+  `EInvoiceWriter.generateXRechnungCIIXML` instead. The packages were reorganized: the model classes moved from
   `de.codebarista.gallop.xrechnung.model` to `de.codebarista.gallop.model`, and
   `XRechnungWriterException` became `de.codebarista.gallop.EInvoiceWriterException`;
-  `XRechnungUtils` moved to `de.codebarista.gallop.GallopUtils` and
-  `XmlDocumentBuilder` to `de.codebarista.gallop.XmlDocumentBuilder`.
-  `de.codebarista.gallop.xrechnung.XRechnungWriter` keeps its package and its API, and now delegates to
-  `CIIXMLEInvoiceWriter`.
+  `XRechnungUtils` moved to `de.codebarista.gallop.internal.GallopUtils` and
+  `XmlDocumentBuilder` to `de.codebarista.gallop.internal.XmlDocumentBuilder`. Classes in the `internal` package
+  are not part of the public API.
 - 2.2.0: Add BT-114 (Rounding amount)
 - 2.1.0: Add BT-30/BT-47 (Seller/Buyer legal registration identifier), BT-32 (Seller tax registration identifier), BT-33
   (Seller additional legal information), BT-113 (Paid amount)

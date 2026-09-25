@@ -1,6 +1,5 @@
 package de.codebarista.gallop;
 
-import de.codebarista.gallop.cii.CIIXMLEInvoiceWriter;
 import de.codebarista.gallop.model.Contact;
 import de.codebarista.gallop.model.DeliveryInformation;
 import de.codebarista.gallop.model.Invoice;
@@ -128,7 +127,7 @@ public class BuildInvoiceTest {
         assertThat(invoice).isNotNull();
 
         // Generate the XRechnung XML from the invoice
-        byte[] xRechnungXML = CIIXMLEInvoiceWriter.generateXML(invoice, EInvoiceFormat.XRECHNUNG);
+        byte[] xRechnungXML = EInvoiceWriter.generateXRechnungCIIXML(invoice);
         String xml = new String(xRechnungXML);
 
         // Print the generated XML to the console

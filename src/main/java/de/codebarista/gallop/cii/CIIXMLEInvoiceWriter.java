@@ -1,9 +1,9 @@
 package de.codebarista.gallop.cii;
 
 import de.codebarista.gallop.EInvoiceFormat;
-import de.codebarista.gallop.EInvoiceWriterException;
-import de.codebarista.gallop.GallopUtils;
-import de.codebarista.gallop.XmlDocumentBuilder;
+import de.codebarista.gallop.EInvoiceWriter;
+import de.codebarista.gallop.internal.GallopUtils;
+import de.codebarista.gallop.internal.XmlDocumentBuilder;
 import de.codebarista.gallop.model.Allowance;
 import de.codebarista.gallop.model.Charge;
 import de.codebarista.gallop.model.Contact;
@@ -39,6 +39,8 @@ import java.util.Objects;
  * <p>
  * The writer will always produce valid XML, but it does not guarantee that the generated e-invoice is valid
  * according to the schema and the business rules of the selected format.
+ * <p>
+ * Most callers should use {@link EInvoiceWriter} instead.
  */
 public class CIIXMLEInvoiceWriter {
     private static final String VAT_TYPE_CODE = "VAT";
@@ -60,26 +62,6 @@ public class CIIXMLEInvoiceWriter {
         Objects.requireNonNull(eInvoiceFormat, "Format must not be null");
         this.invoice = invoice;
         this.eInvoiceFormat = eInvoiceFormat;
-    }
-
-    /**
-     * Convert an invoice to a CII XML document for the given {@link EInvoiceFormat}.
-     *
-     * @param invoice        the Invoice object to serialize to XML, must not be {@code null}
-     * @param eInvoiceFormat the format determining which document context identifiers are written,
-     *                       must not be {@code null}
-     * @return binary CII XML document
-     * @throws EInvoiceWriterException if the creation of the XML failed
-     */
-    public static byte[] generateXML(Invoice invoice, EInvoiceFormat eInvoiceFormat) {
-        Objects.requireNonNull(invoice, "Invoice must not be null");
-        Objects.requireNonNull(eInvoiceFormat, "Format must not be null");
-        var xmlWriter = new CIIXMLEInvoiceWriter(invoice, eInvoiceFormat);
-        try {
-            return xmlWriter.getXML();
-        } catch (Exception e) {
-            throw new EInvoiceWriterException("E-invoice creation failed", e);
-        }
     }
 
     /**

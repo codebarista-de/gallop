@@ -1,4 +1,4 @@
-package de.codebarista.gallop;
+package de.codebarista.gallop.internal;
 
 /**
  * Internal helper methods shared across Gallop.

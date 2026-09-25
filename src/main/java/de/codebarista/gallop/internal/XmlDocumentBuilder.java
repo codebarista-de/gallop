@@ -1,4 +1,4 @@
-package de.codebarista.gallop;
+package de.codebarista.gallop.internal;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
