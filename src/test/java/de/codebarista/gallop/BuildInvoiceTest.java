@@ -1,100 +1,33 @@
-# Gallop 🐎 E-Invoice Library
+package de.codebarista.gallop;
 
-[![Tests](https://github.com/codebarista-de/gallop/actions/workflows/test.yml/badge.svg)](https://github.com/codebarista-de/gallop/actions/workflows/test.yml)
+import de.codebarista.gallop.model.Contact;
+import de.codebarista.gallop.model.DeliveryInformation;
+import de.codebarista.gallop.model.Invoice;
+import de.codebarista.gallop.model.InvoiceType;
+import de.codebarista.gallop.model.Item;
+import de.codebarista.gallop.model.PaymentCode;
+import de.codebarista.gallop.model.PaymentInstructions;
+import de.codebarista.gallop.model.PostalAddress;
+import de.codebarista.gallop.model.SellerOrBuyer;
+import de.codebarista.gallop.model.TaxCategory;
+import de.codebarista.gallop.model.UnitCode;
+import de.codebarista.gallop.model.Vat;
+import org.junit.jupiter.api.Test;
 
-Gallop is a Java library for creating electronic invoices (E-Invoices) in the Cross Industry Invoice (CII) syntax:
-[XRechnung](https://xeinkauf.de/dokumente/), ZUGFeRD and Factur-X.
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import java.util.List;
 
-    Specification: Standard XRechnung
-    Version: XRechnung 3.0.2
-    Release Date: June 20, 2024
+import static org.assertj.core.api.Assertions.assertThat;
 
-It does not yet implement the whole specification. Contributions are welcome!
+/**
+ * Test class for building an {@link Invoice} object with all necessary details
+ * and generating the corresponding XRechnung XML.
+ */
+public class BuildInvoiceTest {
 
-## Why another e-invoice library?
-
-Despite the existence of several mature Java libraries for electronic invoice creation, none provided what we needed: a
-permissive license combined with complete control over the output. Gallop was built to fill this gap.
-
-### Gallop does not impose
-
-Gallop does not manipulate your data. It writes the exact values you provide into the XML, with no
-calculations or transformations (aside from necessary XML escaping).
-
-This preservation of your original values eliminates rounding discrepancies between source data and the final invoice.
-This is ideal, when creating an e-invoice that must match an existing PDF invoice.
-
-### Gallop does not judge
-
-Gallop does not validate the e-invoices it generates. It will happily accept any input and do its best to create a valid
-e-invoice, but will not notice or complain when the result does not meet all the rules specified in the
-choosen e-invoice format.
-
-There are other tools like the [KOSIT Validator](https://github.com/itplr-kosit/validator)
-which verify that the generated XML is a valid X-Rechnung.
-
-## Supported formats
-
-`EInvoiceWriter` writes XRechnung 3.0 as well as the EN16931 ("COMFORT") conformance level of ZUGFeRD (Germany)
-and Factur-X (France). There is a convenience method for each format:
-
-```java
-byte[] xRechnung = EInvoiceWriter.generateXRechnungCIIXML(invoice);
-byte[] zugferd = EInvoiceWriter.generateZugferdXML(invoice);
-byte[] facturX = EInvoiceWriter.generateFacturXXML(invoice);
-```
-
-They are shortcuts for `generateCIIXML`, where the `EInvoiceFormat` you pass decides which format you get:
-
-```java
-byte[] xml = EInvoiceWriter.generateCIIXML(invoice, EInvoiceFormat.EN16931_CORE);
-```
-
-XRechnung, ZUGFeRD and Factur-X all share the same Cross Industry Invoice (CII) syntax and the same EN16931 semantic
-data model, so the same `Invoice` object works for all three. Only the document context identifiers differ, and Gallop
-takes care of that based on the `EInvoiceFormat`.
-
-ZUGFeRD and Factur-X aligned their specifications at the EN16931 level, so a single format,
-`EInvoiceFormat.EN16931_CORE`, covers both. The XML Gallop writes is the same document.
-The constants `ZUGFERD_EN16931` and `FACTURX_EN16931` are aliases of `EN16931_CORE`.
-
-Note that ZUGFeRD and Factur-X are hybrid formats combining a PDF/A-3 document with embedded XML; Gallop only produces
-the XML part, embedding it into a PDF/A-3 document is up to you.
-
-Also note that unit codes conventionally differ by format: XRechnung examples use `XPP` for "piece",
-while ZUGFeRD examples use `H87` (see `UnitCode.java`). Pick the unit code your target format/validator expects.
-
-## Usage
-
-Add Gallop to your project via [Maven Central](https://central.sonatype.com/artifact/de.codebarista/gallop):
-
-**Gradle (Groovy DSL):**
-
-```groovy
-dependencies {
-    implementation 'de.codebarista:gallop:3.0.0'
-}
-```
-
-**Maven:**
-
-```xml
-
-<dependency>
-    <groupId>de.codebarista</groupId>
-    <artifactId>gallop</artifactId>
-    <version>3.0.0</version>
-</dependency>
-```
-
-### Code example
-
-You find this code in the `BuildInvoiceTest` class.
-
-```java
-public class InvoiceGenerator {
-
-    public String generateInvoice() throws EInvoiceWriterException {
+    @Test
+    public void buildInvoice() {
         Invoice invoice = Invoice.create()
                 .documentTypeCode(InvoiceType.COMMERCIAL_INVOICE.getValue()) // Define invoice type
                 .documentId("INV-2025-1001") // Unique invoice identifier
@@ -190,28 +123,14 @@ public class InvoiceGenerator {
                 // Sales order reference
                 .salesOrderReference("SO-98765");
 
+        // Ensure the invoice object is not null
+        assertThat(invoice).isNotNull();
+
         // Generate the XRechnung XML from the invoice
         byte[] xRechnungXML = EInvoiceWriter.generateXRechnungCIIXML(invoice);
-        return new String(xRechnungXML);
+        String xml = new String(xRechnungXML);
+
+        // Print the generated XML to the console
+        System.out.println(xml);
     }
 }
-```
-
-### Changelog
-
-- 3.0.0: Add ZUGFeRD and Factur-X (both covered by the single shared format `EN16931_CORE`) support alongside
-  XRechnung. The new entry point `de.codebarista.gallop.EInvoiceWriter` offers convenience methods. **Breaking:**
-  `de.codebarista.gallop.xrechnung.XRechnungWriter` was removed, use
-  `EInvoiceWriter.generateXRechnungCIIXML` instead. The packages were reorganized: the model classes moved from
-  `de.codebarista.gallop.xrechnung.model` to `de.codebarista.gallop.model`, and
-  `XRechnungWriterException` became `de.codebarista.gallop.EInvoiceWriterException`;
-  `XRechnungUtils` moved to `de.codebarista.gallop.internal.GallopUtils` and
-  `XmlDocumentBuilder` to `de.codebarista.gallop.internal.XmlDocumentBuilder`. Classes in the `internal` package
-  are not part of the public API.
-- 2.2.0: Add BT-114 (Rounding amount)
-- 2.1.0: Add BT-30/BT-47 (Seller/Buyer legal registration identifier), BT-32 (Seller tax registration identifier), BT-33
-  (Seller additional legal information), BT-113 (Paid amount)
-  and `NetAmount#getVatCategory`
-- 2.0.0: Gallop no longer relies on lombok, introduce fluent api
-- 1.0.1: Add action to publish to maven central
-- 1.0.0: Initial version

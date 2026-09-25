@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'de.codebarista'
-version = '2.2.0'
+version = '3.0.0'
 
 java {
     toolchain {
@@ -40,7 +40,7 @@ jacocoTestReport {
 mavenPublishing {
     pom {
         name.set("Gallop")
-        description.set("Java library for creating electronic invoices compliant to the XRechnung standard")
+        description.set("Java library for creating XRechnung, ZUGFeRD and Factur-X electronic invoices")
         url.set("https://github.com/codebarista-de/gallop")
 
         licenses {
