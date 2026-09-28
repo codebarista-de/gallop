@@ -38,6 +38,16 @@ public class Invoice {
     private String leitwegId;
 
     /**
+     * Business process type (BT-23)
+     * <p>
+     * Identifies the business process context in which the transaction appears.
+     * For example, French invoices must state the billing mode here (e.g. {@code B1}, {@code S1}, {@code M1}).
+     * <p>
+     * If this is null or empty, the business process URN of the {@code EInvoiceFormat} is written instead, if any.
+     */
+    private String businessProcessType;
+
+    /**
      * Payment Instructions (BG-16)
      */
     private PaymentInstructions paymentInstructions;
@@ -191,6 +201,14 @@ public class Invoice {
      */
     public Invoice leitwegId(String leitwegId) {
         this.leitwegId = leitwegId;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #businessProcessType}
+     */
+    public Invoice businessProcessType(String businessProcessType) {
+        this.businessProcessType = businessProcessType;
         return this;
     }
 
@@ -477,6 +495,13 @@ public class Invoice {
      */
     public String getLeitwegId() {
         return leitwegId;
+    }
+
+    /**
+     * Gets the {@link #businessProcessType}.
+     */
+    public String getBusinessProcessType() {
+        return businessProcessType;
     }
 
     /**

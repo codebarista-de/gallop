@@ -16,6 +16,18 @@ public class InvoiceNote {
     private String note;
 
     /**
+     * Invoice note subject code (BT-21)
+     * <p>
+     * The subject of the invoice note, from the UNTDID 4451 code list.
+     * <p>
+     * For example, French invoices must contain notes with the subject codes {@code PMT} (flat recovery fee),
+     * {@code PMD} (late-payment penalties) and {@code AAB} (early-payment discount).
+     * <p>
+     * No subject code is written if this is null or empty.
+     */
+    private String subjectCode;
+
+    /**
      * Creates a new, empty instance of this class.
      */
     public InvoiceNote() {
@@ -39,9 +51,24 @@ public class InvoiceNote {
     }
 
     /**
+     * Sets the {@link #subjectCode}.
+     */
+    public InvoiceNote subjectCode(String subjectCode) {
+        this.subjectCode = subjectCode;
+        return this;
+    }
+
+    /**
      * Gets the {@link #note}.
      */
     public String getNote() {
         return note;
+    }
+
+    /**
+     * Gets the {@link #subjectCode}.
+     */
+    public String getSubjectCode() {
+        return subjectCode;
     }
 }

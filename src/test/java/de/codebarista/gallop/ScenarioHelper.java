@@ -22,6 +22,7 @@ public class ScenarioHelper {
             "order_with_customer_vatid",
             "order_with_different_billing_and_shipping_address",
             "order_with_discount_code_and_shipping_costs_with_multiple_taxes",
+            "order_with_french_mandatory_notes_and_billing_mode",
             "order_with_legal_registration_identifiers",
             "order_with_payment_in_advance",
             "order_with_paypal",

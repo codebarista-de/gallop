@@ -199,6 +199,7 @@ public class InvoiceGenerator {
 
 ### Changelog
 
+- 3.1.0: TODO
 - 3.0.0: Add ZUGFeRD and Factur-X (both covered by the single shared format `EN16931_CORE`) support alongside
   XRechnung. The new entry point `de.codebarista.gallop.EInvoiceWriter` offers convenience methods. **Breaking:**
   `de.codebarista.gallop.xrechnung.XRechnungWriter` was removed, use

@@ -95,9 +95,12 @@ public class CIIXMLEInvoiceWriter {
 
     private Element createExchangedDocumentContext(XmlDocumentBuilder builder) {
         Element exchangedDocumentContext = builder.createElement(NS_RSM, "ExchangedDocumentContext");
-        if (eInvoiceFormat.getBusinessProcessUrn() != null) {
+        String businessProcess = GallopUtils.isNotNullOrBlank(invoice.getBusinessProcessType())
+                ? invoice.getBusinessProcessType()
+                : eInvoiceFormat.getBusinessProcessUrn();
+        if (businessProcess != null) {
             Element businessContextParam = builder.createElement(NS_RAM, "BusinessProcessSpecifiedDocumentContextParameter");
-            businessContextParam.appendChild(createID(builder, eInvoiceFormat.getBusinessProcessUrn()));
+            businessContextParam.appendChild(createID(builder, businessProcess));
             exchangedDocumentContext.appendChild(businessContextParam);
         }
         Element guidelineContextParam = builder.createElement(NS_RAM, "GuidelineSpecifiedDocumentContextParameter");
@@ -666,6 +669,11 @@ public class CIIXMLEInvoiceWriter {
         Element content = builder.createElement(NS_RAM, "Content");
         content.setTextContent(note.getNote());
         includedNote.appendChild(content);
+        if (GallopUtils.isNotNullOrBlank(note.getSubjectCode())) {
+            Element subjectCode = builder.createElement(NS_RAM, "SubjectCode");
+            subjectCode.setTextContent(note.getSubjectCode());
+            includedNote.appendChild(subjectCode);
+        }
         return includedNote;
     }
 
