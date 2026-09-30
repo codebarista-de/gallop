@@ -207,6 +207,11 @@ public class CIIXMLEInvoiceWriter {
         if (sellerInfo != null) {
             Element seller = builder.createElement(NS_RAM, "SellerTradeParty");
             tradeHeader.appendChild(seller);
+            if (GallopUtils.isNotNullOrBlank(sellerInfo.getIdentifier())) {
+                seller.appendChild(createPartyIdentifier(builder,
+                        sellerInfo.getIdentifier(),
+                        sellerInfo.getIdentifierScheme()));
+            }
             seller.appendChild(createName(builder, sellerInfo.getName()));
             if (GallopUtils.isNotNullOrBlank(sellerInfo.getSellerAdditionalLegalInfo())) {
                 seller.appendChild(createDescription(builder, sellerInfo.getSellerAdditionalLegalInfo()));
@@ -234,6 +239,11 @@ public class CIIXMLEInvoiceWriter {
         if (buyerInfo != null) {
             Element buyer = builder.createElement(NS_RAM, "BuyerTradeParty");
             tradeHeader.appendChild(buyer);
+            if (GallopUtils.isNotNullOrBlank(buyerInfo.getIdentifier())) {
+                buyer.appendChild(createPartyIdentifier(builder,
+                        buyerInfo.getIdentifier(),
+                        buyerInfo.getIdentifierScheme()));
+            }
             buyer.appendChild(createName(builder, buyerInfo.getName()));
             if (GallopUtils.isNotNullOrBlank(buyerInfo.getLegalRegistrationIdentifier())) {
                 Element specifiedLegalOrganization = builder.createElement(NS_RAM, "SpecifiedLegalOrganization");
@@ -501,6 +511,20 @@ public class CIIXMLEInvoiceWriter {
         if (GallopUtils.isNotNullOrBlank(schemeID)) {
             element.setAttribute("schemeID", schemeID);
         }
+        return element;
+    }
+
+    /**
+     * Seller/Buyer identifier (BT-29/BT-46): {@code ram:GlobalID} with the scheme (BT-29/BT-46) if a scheme
+     * is given, {@code ram:ID} without scheme otherwise.
+     */
+    private static Element createPartyIdentifier(XmlDocumentBuilder builder, String id, String scheme) {
+        if (GallopUtils.isNullOrBlank(scheme)) {
+            return createID(builder, id);
+        }
+        Element element = builder.createElement(NS_RAM, "GlobalID");
+        element.setTextContent(id);
+        element.setAttribute("schemeID", scheme);
         return element;
     }
 

@@ -19,6 +19,27 @@ public class SellerOrBuyer {
     private String tradingName;
 
     /**
+     * Seller/Buyer identifier (BT-29/BT-46)
+     * <p>
+     * An identifier of the seller/buyer, e.g. a global identifier such as the GLN or the French SIRET.
+     * <p>
+     * In CII, the identifier is written as {@code ram:GlobalID} if an {@link #identifierScheme} is set,
+     * otherwise as {@code ram:ID}.
+     */
+    private String identifier;
+
+    /**
+     * Seller/Buyer identifier scheme (BT-29/BT-46)
+     * <p>
+     * A code from <a href="https://www.xrepository.de/details/urn:xoev-de:kosit:codeliste:icd_5">ISO/IEC 6523</a>
+     * that describes the schema/type of the {@link #identifier}, e.g. {@code 0088} for the GLN or {@code 0009}
+     * for the SIRET.
+     * <p>
+     * No scheme is set if this is null or empty.
+     */
+    private String identifierScheme;
+
+    /**
      * Seller/Buyer legal registration identifier (BT-30/BT-47)
      * <p>
      * An identifier issued by an official registration authority that identifies the seller/buyer
@@ -122,6 +143,22 @@ public class SellerOrBuyer {
     }
 
     /**
+     * Sets the {@link #identifier}.
+     */
+    public SellerOrBuyer identifier(String identifier) {
+        this.identifier = identifier;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #identifierScheme}.
+     */
+    public SellerOrBuyer identifierScheme(String identifierScheme) {
+        this.identifierScheme = identifierScheme;
+        return this;
+    }
+
+    /**
      * Sets the {@link #vatId}.
      */
     public SellerOrBuyer vatId(String vatId) {
@@ -205,6 +242,20 @@ public class SellerOrBuyer {
      */
     public String getTradingName() {
         return tradingName;
+    }
+
+    /**
+     * Gets the {@link #identifier}.
+     */
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    /**
+     * Gets the {@link #identifierScheme}.
+     */
+    public String getIdentifierScheme() {
+        return identifierScheme;
     }
 
     /**

@@ -30,6 +30,7 @@ public class ScenarioHelper {
             "order_with_paypal_direct_debit",
             "order_with_paypal_invoice",
             "order_with_rounding_amount",
+            "order_with_seller_and_buyer_identifiers",
             "order_with_shipping_costs_with_multiple_taxes",
             "order_with_tax_free_product",
             "order_without_vatid"
