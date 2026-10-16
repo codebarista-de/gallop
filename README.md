@@ -199,6 +199,10 @@ public class InvoiceGenerator {
 
 ### Changelog
 
+- 3.1.0: Add the fields required by the French rules for Factur-X: invoice note subject code
+  (`InvoiceNote.subjectCode`, BT-21), business process type (`Invoice.businessProcessType`, BT-23, overrides the
+  format's default) and seller/buyer identifier with scheme (`SellerOrBuyer.identifier`/`identifierScheme`,
+  BT-29/BT-46, written as `ram:GlobalID` with a scheme and as `ram:ID` without).
 - 3.0.0: Add ZUGFeRD and Factur-X (both covered by the single shared format `EN16931_CORE`) support alongside
   XRechnung. The new entry point `de.codebarista.gallop.EInvoiceWriter` offers convenience methods. **Breaking:**
   `de.codebarista.gallop.xrechnung.XRechnungWriter` was removed, use

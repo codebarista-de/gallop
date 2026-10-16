@@ -95,9 +95,12 @@ public class CIIXMLEInvoiceWriter {
 
     private Element createExchangedDocumentContext(XmlDocumentBuilder builder) {
         Element exchangedDocumentContext = builder.createElement(NS_RSM, "ExchangedDocumentContext");
-        if (eInvoiceFormat.getBusinessProcessUrn() != null) {
+        String businessProcess = GallopUtils.isNotNullOrBlank(invoice.getBusinessProcessType())
+                ? invoice.getBusinessProcessType()
+                : eInvoiceFormat.getBusinessProcessUrn();
+        if (businessProcess != null) {
             Element businessContextParam = builder.createElement(NS_RAM, "BusinessProcessSpecifiedDocumentContextParameter");
-            businessContextParam.appendChild(createID(builder, eInvoiceFormat.getBusinessProcessUrn()));
+            businessContextParam.appendChild(createID(builder, businessProcess));
             exchangedDocumentContext.appendChild(businessContextParam);
         }
         Element guidelineContextParam = builder.createElement(NS_RAM, "GuidelineSpecifiedDocumentContextParameter");
@@ -204,6 +207,11 @@ public class CIIXMLEInvoiceWriter {
         if (sellerInfo != null) {
             Element seller = builder.createElement(NS_RAM, "SellerTradeParty");
             tradeHeader.appendChild(seller);
+            if (GallopUtils.isNotNullOrBlank(sellerInfo.getIdentifier())) {
+                seller.appendChild(createPartyIdentifier(builder,
+                        sellerInfo.getIdentifier(),
+                        sellerInfo.getIdentifierScheme()));
+            }
             seller.appendChild(createName(builder, sellerInfo.getName()));
             if (GallopUtils.isNotNullOrBlank(sellerInfo.getSellerAdditionalLegalInfo())) {
                 seller.appendChild(createDescription(builder, sellerInfo.getSellerAdditionalLegalInfo()));
@@ -231,6 +239,11 @@ public class CIIXMLEInvoiceWriter {
         if (buyerInfo != null) {
             Element buyer = builder.createElement(NS_RAM, "BuyerTradeParty");
             tradeHeader.appendChild(buyer);
+            if (GallopUtils.isNotNullOrBlank(buyerInfo.getIdentifier())) {
+                buyer.appendChild(createPartyIdentifier(builder,
+                        buyerInfo.getIdentifier(),
+                        buyerInfo.getIdentifierScheme()));
+            }
             buyer.appendChild(createName(builder, buyerInfo.getName()));
             if (GallopUtils.isNotNullOrBlank(buyerInfo.getLegalRegistrationIdentifier())) {
                 Element specifiedLegalOrganization = builder.createElement(NS_RAM, "SpecifiedLegalOrganization");
@@ -501,6 +514,20 @@ public class CIIXMLEInvoiceWriter {
         return element;
     }
 
+    /**
+     * Seller/Buyer identifier (BT-29/BT-46): {@code ram:GlobalID} with the scheme (BT-29/BT-46) if a scheme
+     * is given, {@code ram:ID} without scheme otherwise.
+     */
+    private static Element createPartyIdentifier(XmlDocumentBuilder builder, String id, String scheme) {
+        if (GallopUtils.isNullOrBlank(scheme)) {
+            return createID(builder, id);
+        }
+        Element element = builder.createElement(NS_RAM, "GlobalID");
+        element.setTextContent(id);
+        element.setAttribute("schemeID", scheme);
+        return element;
+    }
+
     private static Element createTypeCode(XmlDocumentBuilder builder, String code) {
         Element element = builder.createElement(NS_RAM, "TypeCode");
         element.setTextContent(code);
@@ -666,6 +693,11 @@ public class CIIXMLEInvoiceWriter {
         Element content = builder.createElement(NS_RAM, "Content");
         content.setTextContent(note.getNote());
         includedNote.appendChild(content);
+        if (GallopUtils.isNotNullOrBlank(note.getSubjectCode())) {
+            Element subjectCode = builder.createElement(NS_RAM, "SubjectCode");
+            subjectCode.setTextContent(note.getSubjectCode());
+            includedNote.appendChild(subjectCode);
+        }
         return includedNote;
     }
 

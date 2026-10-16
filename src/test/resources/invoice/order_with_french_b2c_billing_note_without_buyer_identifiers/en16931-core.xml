@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsm:CrossIndustryInvoice xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100"
+                          xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100"
+                          xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
+   <rsm:ExchangedDocumentContext>
+      <ram:BusinessProcessSpecifiedDocumentContextParameter>
+         <ram:ID>B1</ram:ID>
+      </ram:BusinessProcessSpecifiedDocumentContextParameter>
+      <ram:GuidelineSpecifiedDocumentContextParameter>
+         <ram:ID>urn:cen.eu:en16931:2017</ram:ID>
+      </ram:GuidelineSpecifiedDocumentContextParameter>
+   </rsm:ExchangedDocumentContext>
+   <rsm:ExchangedDocument>
+      <ram:ID>1014</ram:ID>
+      <ram:TypeCode>380</ram:TypeCode>
+      <ram:IssueDateTime>
+         <udt:DateTimeString format="102">20241207</udt:DateTimeString>
+      </ram:IssueDateTime>
+      <ram:IncludedNote>
+         <ram:Content>B2C</ram:Content>
+         <ram:SubjectCode>BAR</ram:SubjectCode>
+      </ram:IncludedNote>
+      <ram:IncludedNote>
+         <ram:Content>Indemnité forfaitaire pour frais de recouvrement en cas de retard de paiement : 40 €</ram:Content>
+         <ram:SubjectCode>PMT</ram:SubjectCode>
+      </ram:IncludedNote>
+      <ram:IncludedNote>
+         <ram:Content>Pénalités de retard : trois fois le taux d'intérêt légal</ram:Content>
+         <ram:SubjectCode>PMD</ram:SubjectCode>
+      </ram:IncludedNote>
+      <ram:IncludedNote>
+         <ram:Content>Pas d'escompte pour paiement anticipé</ram:Content>
+         <ram:SubjectCode>AAB</ram:SubjectCode>
+      </ram:IncludedNote>
+   </rsm:ExchangedDocument>
+   <rsm:SupplyChainTradeTransaction>
+      <ram:IncludedSupplyChainTradeLineItem>
+         <ram:AssociatedDocumentLineDocument>
+            <ram:LineID>1</ram:LineID>
+         </ram:AssociatedDocumentLineDocument>
+         <ram:SpecifiedTradeProduct>
+            <ram:SellerAssignedID>10001</ram:SellerAssignedID>
+            <ram:Name>Article principal</ram:Name>
+         </ram:SpecifiedTradeProduct>
+         <ram:SpecifiedLineTradeAgreement>
+            <ram:NetPriceProductTradePrice>
+               <ram:ChargeAmount>100.0000</ram:ChargeAmount>
+               <ram:BasisQuantity unitCode="XPP">1</ram:BasisQuantity>
+            </ram:NetPriceProductTradePrice>
+         </ram:SpecifiedLineTradeAgreement>
+         <ram:SpecifiedLineTradeDelivery>
+            <ram:BilledQuantity unitCode="XPP">1</ram:BilledQuantity>
+         </ram:SpecifiedLineTradeDelivery>
+         <ram:SpecifiedLineTradeSettlement>
+            <ram:ApplicableTradeTax>
+               <ram:TypeCode>VAT</ram:TypeCode>
+               <ram:CategoryCode>S</ram:CategoryCode>
+               <ram:RateApplicablePercent>20</ram:RateApplicablePercent>
+            </ram:ApplicableTradeTax>
+            <ram:SpecifiedTradeSettlementLineMonetarySummation>
+               <ram:LineTotalAmount>100.00</ram:LineTotalAmount>
+            </ram:SpecifiedTradeSettlementLineMonetarySummation>
+         </ram:SpecifiedLineTradeSettlement>
+      </ram:IncludedSupplyChainTradeLineItem>
+      <ram:ApplicableHeaderTradeAgreement>
+         <ram:BuyerReference>N/A</ram:BuyerReference>
+         <ram:SellerTradeParty>
+            <ram:Name>Exemple SARL</ram:Name>
+            <ram:SpecifiedLegalOrganization>
+               <ram:ID schemeID="0002">552081317</ram:ID>
+            </ram:SpecifiedLegalOrganization>
+            <ram:DefinedTradeContact>
+               <ram:PersonName>Marie Dupont</ram:PersonName>
+               <ram:TelephoneUniversalCommunication>
+                  <ram:CompleteNumber>0140000000</ram:CompleteNumber>
+               </ram:TelephoneUniversalCommunication>
+               <ram:EmailURIUniversalCommunication>
+                  <ram:URIID>service@exemple-boutique.fr</ram:URIID>
+               </ram:EmailURIUniversalCommunication>
+            </ram:DefinedTradeContact>
+            <ram:PostalTradeAddress>
+               <ram:PostcodeCode>75002</ram:PostcodeCode>
+               <ram:LineOne>12 rue de la Paix</ram:LineOne>
+               <ram:CityName>Paris</ram:CityName>
+               <ram:CountryID>FR</ram:CountryID>
+            </ram:PostalTradeAddress>
+            <ram:URIUniversalCommunication>
+               <ram:URIID schemeID="EM">contact@exemple-boutique.fr</ram:URIID>
+            </ram:URIUniversalCommunication>
+            <ram:SpecifiedTaxRegistration>
+               <ram:ID schemeID="VA">FR44552081317</ram:ID>
+            </ram:SpecifiedTaxRegistration>
+         </ram:SellerTradeParty>
+         <ram:BuyerTradeParty>
+            <ram:Name>Jean Martin</ram:Name>
+            <ram:PostalTradeAddress>
+               <ram:PostcodeCode>69007</ram:PostcodeCode>
+               <ram:LineOne>5 avenue Jean Jaurès</ram:LineOne>
+               <ram:CityName>Lyon</ram:CityName>
+               <ram:CountryID>FR</ram:CountryID>
+            </ram:PostalTradeAddress>
+            <ram:URIUniversalCommunication>
+               <ram:URIID schemeID="EM">jean.martin@example.fr</ram:URIID>
+            </ram:URIUniversalCommunication>
+         </ram:BuyerTradeParty>
+         <ram:SellerOrderReferencedDocument>
+            <ram:IssuerAssignedID>10012</ram:IssuerAssignedID>
+         </ram:SellerOrderReferencedDocument>
+      </ram:ApplicableHeaderTradeAgreement>
+      <ram:ApplicableHeaderTradeDelivery>
+         <ram:ShipToTradeParty>
+            <ram:Name>Jean Martin</ram:Name>
+            <ram:PostalTradeAddress>
+               <ram:PostcodeCode>69007</ram:PostcodeCode>
+               <ram:LineOne>5 avenue Jean Jaurès</ram:LineOne>
+               <ram:CityName>Lyon</ram:CityName>
+               <ram:CountryID>FR</ram:CountryID>
+            </ram:PostalTradeAddress>
+         </ram:ShipToTradeParty>
+      </ram:ApplicableHeaderTradeDelivery>
+      <ram:ApplicableHeaderTradeSettlement>
+         <ram:PaymentReference>RE-2024-0043</ram:PaymentReference>
+         <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
+         <ram:SpecifiedTradeSettlementPaymentMeans>
+            <ram:TypeCode>58</ram:TypeCode>
+            <ram:PayeePartyCreditorFinancialAccount>
+               <ram:IBANID>FR7630006000011234567890189</ram:IBANID>
+               <ram:AccountName>Exemple SARL</ram:AccountName>
+            </ram:PayeePartyCreditorFinancialAccount>
+            <ram:PayeeSpecifiedCreditorFinancialInstitution>
+               <ram:BICID>AGRIFRPPXXX</ram:BICID>
+            </ram:PayeeSpecifiedCreditorFinancialInstitution>
+         </ram:SpecifiedTradeSettlementPaymentMeans>
+         <ram:ApplicableTradeTax>
+            <ram:CalculatedAmount>20.00</ram:CalculatedAmount>
+            <ram:TypeCode>VAT</ram:TypeCode>
+            <ram:BasisAmount>100.00</ram:BasisAmount>
+            <ram:CategoryCode>S</ram:CategoryCode>
+            <ram:RateApplicablePercent>20</ram:RateApplicablePercent>
+         </ram:ApplicableTradeTax>
+         <ram:SpecifiedTradeAllowanceCharge>
+            <ram:ChargeIndicator>
+               <udt:Indicator>true</udt:Indicator>
+            </ram:ChargeIndicator>
+            <ram:ActualAmount>0.00</ram:ActualAmount>
+            <ram:Reason>Frais de livraison</ram:Reason>
+            <ram:CategoryTradeTax>
+               <ram:TypeCode>VAT</ram:TypeCode>
+               <ram:CategoryCode>S</ram:CategoryCode>
+               <ram:RateApplicablePercent>20</ram:RateApplicablePercent>
+            </ram:CategoryTradeTax>
+         </ram:SpecifiedTradeAllowanceCharge>
+         <ram:SpecifiedTradePaymentTerms>
+            <ram:Description>Paiement à réception de la facture.</ram:Description>
+         </ram:SpecifiedTradePaymentTerms>
+         <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+            <ram:LineTotalAmount>100.00</ram:LineTotalAmount>
+            <ram:ChargeTotalAmount>0.00</ram:ChargeTotalAmount>
+            <ram:AllowanceTotalAmount>0.00</ram:AllowanceTotalAmount>
+            <ram:TaxBasisTotalAmount>100.00</ram:TaxBasisTotalAmount>
+            <ram:TaxTotalAmount currencyID="EUR">20.00</ram:TaxTotalAmount>
+            <ram:GrandTotalAmount>120.00</ram:GrandTotalAmount>
+            <ram:DuePayableAmount>120.00</ram:DuePayableAmount>
+         </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+      </ram:ApplicableHeaderTradeSettlement>
+   </rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>

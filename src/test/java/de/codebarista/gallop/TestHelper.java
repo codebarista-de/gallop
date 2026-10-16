@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import de.codebarista.gallop.model.TaxCategory;
+import org.xmlunit.assertj.XmlAssert;
+import org.xmlunit.builder.Input;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -79,6 +81,22 @@ public class TestHelper {
         } catch (Exception e) {
             throw new RuntimeException("Failed to deserialize JSON from: " + path, e);
         }
+    }
+
+    /**
+     * Asserts that the given XML is identical to the expected XML resource, ignoring whitespace and comments.
+     *
+     * @param xml          the generated XML
+     * @param expectedPath the relative path to the expected XML resource
+     */
+    public void assertXmlMatchesResource(byte[] xml, String expectedPath) {
+        XmlAssert.assertThat(Input.fromByteArray(xml))
+                .withFailMessage("Generated XML does not match %s:%n%s",
+                        Path.of(basePath, expectedPath), new String(xml))
+                .and(Input.fromStream(loadResource(expectedPath)))
+                .ignoreWhitespace()
+                .ignoreComments()
+                .areIdentical();
     }
 
     /**

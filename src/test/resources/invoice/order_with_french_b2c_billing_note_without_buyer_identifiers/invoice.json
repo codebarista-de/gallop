@@ -1,0 +1,143 @@
+{
+  "documentTypeCode": "380",
+  "documentId": "1014",
+  "leitwegId": null,
+  "businessProcessType": "B1",
+  "currency": "EUR",
+  "paymentInstructions": {
+    "meansType": "58",
+    "meansText": null,
+    "remittanceInfo": "RE-2024-0043",
+    "paymentTerms": "Paiement à réception de la facture.",
+    "creditTransfers": [
+      {
+        "iban": "FR7630006000011234567890189",
+        "accountName": "Exemple SARL",
+        "bic": "AGRIFRPPXXX"
+      }
+    ],
+    "paymentCardInformation": null,
+    "directDebit": null
+  },
+  "issueDate": "2024-12-07T10:33:25.540+00:00",
+  "seller": {
+    "name": "Exemple SARL",
+    "tradingName": "Exemple Boutique",
+    "legalRegistrationIdentifier": "552081317",
+    "legalRegistrationIdentifierScheme": "0002",
+    "vatId": "FR44552081317",
+    "electronicAddress": "contact@exemple-boutique.fr",
+    "electronicAddressScheme": "EM",
+    "address": {
+      "addressLineOne": "12 rue de la Paix",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Paris",
+      "zipCode": "75002",
+      "countryIsoCode": "FR"
+    },
+    "contact": {
+      "name": "Marie Dupont",
+      "phone": "0140000000",
+      "email": "service@exemple-boutique.fr"
+    }
+  },
+  "buyer": {
+    "name": "Jean Martin",
+    "tradingName": null,
+    "legalRegistrationIdentifier": null,
+    "legalRegistrationIdentifierScheme": null,
+    "vatId": null,
+    "electronicAddress": "jean.martin@example.fr",
+    "electronicAddressScheme": null,
+    "address": {
+      "addressLineOne": "5 avenue Jean Jaurès",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Lyon",
+      "zipCode": "69007",
+      "countryIsoCode": "FR"
+    },
+    "contact": null
+  },
+  "deliveryInfo": {
+    "name": "Jean Martin",
+    "deliveryAddress": {
+      "addressLineOne": "5 avenue Jean Jaurès",
+      "addressLineTwo": null,
+      "addressLineThree": null,
+      "city": "Lyon",
+      "zipCode": "69007",
+      "countryIsoCode": "FR"
+    },
+    "actualDeliveryDate": null
+  },
+  "items": [
+    {
+      "id": 1,
+      "quantity": 1,
+      "unitCode": "XPP",
+      "itemTotalNetAmount": 100.00,
+      "name": "Article principal",
+      "description": null,
+      "unitPrice": 100.0000,
+      "vat": {
+        "rate": 20,
+        "category": "S",
+        "taxableAmount": null,
+        "taxAmount": null,
+        "vatExemptionReasonText": null,
+        "vatExemptionReasonCode": null
+      },
+      "sellerAssignedId": "10001",
+      "itemAttributes": [],
+      "netAmount": 100.00
+    }
+  ],
+  "vatTotals": [
+    {
+      "rate": 20,
+      "category": "S",
+      "taxableAmount": 100.00,
+      "taxAmount": 20.00,
+      "vatExemptionReasonText": null,
+      "vatExemptionReasonCode": null
+    }
+  ],
+  "precedingInvoiceReferences": [],
+  "lineTotalAmount": 100.00,
+  "allowanceTotalAmount": 0.00,
+  "chargeTotalAmount": 0.00,
+  "taxBasisTotalAmount": 100.00,
+  "taxTotalAmount": 20.00,
+  "grandTotalAmount": 120.00,
+  "duePayableAmount": 120.00,
+  "salesOrderReference": "10012",
+  "invoiceNotes": [
+    {
+      "note": "B2C",
+      "subjectCode": "BAR"
+    },
+    {
+      "note": "Indemnité forfaitaire pour frais de recouvrement en cas de retard de paiement : 40 €",
+      "subjectCode": "PMT"
+    },
+    {
+      "note": "Pénalités de retard : trois fois le taux d'intérêt légal",
+      "subjectCode": "PMD"
+    },
+    {
+      "note": "Pas d'escompte pour paiement anticipé",
+      "subjectCode": "AAB"
+    }
+  ],
+  "allowances": [],
+  "charges": [
+    {
+      "netAmount": 0.00,
+      "vatCategory": "S",
+      "vatRate": 20,
+      "reason": "Frais de livraison"
+    }
+  ]
+}
