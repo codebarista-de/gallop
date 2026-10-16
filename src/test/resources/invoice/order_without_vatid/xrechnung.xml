@@ -47,7 +47,6 @@
          </ram:SpecifiedLineTradeSettlement>
       </ram:IncludedSupplyChainTradeLineItem>
       <ram:ApplicableHeaderTradeAgreement>
-         <ram:BuyerReference>N/A</ram:BuyerReference>
          <ram:SellerTradeParty>
             <ram:Name>Test Gbr</ram:Name>
             <ram:Description>Kein Ausweis von Umsatzsteuer, da Kleinunternehmer gemäß § 19 UStG</ram:Description>
