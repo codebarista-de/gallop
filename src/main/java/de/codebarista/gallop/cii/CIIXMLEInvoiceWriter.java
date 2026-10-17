@@ -189,19 +189,11 @@ public class CIIXMLEInvoiceWriter {
     private Element createTradeHeader(XmlDocumentBuilder builder) {
         Element tradeHeader = builder.createElement(NS_RAM, "ApplicableHeaderTradeAgreement");
 
-        Element buyerRef = builder.createElement(NS_RAM, "BuyerReference");
         if (GallopUtils.isNotNullOrBlank(invoice.getLeitwegId())) {
+            Element buyerRef = builder.createElement(NS_RAM, "BuyerReference");
             buyerRef.setTextContent(invoice.getLeitwegId());
-        } else {
-            // > Wenn keine Referenz vorgegeben wurde:
-            // >  – „N/A“ (Not Applicable)
-            // >  – Einen internen Vermerk, z. B. „Standard Order“ oder „Privatkunde“
-            // >  – Eine allgemeine Kennung wie „Keine Referenz vorhanden“
-            // Source: https://leitweg-id.de/
-            // Use "N/A" as it does not require translation for different locales
-            buyerRef.setTextContent("N/A");
+            tradeHeader.appendChild(buyerRef);
         }
-        tradeHeader.appendChild(buyerRef);
 
         SellerOrBuyer sellerInfo = invoice.getSeller();
         if (sellerInfo != null) {
@@ -224,9 +216,13 @@ public class CIIXMLEInvoiceWriter {
                                 sellerInfo.getLegalRegistrationIdentifierScheme()));
                 seller.appendChild(specifiedLegalOrganization);
             }
-            seller.appendChild(createTradeContact(builder, sellerInfo.getContact()));
+            if (sellerInfo.getContact() != null) {
+                seller.appendChild(createTradeContact(builder, sellerInfo.getContact()));
+            }
             seller.appendChild(createAddress(builder, sellerInfo.getAddress()));
-            seller.appendChild(createElectronicAddressEmailElement(builder, sellerInfo.getElectronicAddress()));
+            if (GallopUtils.isNotNullOrBlank(sellerInfo.getElectronicAddress())) {
+                seller.appendChild(createElectronicAddressElement(builder, sellerInfo));
+            }
             if (GallopUtils.isNotNullOrBlank(sellerInfo.getVatId())) {
                 seller.appendChild(createTaxRegistration(builder, "VA", sellerInfo.getVatId()));
             }
@@ -254,7 +250,9 @@ public class CIIXMLEInvoiceWriter {
                 buyer.appendChild(specifiedLegalOrganization);
             }
             buyer.appendChild(createAddress(builder, buyerInfo.getAddress()));
-            buyer.appendChild(createElectronicAddressEmailElement(builder, buyerInfo.getElectronicAddress()));
+            if (GallopUtils.isNotNullOrBlank(buyerInfo.getElectronicAddress())) {
+                buyer.appendChild(createElectronicAddressElement(builder, buyerInfo));
+            }
             if (GallopUtils.isNotNullOrBlank(buyerInfo.getVatId())) {
                 buyer.appendChild(createTaxRegistration(builder, "VA", buyerInfo.getVatId()));
             }
@@ -626,17 +624,24 @@ public class CIIXMLEInvoiceWriter {
         return element;
     }
 
+    /**
+     * Writes only the contact details that are present, as empty elements are not allowed in CII.
+     */
     private static Element createTradeContact(XmlDocumentBuilder builder, Contact contact) {
         Element tradeContact = builder.createElement(NS_RAM, "DefinedTradeContact");
-        if (contact != null) {
+        if (GallopUtils.isNotNullOrBlank(contact.getName())) {
             Element personName = builder.createElement(NS_RAM, "PersonName");
             personName.setTextContent(contact.getName());
             tradeContact.appendChild(personName);
+        }
+        if (GallopUtils.isNotNullOrBlank(contact.getPhone())) {
             Element telephone = builder.createElement(NS_RAM, "TelephoneUniversalCommunication");
             tradeContact.appendChild(telephone);
             Element telephoneNumber = builder.createElement(NS_RAM, "CompleteNumber");
             telephoneNumber.setTextContent(contact.getPhone());
             telephone.appendChild(telephoneNumber);
+        }
+        if (GallopUtils.isNotNullOrBlank(contact.getEmail())) {
             Element email = builder.createElement(NS_RAM, "EmailURIUniversalCommunication");
             email.appendChild(createURIID(builder, contact.getEmail(), null));
             tradeContact.appendChild(email);
@@ -644,10 +649,15 @@ public class CIIXMLEInvoiceWriter {
         return tradeContact;
     }
 
-    private static Element createElectronicAddressEmailElement(XmlDocumentBuilder builder, String email) {
+    /**
+     * Writes the electronic address (BT-34 / BT-49) with its scheme, falling back to {@code EM} (email).
+     */
+    private static Element createElectronicAddressElement(XmlDocumentBuilder builder, SellerOrBuyer party) {
+        String scheme = GallopUtils.isNotNullOrBlank(party.getElectronicAddressScheme())
+                ? party.getElectronicAddressScheme()
+                : "EM";
         var communication = builder.createElement(NS_RAM, "URIUniversalCommunication");
-        var uriID = createURIID(builder, email, "EM");
-        communication.appendChild(uriID);
+        communication.appendChild(createURIID(builder, party.getElectronicAddress(), scheme));
         return communication;
     }
 

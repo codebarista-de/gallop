@@ -44,7 +44,6 @@
          </ram:SpecifiedLineTradeSettlement>
       </ram:IncludedSupplyChainTradeLineItem>
       <ram:ApplicableHeaderTradeAgreement>
-         <ram:BuyerReference>N/A</ram:BuyerReference>
          <ram:SellerTradeParty>
             <ram:Name>Example Company</ram:Name>
             <ram:DefinedTradeContact>

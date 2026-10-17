@@ -47,7 +47,6 @@
          </ram:SpecifiedLineTradeSettlement>
       </ram:IncludedSupplyChainTradeLineItem>
       <ram:ApplicableHeaderTradeAgreement>
-         <ram:BuyerReference>N/A</ram:BuyerReference>
          <ram:SellerTradeParty>
             <ram:GlobalID schemeID="0009">55210055400013</ram:GlobalID>
             <ram:Name>Beispiel GmbH</ram:Name>
