@@ -216,7 +216,7 @@ public class CIIXMLEInvoiceWriter {
                                 sellerInfo.getLegalRegistrationIdentifierScheme()));
                 seller.appendChild(specifiedLegalOrganization);
             }
-            if (hasContactData(sellerInfo.getContact())) {
+            if (sellerInfo.getContact() != null) {
                 seller.appendChild(createTradeContact(builder, sellerInfo.getContact()));
             }
             seller.appendChild(createAddress(builder, sellerInfo.getAddress()));
@@ -622,13 +622,6 @@ public class CIIXMLEInvoiceWriter {
         Element element = builder.createElement(NS_RAM, "RateApplicablePercent");
         element.setTextContent(rate);
         return element;
-    }
-
-    private static boolean hasContactData(Contact contact) {
-        return contact != null
-                && (GallopUtils.isNotNullOrBlank(contact.getName())
-                || GallopUtils.isNotNullOrBlank(contact.getPhone())
-                || GallopUtils.isNotNullOrBlank(contact.getEmail()));
     }
 
     /**

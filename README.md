@@ -201,14 +201,14 @@ public class InvoiceGenerator {
 
 - 3.2.0: Optional elements are only written when they have a value: the seller contact (BG-6) and each of its
   details, and the seller/buyer electronic address (BT-34/BT-49). The electronic address is now written with its
-  scheme (`SellerOrBuyer.electronicAddressScheme`, falling back to `EM`) instead of always `EM`.
-  **Behavior change:** `BuyerReference` (BT-10) is only written if `Invoice.leitwegId` is set; Gallop no longer
+  scheme (`SellerOrBuyer.electronicAddressScheme`, falling back to `EM`) instead of always `EM`. **Behavior change:**
+  `BuyerReference` (BT-10) is only written if `Invoice.leitwegId` is set; Gallop no longer
   writes `N/A` without it. XRechnung requires BT-10 (BR-DE-15), so set e.g. `N/A` yourself if there is no
   reference. Includes the changes of 3.1.0.
-- 3.1.0 (never released, contained in 3.2.0): Add the fields required by the French rules for Factur-X: invoice
+- 3.1.0: Add the fields required by the French rules for Factur-X: invoice
   note subject code (`InvoiceNote.subjectCode`, BT-21), business process type (`Invoice.businessProcessType`,
-  BT-23, overrides the format's default) and seller/buyer identifier with scheme
-  (`SellerOrBuyer.identifier`/`identifierScheme`, BT-29/BT-46, written as `ram:GlobalID` with a scheme and as
+  BT-23, overrides the format's default) and seller/buyer identifier with scheme (`SellerOrBuyer.identifier`/
+  `identifierScheme`, BT-29/BT-46, written as `ram:GlobalID` with a scheme and as
   `ram:ID` without).
 - 3.0.0: Add ZUGFeRD and Factur-X (both covered by the single shared format `EN16931_CORE`) support alongside
   XRechnung. The new entry point `de.codebarista.gallop.EInvoiceWriter` offers convenience methods. **Breaking:**
