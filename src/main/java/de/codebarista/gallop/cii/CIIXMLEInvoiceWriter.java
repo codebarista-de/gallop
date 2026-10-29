@@ -189,19 +189,9 @@ public class CIIXMLEInvoiceWriter {
     private Element createTradeHeader(XmlDocumentBuilder builder) {
         Element tradeHeader = builder.createElement(NS_RAM, "ApplicableHeaderTradeAgreement");
 
-        Element buyerRef = builder.createElement(NS_RAM, "BuyerReference");
         if (GallopUtils.isNotNullOrBlank(invoice.getLeitwegId())) {
-            buyerRef.setTextContent(invoice.getLeitwegId());
-        } else {
-            // > Wenn keine Referenz vorgegeben wurde:
-            // >  – „N/A“ (Not Applicable)
-            // >  – Einen internen Vermerk, z. B. „Standard Order“ oder „Privatkunde“
-            // >  – Eine allgemeine Kennung wie „Keine Referenz vorhanden“
-            // Source: https://leitweg-id.de/
-            // Use "N/A" as it does not require translation for different locales
-            buyerRef.setTextContent("N/A");
+            tradeHeader.appendChild(createBuyerReference(builder, invoice.getLeitwegId()));
         }
-        tradeHeader.appendChild(buyerRef);
 
         SellerOrBuyer sellerInfo = invoice.getSeller();
         if (sellerInfo != null) {
@@ -511,6 +501,12 @@ public class CIIXMLEInvoiceWriter {
         if (GallopUtils.isNotNullOrBlank(schemeID)) {
             element.setAttribute("schemeID", schemeID);
         }
+        return element;
+    }
+
+    private static Element createBuyerReference(XmlDocumentBuilder builder, String buyerReference) {
+        Element element = builder.createElement(NS_RAM, "BuyerReference");
+        element.setTextContent(buyerReference);
         return element;
     }
 
