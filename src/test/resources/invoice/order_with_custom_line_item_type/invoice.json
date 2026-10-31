@@ -1,7 +1,7 @@
 {
   "documentTypeCode": "380",
   "documentId": "1074",
-  "leitwegId": null,
+  "leitwegId": "N/A",
   "currency": "EUR",
   "paymentInstructions": {
     "meansType": "10",
