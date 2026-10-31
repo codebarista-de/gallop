@@ -333,7 +333,10 @@ public class CIIXMLEInvoiceWriter {
             tradeSettlement.appendChild(currency);
         }
         if (paymentInstructions != null) {
-            tradeSettlement.appendChild(createPaymentMeans(builder, paymentInstructions));
+            var means = createPaymentMeans(builder, paymentInstructions);
+            if (means.hasChildNodes()) {
+                tradeSettlement.appendChild(means);
+            }
         }
         for (Vat totalVat : invoice.getVatTotals()) {
             tradeSettlement.appendChild(createTax(builder, totalVat));
@@ -422,8 +425,7 @@ public class CIIXMLEInvoiceWriter {
      * BG-3
      */
     private Element createPrecedingInvoiceReference(
-            XmlDocumentBuilder builder, String referenceId, OffsetDateTime issueDate)
-    {
+            XmlDocumentBuilder builder, String referenceId, OffsetDateTime issueDate) {
         Element element = builder.createElement(NS_RAM, "InvoiceReferencedDocument");
         Element issuerAssignedId = builder.createElement(NS_RAM, "IssuerAssignedID"); // BT-25, mandatory
         issuerAssignedId.setTextContent(referenceId);
@@ -438,53 +440,51 @@ public class CIIXMLEInvoiceWriter {
 
     private static Element createPaymentMeans(XmlDocumentBuilder builder, PaymentInstructions paymentInstructions) {
         Element paymentMeans = builder.createElement(NS_RAM, "SpecifiedTradeSettlementPaymentMeans");
-        if (paymentInstructions != null) {
-            if (GallopUtils.isNotNullOrBlank(paymentInstructions.getMeansType())) {
-                paymentMeans.appendChild(createTypeCode(builder, paymentInstructions.getMeansType()));
+        if (GallopUtils.isNotNullOrBlank(paymentInstructions.getMeansType())) {
+            paymentMeans.appendChild(createTypeCode(builder, paymentInstructions.getMeansType()));
+        }
+        if (GallopUtils.isNotNullOrBlank(paymentInstructions.getMeansText())) {
+            Element paymentInfo = builder.createElement(NS_RAM, "Information");
+            paymentInfo.setTextContent(paymentInstructions.getMeansText());
+            paymentMeans.appendChild(paymentInfo);
+        }
+        for (CreditTransfer transfer : paymentInstructions.getCreditTransfers()) {
+            Element payeeAccount = builder.createElement(NS_RAM, "PayeePartyCreditorFinancialAccount");
+            paymentMeans.appendChild(payeeAccount);
+            if (GallopUtils.isNotNullOrBlank(transfer.getIban())) {
+                payeeAccount.appendChild(createIban(builder, transfer.getIban()));
             }
-            if (GallopUtils.isNotNullOrBlank(paymentInstructions.getMeansText())) {
-                Element paymentInfo = builder.createElement(NS_RAM, "Information");
-                paymentInfo.setTextContent(paymentInstructions.getMeansText());
-                paymentMeans.appendChild(paymentInfo);
+            if (GallopUtils.isNotNullOrBlank(transfer.getAccountName())) {
+                Element accountName = builder.createElement(NS_RAM, "AccountName");
+                accountName.setTextContent(transfer.getAccountName());
+                payeeAccount.appendChild(accountName);
             }
-            for (CreditTransfer transfer : paymentInstructions.getCreditTransfers()) {
-                Element payeeAccount = builder.createElement(NS_RAM, "PayeePartyCreditorFinancialAccount");
-                paymentMeans.appendChild(payeeAccount);
-                if (GallopUtils.isNotNullOrBlank(transfer.getIban())) {
-                    payeeAccount.appendChild(createIban(builder, transfer.getIban()));
-                }
-                if (GallopUtils.isNotNullOrBlank(transfer.getAccountName())) {
-                    Element accountName = builder.createElement(NS_RAM, "AccountName");
-                    accountName.setTextContent(transfer.getAccountName());
-                    payeeAccount.appendChild(accountName);
-                }
-                if (GallopUtils.isNotNullOrBlank(transfer.getBic())) {
-                    Element payeeBank = builder.createElement(NS_RAM, "PayeeSpecifiedCreditorFinancialInstitution");
-                    paymentMeans.appendChild(payeeBank);
-                    Element bic = builder.createElement(NS_RAM, "BICID");
-                    bic.setTextContent(transfer.getBic());
-                    payeeBank.appendChild(bic);
-                }
+            if (GallopUtils.isNotNullOrBlank(transfer.getBic())) {
+                Element payeeBank = builder.createElement(NS_RAM, "PayeeSpecifiedCreditorFinancialInstitution");
+                paymentMeans.appendChild(payeeBank);
+                Element bic = builder.createElement(NS_RAM, "BICID");
+                bic.setTextContent(transfer.getBic());
+                payeeBank.appendChild(bic);
             }
-            if (paymentInstructions.getDirectDebit() != null
-                    && GallopUtils.isNotNullOrBlank(paymentInstructions.getDirectDebit().getDebitedAccountIban())) {
-                Element debtorAccount = builder.createElement(NS_RAM, "PayerPartyDebtorFinancialAccount");
-                debtorAccount.appendChild(createIban(builder, paymentInstructions.getDirectDebit().getDebitedAccountIban()));
-                paymentMeans.appendChild(debtorAccount);
+        }
+        if (paymentInstructions.getDirectDebit() != null
+                && GallopUtils.isNotNullOrBlank(paymentInstructions.getDirectDebit().getDebitedAccountIban())) {
+            Element debtorAccount = builder.createElement(NS_RAM, "PayerPartyDebtorFinancialAccount");
+            debtorAccount.appendChild(createIban(builder, paymentInstructions.getDirectDebit().getDebitedAccountIban()));
+            paymentMeans.appendChild(debtorAccount);
+        }
+        PaymentCardInformation cardInformation = paymentInstructions.getPaymentCardInformation();
+        if (cardInformation != null) {
+            Element card = builder.createElement(NS_RAM, "ApplicableTradeSettlementFinancialCard");
+            if (GallopUtils.isNotNullOrBlank(cardInformation.getAccountNumber())) {
+                card.appendChild(createID(builder, cardInformation.getAccountNumber()));
             }
-            PaymentCardInformation cardInformation = paymentInstructions.getPaymentCardInformation();
-            if (cardInformation != null) {
-                Element card = builder.createElement(NS_RAM, "ApplicableTradeSettlementFinancialCard");
-                if (GallopUtils.isNotNullOrBlank(cardInformation.getAccountNumber())) {
-                    card.appendChild(createID(builder, cardInformation.getAccountNumber()));
-                }
-                if (GallopUtils.isNotNullOrBlank(cardInformation.getCardHolderName())) {
-                    Element cardHolderName = builder.createElement(NS_RAM, "CardholderName");
-                    cardHolderName.setTextContent(cardInformation.getCardHolderName());
-                    card.appendChild(cardHolderName);
-                }
-                paymentMeans.appendChild(card);
+            if (GallopUtils.isNotNullOrBlank(cardInformation.getCardHolderName())) {
+                Element cardHolderName = builder.createElement(NS_RAM, "CardholderName");
+                cardHolderName.setTextContent(cardInformation.getCardHolderName());
+                card.appendChild(cardHolderName);
             }
+            paymentMeans.appendChild(card);
         }
         return paymentMeans;
     }
