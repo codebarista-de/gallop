@@ -408,8 +408,10 @@ public class CIIXMLEInvoiceWriter {
         }
 
         for (PrecedingInvoiceReference reference : invoice.getPrecedingInvoiceReferences()) {
-            if (GallopUtils.isNotNullOrBlank(reference.getPrecedingInvoiceReference())) {
-                tradeSettlement.appendChild(createPrecedingInvoiceReference(builder, reference));
+            String precedingInvoiceReference = reference.getPrecedingInvoiceReference();
+            if (GallopUtils.isNotNullOrBlank(precedingInvoiceReference)) {
+                tradeSettlement.appendChild(createPrecedingInvoiceReference(
+                        builder, precedingInvoiceReference, reference.getPrecedingInvoiceIssueDate()));
             }
         }
 
@@ -419,14 +421,16 @@ public class CIIXMLEInvoiceWriter {
     /**
      * BG-3
      */
-    private Element createPrecedingInvoiceReference(XmlDocumentBuilder builder, PrecedingInvoiceReference reference) {
+    private Element createPrecedingInvoiceReference(
+            XmlDocumentBuilder builder, String referenceId, OffsetDateTime issueDate)
+    {
         Element element = builder.createElement(NS_RAM, "InvoiceReferencedDocument");
         Element issuerAssignedId = builder.createElement(NS_RAM, "IssuerAssignedID"); // BT-25, mandatory
-        issuerAssignedId.setTextContent(reference.getPrecedingInvoiceReference());
+        issuerAssignedId.setTextContent(referenceId);
         element.appendChild(issuerAssignedId);
-        if (reference.getPrecedingInvoiceIssueDate() != null) { // BT-26, optional
+        if (issueDate != null) { // BT-26, optional
             Element issueDateTime = builder.createElement(NS_RAM, "FormattedIssueDateTime");
-            issueDateTime.appendChild(createDateTimeString(builder, reference.getPrecedingInvoiceIssueDate(), NS_QDT));
+            issueDateTime.appendChild(createDateTimeString(builder, issueDate, NS_QDT));
             element.appendChild(issueDateTime);
         }
         return element;
