@@ -98,7 +98,7 @@ public class CIIXMLEInvoiceWriter {
         String businessProcess = GallopUtils.isNotNullOrBlank(invoice.getBusinessProcessType())
                 ? invoice.getBusinessProcessType()
                 : eInvoiceFormat.getBusinessProcessUrn();
-        if (businessProcess != null) {
+        if (GallopUtils.isNotNullOrBlank(businessProcess)) {
             Element businessContextParam = builder.createElement(NS_RAM, "BusinessProcessSpecifiedDocumentContextParameter");
             businessContextParam.appendChild(createID(builder, businessProcess));
             exchangedDocumentContext.appendChild(businessContextParam);
@@ -111,11 +111,17 @@ public class CIIXMLEInvoiceWriter {
 
     private Element createExchangedDocument(XmlDocumentBuilder builder, List<InvoiceNote> invoiceNotes) {
         Element exchangedDocument = builder.createElement(NS_RSM, "ExchangedDocument");
-        exchangedDocument.appendChild(createID(builder, invoice.getDocumentId()));
-        exchangedDocument.appendChild(createTypeCode(builder, invoice.getDocumentTypeCode()));
-        Element issueDateTime = builder.createElement(NS_RAM, "IssueDateTime");
-        exchangedDocument.appendChild(issueDateTime);
-        issueDateTime.appendChild(createDateTimeString(builder, invoice.getIssueDate(), NS_UDT));
+        if (GallopUtils.isNotNullOrBlank(invoice.getDocumentId())) {
+            exchangedDocument.appendChild(createID(builder, invoice.getDocumentId()));
+        }
+        if (GallopUtils.isNotNullOrBlank(invoice.getDocumentTypeCode())) {
+            exchangedDocument.appendChild(createTypeCode(builder, invoice.getDocumentTypeCode()));
+        }
+        if (invoice.getIssueDate() != null) {
+            Element issueDateTime = builder.createElement(NS_RAM, "IssueDateTime");
+            exchangedDocument.appendChild(issueDateTime);
+            issueDateTime.appendChild(createDateTimeString(builder, invoice.getIssueDate(), NS_UDT));
+        }
         for (InvoiceNote note : invoiceNotes) {
             if (GallopUtils.isNotNullOrBlank(note.getNote())) {
                 exchangedDocument.appendChild(createIncludedNote(builder, note));
@@ -127,13 +133,13 @@ public class CIIXMLEInvoiceWriter {
     private static Element createTradeLineItem(Item lineItem, XmlDocumentBuilder builder) {
         Element tradeLineItem = builder.createElement(NS_RAM, "IncludedSupplyChainTradeLineItem");
 
-        Element associatedLineItem = builder.createElement(NS_RAM, "AssociatedDocumentLineDocument");
-        tradeLineItem.appendChild(associatedLineItem);
-        Element lineId = builder.createElement(NS_RAM, "LineID");
         if (lineItem.getId() != null) {
+            Element associatedLineItem = builder.createElement(NS_RAM, "AssociatedDocumentLineDocument");
+            tradeLineItem.appendChild(associatedLineItem);
+            Element lineId = builder.createElement(NS_RAM, "LineID");
             lineId.setTextContent(lineItem.getId().toString());
+            associatedLineItem.appendChild(lineId);
         }
-        associatedLineItem.appendChild(lineId);
 
         Element specifiedProduct = builder.createElement(NS_RAM, "SpecifiedTradeProduct");
         tradeLineItem.appendChild(specifiedProduct);
@@ -142,7 +148,9 @@ public class CIIXMLEInvoiceWriter {
             sellerAssignedId.setTextContent(lineItem.getSellerAssignedId());
             specifiedProduct.appendChild(sellerAssignedId);
         }
-        specifiedProduct.appendChild(createName(builder, lineItem.getName()));
+        if (GallopUtils.isNotNullOrBlank(lineItem.getName())) {
+            specifiedProduct.appendChild(createName(builder, lineItem.getName()));
+        }
         if (GallopUtils.isNotNullOrBlank(lineItem.getDescription())) {
             specifiedProduct.appendChild(createDescription(builder, lineItem.getDescription()));
         }
@@ -154,35 +162,37 @@ public class CIIXMLEInvoiceWriter {
         tradeLineItem.appendChild(specifiedAgreement);
         Element netProductTradePrice = builder.createElement(NS_RAM, "NetPriceProductTradePrice");
         specifiedAgreement.appendChild(netProductTradePrice);
-        Element chargeAmount = builder.createElement(NS_RAM, "ChargeAmount");
         if (lineItem.getUnitPrice() != null) {
+            Element chargeAmount = builder.createElement(NS_RAM, "ChargeAmount");
             chargeAmount.setTextContent(lineItem.getUnitPrice().toString());
+            netProductTradePrice.appendChild(chargeAmount);
         }
-        netProductTradePrice.appendChild(chargeAmount);
         Element basisQuantity = builder.createElement(NS_RAM, "BasisQuantity");
         basisQuantity.setAttribute("unitCode", lineItem.getUnitCode());
         basisQuantity.setTextContent("1");
         netProductTradePrice.appendChild(basisQuantity);
 
-        Element specifiedDelivery = builder.createElement(NS_RAM, "SpecifiedLineTradeDelivery");
-        tradeLineItem.appendChild(specifiedDelivery);
-        Element billedQuantity = builder.createElement(NS_RAM, "BilledQuantity");
-        billedQuantity.setAttribute("unitCode", lineItem.getUnitCode());
         if (lineItem.getQuantity() != null) {
+            Element specifiedDelivery = builder.createElement(NS_RAM, "SpecifiedLineTradeDelivery");
+            tradeLineItem.appendChild(specifiedDelivery);
+            Element billedQuantity = builder.createElement(NS_RAM, "BilledQuantity");
+            billedQuantity.setAttribute("unitCode", lineItem.getUnitCode());
             billedQuantity.setTextContent(lineItem.getQuantity().toString());
+            specifiedDelivery.appendChild(billedQuantity);
         }
-        specifiedDelivery.appendChild(billedQuantity);
 
         Element specifiedSettlement = builder.createElement(NS_RAM, "SpecifiedLineTradeSettlement");
         tradeLineItem.appendChild(specifiedSettlement);
-        specifiedSettlement.appendChild(createTax(builder, lineItem.getVat()));
-        Element taxSummation = builder.createElement(NS_RAM, "SpecifiedTradeSettlementLineMonetarySummation");
-        specifiedSettlement.appendChild(taxSummation);
-        Element taxAmount = builder.createElement(NS_RAM, "LineTotalAmount"); // BT-131
-        if (lineItem.getItemTotalNetAmount() != null) {
-            taxAmount.setTextContent(lineItem.getItemTotalNetAmount().toString());
+        if (lineItem.getVat() != null) {
+            specifiedSettlement.appendChild(createTax(builder, lineItem.getVat()));
         }
-        taxSummation.appendChild(taxAmount);
+        if (lineItem.getItemTotalNetAmount() != null) {
+            Element taxSummation = builder.createElement(NS_RAM, "SpecifiedTradeSettlementLineMonetarySummation");
+            specifiedSettlement.appendChild(taxSummation);
+            Element taxAmount = builder.createElement(NS_RAM, "LineTotalAmount"); // BT-131
+            taxAmount.setTextContent(lineItem.getItemTotalNetAmount().toString());
+            taxSummation.appendChild(taxAmount);
+        }
         return tradeLineItem;
     }
 
@@ -266,11 +276,13 @@ public class CIIXMLEInvoiceWriter {
             }
         }
 
-        Element sellerRefDoc = builder.createElement(NS_RAM, "SellerOrderReferencedDocument");
-        tradeHeader.appendChild(sellerRefDoc);
-        Element issuerId = builder.createElement(NS_RAM, "IssuerAssignedID");
-        issuerId.setTextContent(invoice.getSalesOrderReference());
-        sellerRefDoc.appendChild(issuerId);
+        if (GallopUtils.isNotNullOrBlank(invoice.getSalesOrderReference())) {
+            Element sellerRefDoc = builder.createElement(NS_RAM, "SellerOrderReferencedDocument");
+            tradeHeader.appendChild(sellerRefDoc);
+            Element issuerId = builder.createElement(NS_RAM, "IssuerAssignedID");
+            issuerId.setTextContent(invoice.getSalesOrderReference());
+            sellerRefDoc.appendChild(issuerId);
+        }
 
         return tradeHeader;
     }
@@ -283,8 +295,12 @@ public class CIIXMLEInvoiceWriter {
         }
         Element shipment = builder.createElement(NS_RAM, "ShipToTradeParty");
         tradeDelivery.appendChild(shipment);
-        shipment.appendChild(createName(builder, deliveryInfo.getName()));
-        shipment.appendChild(createAddress(builder, deliveryInfo.getDeliveryAddress()));
+        if (GallopUtils.isNotNullOrBlank(deliveryInfo.getName())) {
+            shipment.appendChild(createName(builder, deliveryInfo.getName()));
+        }
+        if (deliveryInfo.getDeliveryAddress() != null) {
+            shipment.appendChild(createAddress(builder, deliveryInfo.getDeliveryAddress()));
+        }
 
         if (deliveryInfo.getActualDeliveryDate() != null) { // (BT-72)
             Element occurrenceDateTime = builder.createElement(NS_RAM, "OccurrenceDateTime");
@@ -300,7 +316,8 @@ public class CIIXMLEInvoiceWriter {
     private Element createTradeSettlement(XmlDocumentBuilder builder) {
         Element tradeSettlement = builder.createElement(NS_RAM, "ApplicableHeaderTradeSettlement");
         PaymentInstructions paymentInstructions = invoice.getPaymentInstructions();
-        if (paymentInstructions != null && paymentInstructions.getDirectDebit() != null) {
+        if (paymentInstructions != null && paymentInstructions.getDirectDebit() != null
+                && GallopUtils.isNotNullOrBlank(paymentInstructions.getDirectDebit().getCreditorId())) {
             Element creditorRefId = builder.createElement(NS_RAM, "CreditorReferenceID");
             creditorRefId.setTextContent(paymentInstructions.getDirectDebit().getCreditorId());
             tradeSettlement.appendChild(creditorRefId);
@@ -310,10 +327,14 @@ public class CIIXMLEInvoiceWriter {
             paymentRef.setTextContent(paymentInstructions.getRemittanceInfo());
             tradeSettlement.appendChild(paymentRef);
         }
-        Element currency = builder.createElement(NS_RAM, "InvoiceCurrencyCode");
-        currency.setTextContent(invoice.getCurrency());
-        tradeSettlement.appendChild(currency);
-        tradeSettlement.appendChild(createPaymentMeans(builder, paymentInstructions));
+        if (GallopUtils.isNotNullOrBlank(invoice.getCurrency())) {
+            Element currency = builder.createElement(NS_RAM, "InvoiceCurrencyCode");
+            currency.setTextContent(invoice.getCurrency());
+            tradeSettlement.appendChild(currency);
+        }
+        if (paymentInstructions != null) {
+            tradeSettlement.appendChild(createPaymentMeans(builder, paymentInstructions));
+        }
         for (Vat totalVat : invoice.getVatTotals()) {
             tradeSettlement.appendChild(createTax(builder, totalVat));
         }
@@ -327,7 +348,8 @@ public class CIIXMLEInvoiceWriter {
             Element paymentTerms = builder.createElement(NS_RAM, "SpecifiedTradePaymentTerms");
             tradeSettlement.appendChild(paymentTerms);
             paymentTerms.appendChild(createDescription(builder, paymentInstructions.getPaymentTerms()));
-            if (paymentInstructions.getDirectDebit() != null) {
+            if (paymentInstructions.getDirectDebit() != null
+                    && GallopUtils.isNotNullOrBlank(paymentInstructions.getDirectDebit().getMandateReference())) {
                 Element directDebitMandate = builder.createElement(NS_RAM, "DirectDebitMandateID");
                 directDebitMandate.setTextContent(paymentInstructions.getDirectDebit().getMandateReference());
                 paymentTerms.appendChild(directDebitMandate);
@@ -335,11 +357,11 @@ public class CIIXMLEInvoiceWriter {
         }
         Element sum = builder.createElement(NS_RAM, "SpecifiedTradeSettlementHeaderMonetarySummation");
         tradeSettlement.appendChild(sum);
-        Element lineTotal = builder.createElement(NS_RAM, "LineTotalAmount"); // BT-106
         if (invoice.getLineTotalAmount() != null) {
+            Element lineTotal = builder.createElement(NS_RAM, "LineTotalAmount"); // BT-106
             lineTotal.setTextContent(invoice.getLineTotalAmount().toString());
+            sum.appendChild(lineTotal);
         }
-        sum.appendChild(lineTotal);
 
         if (invoice.getChargeTotalAmount() != null) {
             Element chargeTotal = builder.createElement(NS_RAM, "ChargeTotalAmount"); // BT-108
@@ -353,11 +375,11 @@ public class CIIXMLEInvoiceWriter {
             sum.appendChild(allowanceTotal);
         }
 
-        Element taxBasis = builder.createElement(NS_RAM, "TaxBasisTotalAmount"); // BT-109
         if (invoice.getTaxBasisTotalAmount() != null) {
+            Element taxBasis = builder.createElement(NS_RAM, "TaxBasisTotalAmount"); // BT-109
             taxBasis.setTextContent(invoice.getTaxBasisTotalAmount().toString());
+            sum.appendChild(taxBasis);
         }
-        sum.appendChild(taxBasis);
         if (invoice.getTaxTotalAmount() != null) {
             Element taxTotal = builder.createElement(NS_RAM, "TaxTotalAmount"); // BT-110
             taxTotal.setAttribute("currencyID", invoice.getCurrency());
@@ -369,24 +391,26 @@ public class CIIXMLEInvoiceWriter {
             roundingAmount.setTextContent(invoice.getRoundingAmount().toString());
             sum.appendChild(roundingAmount);
         }
-        Element grandTotal = builder.createElement(NS_RAM, "GrandTotalAmount"); // BT-112
         if (invoice.getGrandTotalAmount() != null) {
+            Element grandTotal = builder.createElement(NS_RAM, "GrandTotalAmount"); // BT-112
             grandTotal.setTextContent(invoice.getGrandTotalAmount().toString());
+            sum.appendChild(grandTotal);
         }
-        sum.appendChild(grandTotal);
         if (invoice.getPaidAmount() != null) {
             Element totalPrepaid = builder.createElement(NS_RAM, "TotalPrepaidAmount"); // BT-113
             totalPrepaid.setTextContent(invoice.getPaidAmount().toString());
             sum.appendChild(totalPrepaid);
         }
-        Element duePayable = builder.createElement(NS_RAM, "DuePayableAmount");
         if (invoice.getDuePayableAmount() != null) {
+            Element duePayable = builder.createElement(NS_RAM, "DuePayableAmount");
             duePayable.setTextContent(invoice.getDuePayableAmount().toString());
+            sum.appendChild(duePayable);
         }
-        sum.appendChild(duePayable);
 
         for (PrecedingInvoiceReference reference : invoice.getPrecedingInvoiceReferences()) {
-            tradeSettlement.appendChild(createPrecedingInvoiceReference(builder, reference));
+            if (GallopUtils.isNotNullOrBlank(reference.getPrecedingInvoiceReference())) {
+                tradeSettlement.appendChild(createPrecedingInvoiceReference(builder, reference));
+            }
         }
 
         return tradeSettlement;
@@ -411,7 +435,9 @@ public class CIIXMLEInvoiceWriter {
     private static Element createPaymentMeans(XmlDocumentBuilder builder, PaymentInstructions paymentInstructions) {
         Element paymentMeans = builder.createElement(NS_RAM, "SpecifiedTradeSettlementPaymentMeans");
         if (paymentInstructions != null) {
-            paymentMeans.appendChild(createTypeCode(builder, paymentInstructions.getMeansType()));
+            if (GallopUtils.isNotNullOrBlank(paymentInstructions.getMeansType())) {
+                paymentMeans.appendChild(createTypeCode(builder, paymentInstructions.getMeansType()));
+            }
             if (GallopUtils.isNotNullOrBlank(paymentInstructions.getMeansText())) {
                 Element paymentInfo = builder.createElement(NS_RAM, "Information");
                 paymentInfo.setTextContent(paymentInstructions.getMeansText());
@@ -420,7 +446,9 @@ public class CIIXMLEInvoiceWriter {
             for (CreditTransfer transfer : paymentInstructions.getCreditTransfers()) {
                 Element payeeAccount = builder.createElement(NS_RAM, "PayeePartyCreditorFinancialAccount");
                 paymentMeans.appendChild(payeeAccount);
-                payeeAccount.appendChild(createIban(builder, transfer.getIban()));
+                if (GallopUtils.isNotNullOrBlank(transfer.getIban())) {
+                    payeeAccount.appendChild(createIban(builder, transfer.getIban()));
+                }
                 if (GallopUtils.isNotNullOrBlank(transfer.getAccountName())) {
                     Element accountName = builder.createElement(NS_RAM, "AccountName");
                     accountName.setTextContent(transfer.getAccountName());
@@ -434,7 +462,8 @@ public class CIIXMLEInvoiceWriter {
                     payeeBank.appendChild(bic);
                 }
             }
-            if (paymentInstructions.getDirectDebit() != null) {
+            if (paymentInstructions.getDirectDebit() != null
+                    && GallopUtils.isNotNullOrBlank(paymentInstructions.getDirectDebit().getDebitedAccountIban())) {
                 Element debtorAccount = builder.createElement(NS_RAM, "PayerPartyDebtorFinancialAccount");
                 debtorAccount.appendChild(createIban(builder, paymentInstructions.getDirectDebit().getDebitedAccountIban()));
                 paymentMeans.appendChild(debtorAccount);
@@ -442,10 +471,14 @@ public class CIIXMLEInvoiceWriter {
             PaymentCardInformation cardInformation = paymentInstructions.getPaymentCardInformation();
             if (cardInformation != null) {
                 Element card = builder.createElement(NS_RAM, "ApplicableTradeSettlementFinancialCard");
-                card.appendChild(createID(builder, cardInformation.getAccountNumber()));
-                Element cardHolderName = builder.createElement(NS_RAM, "CardholderName");
-                cardHolderName.setTextContent(cardInformation.getCardHolderName());
-                card.appendChild(cardHolderName);
+                if (GallopUtils.isNotNullOrBlank(cardInformation.getAccountNumber())) {
+                    card.appendChild(createID(builder, cardInformation.getAccountNumber()));
+                }
+                if (GallopUtils.isNotNullOrBlank(cardInformation.getCardHolderName())) {
+                    Element cardHolderName = builder.createElement(NS_RAM, "CardholderName");
+                    cardHolderName.setTextContent(cardInformation.getCardHolderName());
+                    card.appendChild(cardHolderName);
+                }
                 paymentMeans.appendChild(card);
             }
         }
@@ -457,15 +490,17 @@ public class CIIXMLEInvoiceWriter {
 
         element.appendChild(createChargeIndicator(builder, false));
 
-        Element amount = builder.createElement(NS_RAM, "ActualAmount");
         if (allowance.getNetAmount() != null) {
+            Element amount = builder.createElement(NS_RAM, "ActualAmount");
             amount.setTextContent(allowance.getNetAmount().toString());
+            element.appendChild(amount);
         }
-        element.appendChild(amount);
 
-        Element reason = builder.createElement(NS_RAM, "Reason");
-        reason.setTextContent(allowance.getReason());
-        element.appendChild(reason);
+        if (GallopUtils.isNotNullOrBlank(allowance.getReason())) {
+            Element reason = builder.createElement(NS_RAM, "Reason");
+            reason.setTextContent(allowance.getReason());
+            element.appendChild(reason);
+        }
 
         Element tax = builder.createElement(NS_RAM, "CategoryTradeTax");
         element.appendChild(tax);
@@ -485,15 +520,17 @@ public class CIIXMLEInvoiceWriter {
 
         element.appendChild(createChargeIndicator(builder, true));
 
-        Element amount = builder.createElement(NS_RAM, "ActualAmount"); // BT-99
         if (charge.getNetAmount() != null) {
+            Element amount = builder.createElement(NS_RAM, "ActualAmount"); // BT-99
             amount.setTextContent(charge.getNetAmount().toString());
+            element.appendChild(amount);
         }
-        element.appendChild(amount);
 
-        Element reason = builder.createElement(NS_RAM, "Reason");
-        reason.setTextContent(charge.getReason());
-        element.appendChild(reason);
+        if (GallopUtils.isNotNullOrBlank(charge.getReason())) {
+            Element reason = builder.createElement(NS_RAM, "Reason");
+            reason.setTextContent(charge.getReason());
+            element.appendChild(reason);
+        }
 
         Element tax = builder.createElement(NS_RAM, "CategoryTradeTax");
         element.appendChild(tax);
@@ -570,18 +607,26 @@ public class CIIXMLEInvoiceWriter {
     private static Element createAddress(XmlDocumentBuilder builder, PostalAddress address) {
         Element tradeAddress = builder.createElement(NS_RAM, "PostalTradeAddress");
         if (address != null) {
-            Element postCode = builder.createElement(NS_RAM, "PostcodeCode");
-            postCode.setTextContent(address.getZipCode());
-            tradeAddress.appendChild(postCode);
-            Element addressLine = builder.createElement(NS_RAM, "LineOne");
-            addressLine.setTextContent(address.getAddressLineOne());
-            tradeAddress.appendChild(addressLine);
-            Element city = builder.createElement(NS_RAM, "CityName");
-            city.setTextContent(address.getCity());
-            tradeAddress.appendChild(city);
-            Element country = builder.createElement(NS_RAM, "CountryID");
-            country.setTextContent(address.getCountryIsoCode());
-            tradeAddress.appendChild(country);
+            if (GallopUtils.isNotNullOrBlank(address.getZipCode())) {
+                Element postCode = builder.createElement(NS_RAM, "PostcodeCode");
+                postCode.setTextContent(address.getZipCode());
+                tradeAddress.appendChild(postCode);
+            }
+            if (GallopUtils.isNotNullOrBlank(address.getAddressLineOne())) {
+                Element addressLine = builder.createElement(NS_RAM, "LineOne");
+                addressLine.setTextContent(address.getAddressLineOne());
+                tradeAddress.appendChild(addressLine);
+            }
+            if (GallopUtils.isNotNullOrBlank(address.getCity())) {
+                Element city = builder.createElement(NS_RAM, "CityName");
+                city.setTextContent(address.getCity());
+                tradeAddress.appendChild(city);
+            }
+            if (GallopUtils.isNotNullOrBlank(address.getCountryIsoCode())) {
+                Element country = builder.createElement(NS_RAM, "CountryID");
+                country.setTextContent(address.getCountryIsoCode());
+                tradeAddress.appendChild(country);
+            }
         }
         return tradeAddress;
     }
@@ -595,12 +640,12 @@ public class CIIXMLEInvoiceWriter {
                 tradeTax.appendChild(calculated);
             }
             tradeTax.appendChild(createTypeCode(builder, VAT_TYPE_CODE));
-            if (vat.getVatExemptionReasonText() != null) {
+            if (GallopUtils.isNotNullOrBlank(vat.getVatExemptionReasonText())) {
                 Element exemptionReasonText = builder.createElement(NS_RAM, "ExemptionReason"); // BT-120
                 exemptionReasonText.setTextContent(vat.getVatExemptionReasonText());
                 tradeTax.appendChild(exemptionReasonText);
             }
-            if (vat.getVatExemptionReasonCode() != null) {
+            if (GallopUtils.isNotNullOrBlank(vat.getVatExemptionReasonCode())) {
                 Element exemptionReasonCode = builder.createElement(NS_RAM, "ExemptionReasonCode"); // BT-121
                 exemptionReasonCode.setTextContent(vat.getVatExemptionReasonCode());
                 tradeTax.appendChild(exemptionReasonCode);
@@ -695,13 +740,17 @@ public class CIIXMLEInvoiceWriter {
     private static Element createProductCharacteristic(XmlDocumentBuilder builder, ItemAttribute attribute) {
         Element element = builder.createElement(NS_RAM, "ApplicableProductCharacteristic");
 
-        Element description = builder.createElement(NS_RAM, "Description");
-        description.setTextContent(attribute.getName());
-        element.appendChild(description);
+        if (GallopUtils.isNotNullOrBlank(attribute.getName())) {
+            Element description = builder.createElement(NS_RAM, "Description");
+            description.setTextContent(attribute.getName());
+            element.appendChild(description);
+        }
 
-        Element value = builder.createElement(NS_RAM, "Value");
-        value.setTextContent(attribute.getValue());
-        element.appendChild(value);
+        if (GallopUtils.isNotNullOrBlank(attribute.getValue())) {
+            Element value = builder.createElement(NS_RAM, "Value");
+            value.setTextContent(attribute.getValue());
+            element.appendChild(value);
+        }
 
         return element;
     }
