@@ -204,7 +204,9 @@ public class CIIXMLEInvoiceWriter {
                         sellerInfo.getIdentifier(),
                         sellerInfo.getIdentifierScheme()));
             }
-            seller.appendChild(createName(builder, sellerInfo.getName()));
+            if (GallopUtils.isNotNullOrBlank(sellerInfo.getName())) {
+                seller.appendChild(createName(builder, sellerInfo.getName()));
+            }
             if (GallopUtils.isNotNullOrBlank(sellerInfo.getSellerAdditionalLegalInfo())) {
                 seller.appendChild(createDescription(builder, sellerInfo.getSellerAdditionalLegalInfo()));
             }
@@ -219,7 +221,9 @@ public class CIIXMLEInvoiceWriter {
             if (sellerInfo.getContact() != null) {
                 seller.appendChild(createTradeContact(builder, sellerInfo.getContact()));
             }
-            seller.appendChild(createAddress(builder, sellerInfo.getAddress()));
+            if (sellerInfo.getAddress() != null) {
+                seller.appendChild(createAddress(builder, sellerInfo.getAddress()));
+            }
             if (GallopUtils.isNotNullOrBlank(sellerInfo.getElectronicAddress())) {
                 seller.appendChild(createElectronicAddressElement(builder, sellerInfo));
             }
@@ -240,7 +244,9 @@ public class CIIXMLEInvoiceWriter {
                         buyerInfo.getIdentifier(),
                         buyerInfo.getIdentifierScheme()));
             }
-            buyer.appendChild(createName(builder, buyerInfo.getName()));
+            if (GallopUtils.isNotNullOrBlank(buyerInfo.getName())) {
+                buyer.appendChild(createName(builder, buyerInfo.getName()));
+            }
             if (GallopUtils.isNotNullOrBlank(buyerInfo.getLegalRegistrationIdentifier())) {
                 Element specifiedLegalOrganization = builder.createElement(NS_RAM, "SpecifiedLegalOrganization");
                 specifiedLegalOrganization.appendChild(
@@ -249,7 +255,9 @@ public class CIIXMLEInvoiceWriter {
                                 buyerInfo.getLegalRegistrationIdentifierScheme()));
                 buyer.appendChild(specifiedLegalOrganization);
             }
-            buyer.appendChild(createAddress(builder, buyerInfo.getAddress()));
+            if (buyerInfo.getAddress() != null) {
+                buyer.appendChild(createAddress(builder, buyerInfo.getAddress()));
+            }
             if (GallopUtils.isNotNullOrBlank(buyerInfo.getElectronicAddress())) {
                 buyer.appendChild(createElectronicAddressElement(builder, buyerInfo));
             }
