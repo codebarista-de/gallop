@@ -11,6 +11,7 @@ import de.codebarista.gallop.model.CreditTransfer;
 import de.codebarista.gallop.model.DeliveryInformation;
 import de.codebarista.gallop.model.Invoice;
 import de.codebarista.gallop.model.InvoiceNote;
+import de.codebarista.gallop.model.InvoicingPeriod;
 import de.codebarista.gallop.model.Item;
 import de.codebarista.gallop.model.ItemAttribute;
 import de.codebarista.gallop.model.PaymentCardInformation;
@@ -176,6 +177,9 @@ public class CIIXMLEInvoiceWriter {
         Element specifiedSettlement = builder.createElement(NS_RAM, "SpecifiedLineTradeSettlement");
         tradeLineItem.appendChild(specifiedSettlement);
         specifiedSettlement.appendChild(createTax(builder, lineItem.getVat()));
+        if (hasDate(lineItem.getInvoiceLinePeriod())) { // BG-26
+            specifiedSettlement.appendChild(createBillingPeriod(builder, lineItem.getInvoiceLinePeriod()));
+        }
         Element taxSummation = builder.createElement(NS_RAM, "SpecifiedTradeSettlementLineMonetarySummation");
         specifiedSettlement.appendChild(taxSummation);
         Element taxAmount = builder.createElement(NS_RAM, "LineTotalAmount"); // BT-131
@@ -310,6 +314,9 @@ public class CIIXMLEInvoiceWriter {
         tradeSettlement.appendChild(createPaymentMeans(builder, paymentInstructions));
         for (Vat totalVat : invoice.getVatTotals()) {
             tradeSettlement.appendChild(createTax(builder, totalVat));
+        }
+        if (hasDate(invoice.getInvoicingPeriod())) { // BG-14
+            tradeSettlement.appendChild(createBillingPeriod(builder, invoice.getInvoicingPeriod()));
         }
         for (Allowance allowance : invoice.getAllowances()) {
             tradeSettlement.appendChild(createAllowance(builder, allowance));
@@ -544,6 +551,28 @@ public class CIIXMLEInvoiceWriter {
         Element element = builder.createElement(NS_RAM, "Description");
         element.setTextContent(description);
         return element;
+    }
+
+    private static boolean hasDate(InvoicingPeriod period) {
+        return period != null && (period.getStartDate() != null || period.getEndDate() != null);
+    }
+
+    /**
+     * Invoicing period (BG-14) or invoice line period (BG-26): start date (BT-73, BT-134) and end date (BT-74, BT-135)
+     */
+    private static Element createBillingPeriod(XmlDocumentBuilder builder, InvoicingPeriod period) {
+        Element billingPeriod = builder.createElement(NS_RAM, "BillingSpecifiedPeriod");
+        if (period.getStartDate() != null) {
+            Element start = builder.createElement(NS_RAM, "StartDateTime");
+            start.appendChild(createDateTimeString(builder, period.getStartDate(), NS_UDT));
+            billingPeriod.appendChild(start);
+        }
+        if (period.getEndDate() != null) {
+            Element end = builder.createElement(NS_RAM, "EndDateTime");
+            end.appendChild(createDateTimeString(builder, period.getEndDate(), NS_UDT));
+            billingPeriod.appendChild(end);
+        }
+        return billingPeriod;
     }
 
     private static Element createDateTimeString(XmlDocumentBuilder builder, OffsetDateTime time, String namespace) {

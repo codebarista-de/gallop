@@ -64,6 +64,12 @@ public class Item implements NetAmount<Item> {
     private List<ItemAttribute> itemAttributes = new ArrayList<>();
 
     /**
+     * Invoice line period (BG-26)<br>
+     * The period this line covers, e.g. a month of a subscription
+     */
+    private InvoicingPeriod invoiceLinePeriod;
+
+    /**
      * Creates a new, empty instance of this class.
      */
     public Item() {
@@ -156,6 +162,14 @@ public class Item implements NetAmount<Item> {
      */
     public Item sellerAssignedId(String sellerAssignedId) {
         this.sellerAssignedId = sellerAssignedId;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #invoiceLinePeriod}
+     */
+    public Item invoiceLinePeriod(InvoicingPeriod invoiceLinePeriod) {
+        this.invoiceLinePeriod = invoiceLinePeriod;
         return this;
     }
 
@@ -273,5 +287,12 @@ public class Item implements NetAmount<Item> {
      */
     public List<ItemAttribute> getItemAttributes() {
         return Collections.unmodifiableList(itemAttributes);
+    }
+
+    /**
+     * Gets the {@link #invoiceLinePeriod}.
+     */
+    public InvoicingPeriod getInvoiceLinePeriod() {
+        return invoiceLinePeriod;
     }
 }

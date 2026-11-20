@@ -8,6 +8,7 @@ import de.codebarista.gallop.model.DeliveryInformation;
 import de.codebarista.gallop.model.DirectDebit;
 import de.codebarista.gallop.model.Invoice;
 import de.codebarista.gallop.model.InvoiceNote;
+import de.codebarista.gallop.model.InvoicingPeriod;
 import de.codebarista.gallop.model.Item;
 import de.codebarista.gallop.model.PaymentCardInformation;
 import de.codebarista.gallop.model.PaymentInstructions;
@@ -101,6 +102,19 @@ public class EInvoiceWriterNullableTest {
         assertThat(EInvoiceWriter.generateCIIXML(Invoice.create()
                 .deliveryInfo(DeliveryInformation.create()
                         .deliveryAddress(PostalAddress.create())), FORMAT)).isNotEmpty();
+    }
+
+    @Test
+    public void doesNotFailWithEmptyInvoicingPeriod() {
+        assertThat(EInvoiceWriter.generateCIIXML(Invoice.create()
+                .invoicingPeriod(InvoicingPeriod.create()), FORMAT)).isNotEmpty();
+    }
+
+    @Test
+    public void doesNotFailWithEmptyInvoiceLinePeriod() {
+        assertThat(EInvoiceWriter.generateCIIXML(Invoice.create()
+                .items(List.of(Item.create()
+                        .invoiceLinePeriod(InvoicingPeriod.create()))), FORMAT)).isNotEmpty();
     }
 
     @Test
