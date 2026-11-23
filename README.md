@@ -226,3 +226,11 @@ public class InvoiceGenerator {
 - 2.0.0: Gallop no longer relies on lombok, introduce fluent api
 - 1.0.1: Add action to publish to maven central
 - 1.0.0: Initial version
+
+## Contributing
+
+Contributions welcome! Please submit a Pull Request.
+
+## Support
+
+[GitHub Issues](https://github.com/codebarista-de/gallop/issues)
