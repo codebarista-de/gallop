@@ -199,7 +199,7 @@ public class InvoiceGenerator {
 
 ### Changelog
 
-- 3.2.0: Optional elements are only written when they have a value: the seller contact (BG-6) and each of its
+- UNRELEASED: Optional elements are only written when they have a value: the seller contact (BG-6) and each of its
   details, and the seller/buyer electronic address (BT-34/BT-49). The electronic address is now written with its
   scheme (`SellerOrBuyer.electronicAddressScheme`, falling back to `EM`) instead of always `EM`. **Behavior change:**
   `BuyerReference` (BT-10) is only written if `Invoice.leitwegId` is set; Gallop no longer
