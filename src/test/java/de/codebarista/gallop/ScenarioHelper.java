@@ -38,6 +38,7 @@ public class ScenarioHelper {
             new ScenarioFormats("order_with_french_b2c_billing_note_without_buyer_identifiers", EN16931_CORE),
             new ScenarioFormats("order_with_french_mandatory_notes_and_billing_mode", EN16931_CORE),
             new ScenarioFormats("order_with_invoicing_period", XRECHNUNG, EN16931_CORE),
+            new ScenarioFormats("order_with_french_purchase_order_and_vat_on_debits", EN16931_CORE),
             new ScenarioFormats("order_with_legal_registration_identifiers", XRECHNUNG, EN16931_CORE),
             new ScenarioFormats("order_with_leitweg_id_partial_seller_contact_and_buyer_address_scheme", XRECHNUNG, EN16931_CORE),
             new ScenarioFormats("order_with_payment_in_advance", XRECHNUNG, EN16931_CORE),
@@ -49,6 +50,7 @@ public class ScenarioHelper {
             new ScenarioFormats("order_with_seller_and_buyer_identifiers", XRECHNUNG, EN16931_CORE),
             new ScenarioFormats("order_with_shipping_costs_with_multiple_taxes", XRECHNUNG, EN16931_CORE),
             new ScenarioFormats("order_with_tax_free_product", XRECHNUNG, EN16931_CORE),
+            new ScenarioFormats("order_with_vat_exemption_reason_code", XRECHNUNG, EN16931_CORE),
             new ScenarioFormats("order_without_vatid", XRECHNUNG, EN16931_CORE)
     );
 

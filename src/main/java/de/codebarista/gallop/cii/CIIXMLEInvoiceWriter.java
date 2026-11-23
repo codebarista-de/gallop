@@ -185,7 +185,7 @@ public class CIIXMLEInvoiceWriter {
         Element specifiedSettlement = builder.createElement(NS_RAM, "SpecifiedLineTradeSettlement");
         tradeLineItem.appendChild(specifiedSettlement);
         if (lineItem.getVat() != null) {
-            specifiedSettlement.appendChild(createTax(builder, lineItem.getVat()));
+            specifiedSettlement.appendChild(createTax(builder, lineItem.getVat(), null));
         }
         if (lineItem.getInvoiceLinePeriod() != null) { // BG-26
             specifiedSettlement.appendChild(createBillingPeriod(builder, lineItem.getInvoiceLinePeriod()));
@@ -203,9 +203,9 @@ public class CIIXMLEInvoiceWriter {
     private Element createTradeHeader(XmlDocumentBuilder builder) {
         Element tradeHeader = builder.createElement(NS_RAM, "ApplicableHeaderTradeAgreement");
 
-        if (GallopUtils.isNotNullOrBlank(invoice.getLeitwegId())) {
-            Element buyerRef = builder.createElement(NS_RAM, "BuyerReference");
-            buyerRef.setTextContent(invoice.getLeitwegId());
+        if (GallopUtils.isNotNullOrBlank(invoice.getBuyerReference())) {
+            Element buyerRef = builder.createElement(NS_RAM, "BuyerReference"); // BT-10
+            buyerRef.setTextContent(invoice.getBuyerReference());
             tradeHeader.appendChild(buyerRef);
         }
 
@@ -280,15 +280,24 @@ public class CIIXMLEInvoiceWriter {
             }
         }
 
-        if (GallopUtils.isNotNullOrBlank(invoice.getSalesOrderReference())) {
-            Element sellerRefDoc = builder.createElement(NS_RAM, "SellerOrderReferencedDocument");
-            tradeHeader.appendChild(sellerRefDoc);
-            Element issuerId = builder.createElement(NS_RAM, "IssuerAssignedID");
-            issuerId.setTextContent(invoice.getSalesOrderReference());
-            sellerRefDoc.appendChild(issuerId);
+        if (GallopUtils.isNotNullOrBlank(invoice.getSalesOrderReference())) { // BT-14
+            tradeHeader.appendChild(createReferencedDocument(
+                    builder, "SellerOrderReferencedDocument", invoice.getSalesOrderReference()));
+        }
+        if (GallopUtils.isNotNullOrBlank(invoice.getBuyerOrderReference())) { // BT-13
+            tradeHeader.appendChild(createReferencedDocument(
+                    builder, "BuyerOrderReferencedDocument", invoice.getBuyerOrderReference()));
         }
 
         return tradeHeader;
+    }
+
+    private static Element createReferencedDocument(XmlDocumentBuilder builder, String elementName, String id) {
+        Element referencedDocument = builder.createElement(NS_RAM, elementName);
+        Element issuerId = builder.createElement(NS_RAM, "IssuerAssignedID");
+        issuerId.setTextContent(id);
+        referencedDocument.appendChild(issuerId);
+        return referencedDocument;
     }
 
     private Element createTradeDelivery(XmlDocumentBuilder builder) {
@@ -343,7 +352,7 @@ public class CIIXMLEInvoiceWriter {
             }
         }
         for (Vat totalVat : invoice.getVatTotals()) {
-            tradeSettlement.appendChild(createTax(builder, totalVat));
+            tradeSettlement.appendChild(createTax(builder, totalVat, invoice.getVatPointDateCode()));
         }
         if (invoice.getInvoicingPeriod() != null) { // BG-14
             tradeSettlement.appendChild(createBillingPeriod(builder, invoice.getInvoicingPeriod()));
@@ -660,7 +669,13 @@ public class CIIXMLEInvoiceWriter {
         return tradeAddress;
     }
 
-    private static Element createTax(XmlDocumentBuilder builder, Vat vat) {
+    /**
+     * Writes a VAT breakdown (BG-23) or the line VAT information (BG-30).
+     *
+     * @param vatPointDateCode the VAT point date code (BT-8), only for the VAT breakdown on document level;
+     *                         {@code null} for invoice lines
+     */
+    private static Element createTax(XmlDocumentBuilder builder, Vat vat, String vatPointDateCode) {
         Element tradeTax = builder.createElement(NS_RAM, "ApplicableTradeTax");
         if (vat != null) {
             if (vat.getTaxAmount() != null) {
@@ -674,18 +689,23 @@ public class CIIXMLEInvoiceWriter {
                 exemptionReasonText.setTextContent(vat.getVatExemptionReasonText());
                 tradeTax.appendChild(exemptionReasonText);
             }
-            if (GallopUtils.isNotNullOrBlank(vat.getVatExemptionReasonCode())) {
-                Element exemptionReasonCode = builder.createElement(NS_RAM, "ExemptionReasonCode"); // BT-121
-                exemptionReasonCode.setTextContent(vat.getVatExemptionReasonCode());
-                tradeTax.appendChild(exemptionReasonCode);
-            }
             if (vat.getTaxableAmount() != null) {
-                Element basis = builder.createElement(NS_RAM, "BasisAmount");
+                Element basis = builder.createElement(NS_RAM, "BasisAmount"); // BT-116
                 basis.setTextContent(vat.getTaxableAmount().toString());
                 tradeTax.appendChild(basis);
             }
             if (vat.getCategory() != null) {
                 tradeTax.appendChild(createCategoryCode(builder, vat.getCategory().getCategoryCode()));
+            }
+            if (GallopUtils.isNotNullOrBlank(vat.getVatExemptionReasonCode())) {
+                Element exemptionReasonCode = builder.createElement(NS_RAM, "ExemptionReasonCode"); // BT-121
+                exemptionReasonCode.setTextContent(vat.getVatExemptionReasonCode());
+                tradeTax.appendChild(exemptionReasonCode);
+            }
+            if (GallopUtils.isNotNullOrBlank(vatPointDateCode)) {
+                Element dueDateTypeCode = builder.createElement(NS_RAM, "DueDateTypeCode"); // BT-8
+                dueDateTypeCode.setTextContent(vatPointDateCode);
+                tradeTax.appendChild(dueDateTypeCode);
             }
             if (vat.getRate() != null) {
                 tradeTax.appendChild(createRate(builder, vat.getRate().toString()));
