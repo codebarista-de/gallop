@@ -201,10 +201,11 @@ public class InvoiceGenerator {
 
 - UNRELEASED: Optional elements are only written when they have a value: the seller contact (BG-6) and each of its
   details, and the seller/buyer electronic address (BT-34/BT-49). The electronic address is now written with its
-  scheme (`SellerOrBuyer.electronicAddressScheme`, falling back to `EM`) instead of always `EM`. **Behavior change:**
-  `BuyerReference` (BT-10) is only written if `Invoice.leitwegId` is set; Gallop no longer
-  writes `N/A` without it. XRechnung requires BT-10 (BR-DE-15), so set e.g. `N/A` yourself if there is no
-  reference. Includes the changes of 3.1.0.
+  scheme (`SellerOrBuyer.electronicAddressScheme`, falling back to `EM`) instead of always `EM`. Add the invoicing
+  period (`Invoice.invoicingPeriod`, BG-14 with BT-73/BT-74) and the invoice line period (`Item.invoiceLinePeriod`,
+  BG-26 with BT-134/BT-135), both set via the new  `InvoicingOrInvoiceLinePeriod` (thanks to Alex Babintsev). **Behavior
+  change:** `BuyerReference` (BT-10) is only written if it's set; Gallop no longer writes `N/A` without it. XRechnung
+  requires BT-10 (BR-DE-15), so set e.g. `N/A` yourself if there is no reference.
 - 3.1.0: Add the fields required by the French rules for Factur-X: invoice
   note subject code (`InvoiceNote.subjectCode`, BT-21), business process type (`Invoice.businessProcessType`,
   BT-23, overrides the format's default) and seller/buyer identifier with scheme (`SellerOrBuyer.identifier`/
@@ -230,6 +231,10 @@ public class InvoiceGenerator {
 ## Contributing
 
 Contributions welcome! Please submit a Pull Request.
+
+### Contributors
+
+- [Alex Babintsev](https://github.com/alexbabintsev): invoicing period (BG-14) and invoice line period (BG-26)
 
 ## Support
 
