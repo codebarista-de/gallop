@@ -209,75 +209,11 @@ public class CIIXMLEInvoiceWriter {
             tradeHeader.appendChild(buyerRef);
         }
 
-        SellerOrBuyer sellerInfo = invoice.getSeller();
-        if (sellerInfo != null) {
-            Element seller = builder.createElement(NS_RAM, "SellerTradeParty");
-            tradeHeader.appendChild(seller);
-            if (GallopUtils.isNotNullOrBlank(sellerInfo.getIdentifier())) {
-                seller.appendChild(createPartyIdentifier(builder,
-                        sellerInfo.getIdentifier(),
-                        sellerInfo.getIdentifierScheme()));
-            }
-            if (GallopUtils.isNotNullOrBlank(sellerInfo.getName())) {
-                seller.appendChild(createName(builder, sellerInfo.getName()));
-            }
-            if (GallopUtils.isNotNullOrBlank(sellerInfo.getSellerAdditionalLegalInfo())) {
-                seller.appendChild(createDescription(builder, sellerInfo.getSellerAdditionalLegalInfo()));
-            }
-            if (GallopUtils.isNotNullOrBlank(sellerInfo.getLegalRegistrationIdentifier())) {
-                Element specifiedLegalOrganization = builder.createElement(NS_RAM, "SpecifiedLegalOrganization");
-                specifiedLegalOrganization.appendChild(
-                        createID(builder,
-                                sellerInfo.getLegalRegistrationIdentifier(),
-                                sellerInfo.getLegalRegistrationIdentifierScheme()));
-                seller.appendChild(specifiedLegalOrganization);
-            }
-            if (sellerInfo.getContact() != null) {
-                seller.appendChild(createTradeContact(builder, sellerInfo.getContact()));
-            }
-            if (sellerInfo.getAddress() != null) {
-                seller.appendChild(createAddress(builder, sellerInfo.getAddress()));
-            }
-            if (GallopUtils.isNotNullOrBlank(sellerInfo.getElectronicAddress())) {
-                seller.appendChild(createElectronicAddressElement(builder, sellerInfo));
-            }
-            if (GallopUtils.isNotNullOrBlank(sellerInfo.getVatId())) {
-                seller.appendChild(createTaxRegistration(builder, "VA", sellerInfo.getVatId()));
-            }
-            if (GallopUtils.isNotNullOrBlank(sellerInfo.getSellerTaxRegistrationIdentifier())) {
-                seller.appendChild(createTaxRegistration(builder, "FC", sellerInfo.getSellerTaxRegistrationIdentifier()));
-            }
+        if (invoice.getSeller() != null) {
+            tradeHeader.appendChild(createTradeParty(builder, "SellerTradeParty", invoice.getSeller()));
         }
-
-        SellerOrBuyer buyerInfo = invoice.getBuyer();
-        if (buyerInfo != null) {
-            Element buyer = builder.createElement(NS_RAM, "BuyerTradeParty");
-            tradeHeader.appendChild(buyer);
-            if (GallopUtils.isNotNullOrBlank(buyerInfo.getIdentifier())) {
-                buyer.appendChild(createPartyIdentifier(builder,
-                        buyerInfo.getIdentifier(),
-                        buyerInfo.getIdentifierScheme()));
-            }
-            if (GallopUtils.isNotNullOrBlank(buyerInfo.getName())) {
-                buyer.appendChild(createName(builder, buyerInfo.getName()));
-            }
-            if (GallopUtils.isNotNullOrBlank(buyerInfo.getLegalRegistrationIdentifier())) {
-                Element specifiedLegalOrganization = builder.createElement(NS_RAM, "SpecifiedLegalOrganization");
-                specifiedLegalOrganization.appendChild(
-                        createID(builder,
-                                buyerInfo.getLegalRegistrationIdentifier(),
-                                buyerInfo.getLegalRegistrationIdentifierScheme()));
-                buyer.appendChild(specifiedLegalOrganization);
-            }
-            if (buyerInfo.getAddress() != null) {
-                buyer.appendChild(createAddress(builder, buyerInfo.getAddress()));
-            }
-            if (GallopUtils.isNotNullOrBlank(buyerInfo.getElectronicAddress())) {
-                buyer.appendChild(createElectronicAddressElement(builder, buyerInfo));
-            }
-            if (GallopUtils.isNotNullOrBlank(buyerInfo.getVatId())) {
-                buyer.appendChild(createTaxRegistration(builder, "VA", buyerInfo.getVatId()));
-            }
+        if (invoice.getBuyer() != null) {
+            tradeHeader.appendChild(createTradeParty(builder, "BuyerTradeParty", invoice.getBuyer()));
         }
 
         if (GallopUtils.isNotNullOrBlank(invoice.getSalesOrderReference())) { // BT-14
@@ -290,6 +226,59 @@ public class CIIXMLEInvoiceWriter {
         }
 
         return tradeHeader;
+    }
+
+    /**
+     * Seller/Buyer (BG-4/BG-7) as {@code ram:SellerTradeParty} or {@code ram:BuyerTradeParty}.
+     * <p>
+     * Writes every field that is set. The seller-only fields (BT-32, BT-33) are written for the buyer too
+     * if the caller sets them.
+     */
+    private static Element createTradeParty(XmlDocumentBuilder builder, String elementName, SellerOrBuyer party) {
+        Element tradeParty = builder.createElement(NS_RAM, elementName);
+        if (GallopUtils.isNotNullOrBlank(party.getIdentifier())) { // BT-29/BT-46
+            tradeParty.appendChild(createPartyIdentifier(builder,
+                    party.getIdentifier(),
+                    party.getIdentifierScheme()));
+        }
+        if (GallopUtils.isNotNullOrBlank(party.getName())) { // BT-27/BT-44
+            tradeParty.appendChild(createName(builder, party.getName()));
+        }
+        if (GallopUtils.isNotNullOrBlank(party.getSellerAdditionalLegalInfo())) { // BT-33
+            tradeParty.appendChild(createDescription(builder, party.getSellerAdditionalLegalInfo()));
+        }
+        if (GallopUtils.isNotNullOrBlank(party.getLegalRegistrationIdentifier())
+                || GallopUtils.isNotNullOrBlank(party.getTradingName())) {
+            Element specifiedLegalOrganization = builder.createElement(NS_RAM, "SpecifiedLegalOrganization");
+            if (GallopUtils.isNotNullOrBlank(party.getLegalRegistrationIdentifier())) { // BT-30/BT-47
+                specifiedLegalOrganization.appendChild(
+                        createID(builder,
+                                party.getLegalRegistrationIdentifier(),
+                                party.getLegalRegistrationIdentifierScheme()));
+            }
+            if (GallopUtils.isNotNullOrBlank(party.getTradingName())) { // BT-28/BT-45
+                Element tradingName = builder.createElement(NS_RAM, "TradingBusinessName");
+                tradingName.setTextContent(party.getTradingName());
+                specifiedLegalOrganization.appendChild(tradingName);
+            }
+            tradeParty.appendChild(specifiedLegalOrganization);
+        }
+        if (party.getContact() != null) { // BG-6/BG-9
+            tradeParty.appendChild(createTradeContact(builder, party.getContact()));
+        }
+        if (party.getAddress() != null) { // BG-5/BG-8
+            tradeParty.appendChild(createAddress(builder, party.getAddress()));
+        }
+        if (GallopUtils.isNotNullOrBlank(party.getElectronicAddress())) { // BT-34/BT-49
+            tradeParty.appendChild(createElectronicAddressElement(builder, party));
+        }
+        if (GallopUtils.isNotNullOrBlank(party.getVatId())) { // BT-31/BT-48
+            tradeParty.appendChild(createTaxRegistration(builder, "VA", party.getVatId()));
+        }
+        if (GallopUtils.isNotNullOrBlank(party.getSellerTaxRegistrationIdentifier())) { // BT-32
+            tradeParty.appendChild(createTaxRegistration(builder, "FC", party.getSellerTaxRegistrationIdentifier()));
+        }
+        return tradeParty;
     }
 
     private static Element createReferencedDocument(XmlDocumentBuilder builder, String elementName, String id) {

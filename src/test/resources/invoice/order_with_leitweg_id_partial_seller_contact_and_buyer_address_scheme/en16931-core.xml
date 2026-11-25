@@ -49,6 +49,9 @@
          <ram:BuyerReference>04011000-12345-34</ram:BuyerReference>
          <ram:SellerTradeParty>
             <ram:Name>Example Company</ram:Name>
+            <ram:SpecifiedLegalOrganization>
+               <ram:TradingBusinessName>Examply Company</ram:TradingBusinessName>
+            </ram:SpecifiedLegalOrganization>
             <ram:DefinedTradeContact>
                <ram:EmailURIUniversalCommunication>
                   <ram:URIID>mail@company.com</ram:URIID>

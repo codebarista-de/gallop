@@ -105,6 +105,9 @@
             <ram:BuyerReference>N/A</ram:BuyerReference>
             <ram:SellerTradeParty>
                 <ram:Name>Gesunde Naturprodukte GmbH</ram:Name>
+                <ram:SpecifiedLegalOrganization>
+                    <ram:TradingBusinessName>Gesunde Naturprodukte</ram:TradingBusinessName>
+                </ram:SpecifiedLegalOrganization>
                 <ram:DefinedTradeContact>
                     <ram:PersonName>Maximilian Müller</ram:PersonName>
                     <ram:TelephoneUniversalCommunication>

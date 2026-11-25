@@ -31,6 +31,7 @@ public class ScenarioHelper {
             new ScenarioFormats("order_with_belgian_tax_rates_and_document_comment", XRECHNUNG, EN16931_CORE),
             new ScenarioFormats("order_with_cash_payment", XRECHNUNG, EN16931_CORE),
             new ScenarioFormats("order_with_credit_and_surcharge", XRECHNUNG, EN16931_CORE),
+            new ScenarioFormats("order_with_buyer_trading_name_and_contact", XRECHNUNG, EN16931_CORE),
             new ScenarioFormats("order_with_custom_line_item_type", XRECHNUNG, EN16931_CORE),
             new ScenarioFormats("order_with_customer_vatid", XRECHNUNG, EN16931_CORE),
             new ScenarioFormats("order_with_different_billing_and_shipping_address", XRECHNUNG, EN16931_CORE),

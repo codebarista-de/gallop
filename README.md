@@ -208,9 +208,12 @@ public class InvoiceGenerator {
   (`Invoice.vatPointDateCode`, BT-8, written as `ram:DueDateTypeCode` in every VAT breakdown, e.g. `5` for VAT on
   debits). `Invoice.leitwegId` was renamed to `buyerReference` (BT-10); `leitwegId(...)`/`getLeitwegId()` are
   deprecated.
-  **Behavior change:** `BuyerReference` (BT-10) is only written if it's set; Gallop no longer writes `N/A` without it. 
-  XRechnung requires BT-10 (BR-DE-15), so set e.g. `N/A` yourself if there is no reference.
-  **Fix:** the VAT exemption reason code (BT-121) is now written after `ram:CategoryCode` as required by
+  The buyer contact (`SellerOrBuyer.contact`, BG-9 with BT-56/BT-57/BT-58) is now written.
+  The seller and buyer trading name (`SellerOrBuyer.tradingName`, BT-28/BT-45) are now
+  written as `ram:SpecifiedLegalOrganization/ram:TradingBusinessName`. **Behavior change:** `BuyerReference` (BT-10) is
+  only written if it's set; Gallop no longer writes `N/A` without it.
+  XRechnung requires BT-10 (BR-DE-15), so set e.g. `N/A` yourself if there is no reference. **Fix:** the VAT exemption
+  reason code (BT-121) is now written after `ram:CategoryCode` as required by
   the CII schema; before, invoices with BT-121 were schema-invalid.
 - 3.1.0: Add the fields required by the French rules for Factur-X: invoice
   note subject code (`InvoiceNote.subjectCode`, BT-21), business process type (`Invoice.businessProcessType`,

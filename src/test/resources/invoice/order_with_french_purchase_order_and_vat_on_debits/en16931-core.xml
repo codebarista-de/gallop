@@ -64,6 +64,7 @@
             <ram:Name>Beispiel GmbH</ram:Name>
             <ram:SpecifiedLegalOrganization>
                <ram:ID schemeID="0002">552081317</ram:ID>
+               <ram:TradingBusinessName>Beispiel Handelsgesellschaft</ram:TradingBusinessName>
             </ram:SpecifiedLegalOrganization>
             <ram:DefinedTradeContact>
                <ram:PersonName>Max Mustermann</ram:PersonName>

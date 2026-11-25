@@ -68,6 +68,7 @@
             <ram:Name>Exemple SARL</ram:Name>
             <ram:SpecifiedLegalOrganization>
                <ram:ID schemeID="0002">552081317</ram:ID>
+               <ram:TradingBusinessName>Exemple Boutique</ram:TradingBusinessName>
             </ram:SpecifiedLegalOrganization>
             <ram:DefinedTradeContact>
                <ram:PersonName>Marie Dupont</ram:PersonName>
