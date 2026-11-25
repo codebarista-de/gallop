@@ -11,6 +11,7 @@ import de.codebarista.gallop.model.CreditTransfer;
 import de.codebarista.gallop.model.DeliveryInformation;
 import de.codebarista.gallop.model.Invoice;
 import de.codebarista.gallop.model.InvoiceNote;
+import de.codebarista.gallop.model.InvoicingOrInvoiceLinePeriod;
 import de.codebarista.gallop.model.Item;
 import de.codebarista.gallop.model.ItemAttribute;
 import de.codebarista.gallop.model.PaymentCardInformation;
@@ -186,6 +187,9 @@ public class CIIXMLEInvoiceWriter {
         if (lineItem.getVat() != null) {
             specifiedSettlement.appendChild(createTax(builder, lineItem.getVat()));
         }
+        if (lineItem.getInvoiceLinePeriod() != null) { // BG-26
+            specifiedSettlement.appendChild(createBillingPeriod(builder, lineItem.getInvoiceLinePeriod()));
+        }
         if (lineItem.getItemTotalNetAmount() != null) {
             Element taxSummation = builder.createElement(NS_RAM, "SpecifiedTradeSettlementLineMonetarySummation");
             specifiedSettlement.appendChild(taxSummation);
@@ -340,6 +344,9 @@ public class CIIXMLEInvoiceWriter {
         }
         for (Vat totalVat : invoice.getVatTotals()) {
             tradeSettlement.appendChild(createTax(builder, totalVat));
+        }
+        if (invoice.getInvoicingPeriod() != null) { // BG-14
+            tradeSettlement.appendChild(createBillingPeriod(builder, invoice.getInvoicingPeriod()));
         }
         for (Allowance allowance : invoice.getAllowances()) {
             tradeSettlement.appendChild(createAllowance(builder, allowance));
@@ -591,6 +598,24 @@ public class CIIXMLEInvoiceWriter {
         Element element = builder.createElement(NS_RAM, "Description");
         element.setTextContent(description);
         return element;
+    }
+
+    /**
+     * Invoicing period (BG-14) or invoice line period (BG-26): start date (BT-73, BT-134) and end date (BT-74, BT-135)
+     */
+    private static Element createBillingPeriod(XmlDocumentBuilder builder, InvoicingOrInvoiceLinePeriod period) {
+        Element billingPeriod = builder.createElement(NS_RAM, "BillingSpecifiedPeriod");
+        if (period.getStartDate() != null) {
+            Element start = builder.createElement(NS_RAM, "StartDateTime");
+            start.appendChild(createDateTimeString(builder, period.getStartDate(), NS_UDT));
+            billingPeriod.appendChild(start);
+        }
+        if (period.getEndDate() != null) {
+            Element end = builder.createElement(NS_RAM, "EndDateTime");
+            end.appendChild(createDateTimeString(builder, period.getEndDate(), NS_UDT));
+            billingPeriod.appendChild(end);
+        }
+        return billingPeriod;
     }
 
     private static Element createDateTimeString(XmlDocumentBuilder builder, OffsetDateTime time, String namespace) {

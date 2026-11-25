@@ -68,6 +68,13 @@ public class Invoice {
     private DeliveryInformation deliveryInfo;
 
     /**
+     * Invoicing period (BG-14)<br>
+     * The period the invoice covers, e.g. for services or subscriptions. XRechnung expects either this, the actual
+     * delivery date (BT-72) or a period on every invoice line (BG-26), see BR-DE-TMP-32.
+     */
+    private InvoicingOrInvoiceLinePeriod invoicingPeriod;
+
+    /**
      * Invoice Line (BG-25)<br>
      * Information about individual invoice items
      */
@@ -241,6 +248,14 @@ public class Invoice {
      */
     public Invoice deliveryInfo(DeliveryInformation deliveryInfo) {
         this.deliveryInfo = deliveryInfo;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #invoicingPeriod}
+     */
+    public Invoice invoicingPeriod(InvoicingOrInvoiceLinePeriod invoicingPeriod) {
+        this.invoicingPeriod = invoicingPeriod;
         return this;
     }
 
@@ -530,6 +545,13 @@ public class Invoice {
      */
     public DeliveryInformation getDeliveryInfo() {
         return deliveryInfo;
+    }
+
+    /**
+     * Gets the {@link #invoicingPeriod}.
+     */
+    public InvoicingOrInvoiceLinePeriod getInvoicingPeriod() {
+        return invoicingPeriod;
     }
 
     /**

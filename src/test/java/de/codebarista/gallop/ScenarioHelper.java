@@ -37,6 +37,7 @@ public class ScenarioHelper {
             new ScenarioFormats("order_with_discount_code_and_shipping_costs_with_multiple_taxes", XRECHNUNG, EN16931_CORE),
             new ScenarioFormats("order_with_french_b2c_billing_note_without_buyer_identifiers", EN16931_CORE),
             new ScenarioFormats("order_with_french_mandatory_notes_and_billing_mode", EN16931_CORE),
+            new ScenarioFormats("order_with_invoicing_period", XRECHNUNG, EN16931_CORE),
             new ScenarioFormats("order_with_legal_registration_identifiers", XRECHNUNG, EN16931_CORE),
             new ScenarioFormats("order_with_leitweg_id_partial_seller_contact_and_buyer_address_scheme", XRECHNUNG, EN16931_CORE),
             new ScenarioFormats("order_with_payment_in_advance", XRECHNUNG, EN16931_CORE),
