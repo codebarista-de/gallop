@@ -32,10 +32,31 @@ public class Invoice {
     private String currency;
 
     /**
-     * BuyerReference (BT-10)<br>
-     * Usually a "Leitweg-ID"
+     * Buyer reference (BT-10)
+     * <p>
+     * An identifier assigned by the buyer used for internal routing purposes, e.g. the German "Leitweg-ID" or
+     * the French service code (code service) of Chorus Pro.
      */
-    private String leitwegId;
+    private String buyerReference;
+
+    /**
+     * Value added tax point date code (BT-8)
+     * <p>
+     * The code of the date when the VAT becomes accountable for the seller and the buyer. Code list UNTDID 2475
+     * in CII: {@code 5} (invoice date), {@code 29} (delivery date), {@code 72} (paid to date).
+     * <p>
+     * It is written in every VAT breakdown (BG-23). According to BR-CO-3 it must not be used together with the
+     * VAT point date (BT-7).
+     */
+    private String vatPointDateCode;
+
+    /**
+     * Purchase order reference (BT-13)
+     * <p>
+     * An identifier of a referenced purchase order, issued by the buyer. For the French public sector this is
+     * e.g. the commitment number (numéro d'engagement).
+     */
+    private String buyerOrderReference;
 
     /**
      * Business process type (BT-23)
@@ -204,10 +225,36 @@ public class Invoice {
     }
 
     /**
-     * Sets the {@link #leitwegId}
+     * Sets the {@link #buyerReference}
      */
+    public Invoice buyerReference(String buyerReference) {
+        this.buyerReference = buyerReference;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #buyerReference}
+     *
+     * @deprecated use {@link #buyerReference(String)} instead
+     */
+    @Deprecated
     public Invoice leitwegId(String leitwegId) {
-        this.leitwegId = leitwegId;
+        return buyerReference(leitwegId);
+    }
+
+    /**
+     * Sets the {@link #vatPointDateCode}
+     */
+    public Invoice vatPointDateCode(String vatPointDateCode) {
+        this.vatPointDateCode = vatPointDateCode;
+        return this;
+    }
+
+    /**
+     * Sets the {@link #buyerOrderReference}
+     */
+    public Invoice buyerOrderReference(String buyerOrderReference) {
+        this.buyerOrderReference = buyerOrderReference;
         return this;
     }
 
@@ -506,10 +553,34 @@ public class Invoice {
     }
 
     /**
-     * Gets the {@link #leitwegId}.
+     * Gets the {@link #buyerReference}.
      */
+    public String getBuyerReference() {
+        return buyerReference;
+    }
+
+    /**
+     * Gets the {@link #buyerReference}.
+     *
+     * @deprecated use {@link #getBuyerReference()} instead
+     */
+    @Deprecated
     public String getLeitwegId() {
-        return leitwegId;
+        return getBuyerReference();
+    }
+
+    /**
+     * Gets the {@link #vatPointDateCode}.
+     */
+    public String getVatPointDateCode() {
+        return vatPointDateCode;
+    }
+
+    /**
+     * Gets the {@link #buyerOrderReference}.
+     */
+    public String getBuyerOrderReference() {
+        return buyerOrderReference;
     }
 
     /**

@@ -31,7 +31,7 @@ public class BuildInvoiceTest {
         Invoice invoice = Invoice.create()
                 .documentTypeCode(InvoiceType.COMMERCIAL_INVOICE.getValue()) // Define invoice type
                 .documentId("INV-2025-1001") // Unique invoice identifier
-                .leitwegId("N/A") // Buyer reference (BT-10)
+                .buyerReference("N/A") // Buyer reference (BT-10) e.g. German "Leitweg-ID" or French "code service"
                 .currency("EUR") // Currency used for the invoice
 
                 // Payment details including method and terms

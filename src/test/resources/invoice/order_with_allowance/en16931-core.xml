@@ -74,6 +74,9 @@
       <ram:BuyerReference>N/A</ram:BuyerReference>
       <ram:SellerTradeParty>
         <ram:Name>Example Company</ram:Name>
+        <ram:SpecifiedLegalOrganization>
+          <ram:TradingBusinessName>Examply Company Doing Things</ram:TradingBusinessName>
+        </ram:SpecifiedLegalOrganization>
         <ram:DefinedTradeContact>
           <ram:PersonName>Kim Elliot</ram:PersonName>
           <ram:TelephoneUniversalCommunication>

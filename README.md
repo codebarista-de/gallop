@@ -98,7 +98,7 @@ public class InvoiceGenerator {
         Invoice invoice = Invoice.create()
                 .documentTypeCode(InvoiceType.COMMERCIAL_INVOICE.getValue()) // Define invoice type
                 .documentId("INV-2025-1001") // Unique invoice identifier
-                .leitwegId("N/A") // Buyer reference (BT-10)
+                .buyerReference("N/A") // Buyer reference (BT-10)
                 .currency("EUR") // Currency used for the invoice
 
                 // Payment details including method and terms
@@ -203,9 +203,18 @@ public class InvoiceGenerator {
   details, and the seller/buyer electronic address (BT-34/BT-49). The electronic address is now written with its
   scheme (`SellerOrBuyer.electronicAddressScheme`, falling back to `EM`) instead of always `EM`. Add the invoicing
   period (`Invoice.invoicingPeriod`, BG-14 with BT-73/BT-74) and the invoice line period (`Item.invoiceLinePeriod`,
-  BG-26 with BT-134/BT-135), both set via the new  `InvoicingOrInvoiceLinePeriod` (thanks to Alex Babintsev). **Behavior
-  change:** `BuyerReference` (BT-10) is only written if it's set; Gallop no longer writes `N/A` without it. XRechnung
-  requires BT-10 (BR-DE-15), so set e.g. `N/A` yourself if there is no reference.
+  BG-26 with BT-134/BT-135), both set via the new  `InvoicingOrInvoiceLinePeriod` (thanks to Alex Babintsev).
+  Add purchase order reference (`Invoice.buyerOrderReference`, BT-13) and VAT point date code
+  (`Invoice.vatPointDateCode`, BT-8, written as `ram:DueDateTypeCode` in every VAT breakdown, e.g. `5` for VAT on
+  debits). `Invoice.leitwegId` was renamed to `buyerReference` (BT-10); `leitwegId(...)`/`getLeitwegId()` are
+  deprecated.
+  The buyer contact (`SellerOrBuyer.contact`, BG-9 with BT-56/BT-57/BT-58) is now written.
+  The seller and buyer trading name (`SellerOrBuyer.tradingName`, BT-28/BT-45) are now
+  written as `ram:SpecifiedLegalOrganization/ram:TradingBusinessName`. **Behavior change:** `BuyerReference` (BT-10) is
+  only written if it's set; Gallop no longer writes `N/A` without it.
+  XRechnung requires BT-10 (BR-DE-15), so set e.g. `N/A` yourself if there is no reference. **Fix:** the VAT exemption
+  reason code (BT-121) is now written after `ram:CategoryCode` as required by
+  the CII schema; before, invoices with BT-121 were schema-invalid.
 - 3.1.0: Add the fields required by the French rules for Factur-X: invoice
   note subject code (`InvoiceNote.subjectCode`, BT-21), business process type (`Invoice.businessProcessType`,
   BT-23, overrides the format's default) and seller/buyer identifier with scheme (`SellerOrBuyer.identifier`/
